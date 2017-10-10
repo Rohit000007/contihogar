@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { ProductoComponent } from './producto/producto.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
+import { ProductPriceComponent } from './producto/product-price/product-price.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductoComponent,
     HeaderComponent,
-    MenuLeftComponent
+    MenuLeftComponent,
+    ProductPriceComponent
   ],
   imports: [
     BrowserModule
