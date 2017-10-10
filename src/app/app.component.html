@@ -1,47 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="container-fluid">
-  <!--Header Site-->
-  <div class="row fila-cabecera" style="height:45px">
-      <div class="col-md-1">
-          <figure class="logo-site">
-              <img src="assets/img/logo cms.svg" alt="" class="img-responsive">
-          </figure>
-      </div>
-      <div class="col-md-2">
-          <div class="caja-titulo"><span>PREMIUM</span></div>
-      </div>
-      <div class="col-md-7">
-          <div class="caja-modulo-nombre"><span>Modulo Comercial</span></div>
-      </div>
-      <div class="col-md-1">
-          <span>Frank Arias</span>
-      </div>
-      <div class="col-md-1">
-          <div class="caja-logout">
-              <a href="#">
-                  <img src="assets/img/cerrar cesion.svg" alt="">
-              </a>
-          </div>
-      </div>
-  </div>
-  <div class="row fila-cuerpo">
-      <!--Left Menu-->
-      <div class="col-md-2">
-          <div class="menu-left">
-              <ul class="list-unstyled">
-                  <li><a>GENERAL</a></li>
-                  <li><a>PRODUCTO</a></li>
-                  <li><a>PROVEDOR</a></li>
-                  <li><a>CATEGORIA</a></li>
-              </ul>
-          </div>
-      </div>
-      <!--Site Content-->
-      <div class="col-md-10">
-          <div class="body-site">
+<app-header></app-header>
 
-          </div>
-      </div>
-  </div>
+<div class="container-fluid">
+    <!--Header Site-->
+    <div class="row fila-cuerpo">
+        <!--Left Menu-->
+        <div class="col-md-2">
+            <app-menu-left></app-menu-left>
+        </div>
+        <!--Site Content-->
+        <div class="col-md-10">
+            <div class="body-site">
+                <app-producto></app-producto>
+            </div>
+        </div>
+    </div>
 </div>
+
 

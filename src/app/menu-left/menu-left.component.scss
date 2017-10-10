@@ -1,0 +1,22 @@
+@import "../../assets/sass/variables-contihogar";
+
+.menu-left{
+    background-color: $contihogar-black;
+    height: -webkit-fill-available;
+    text-align: center;
+    vertical-align: bottom;
+    ul{
+        li{
+            cursor: pointer;
+            height: 40px;
+            line-height: 40px;
+            &:hover{
+                background-color: black;
+            }
+        }
+    }
+    a{
+        color: $contihogar-white!important;
+        text-decoration: none;
+    }
+}

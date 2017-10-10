@@ -1,0 +1,40 @@
+@import "../../assets/sass/variables-contihogar";
+
+.fila-cabecera{
+    background-color: $contihogar-black;
+    border-bottom: 1px solid black;
+    height: 45px;
+    display: flex;
+    position: static;
+    width: 100%;
+    .logo-site{
+        margin-left: 5px;
+        padding: 10px 0;
+        img{
+            height: 32px;
+        }
+    }
+    .caja-titulo{
+        color: $contihogar-white;
+        display: table-cell;
+        height: 45px;
+        font-size: $contihogar-font-size-13;
+        font-family: $contihogar-font-futura-light;
+        vertical-align: middle;
+    }
+    .caja-modulo-nombre{
+        color: $contihogar-soft-blue;
+        text-align: right;
+        margin-right: 10%;
+        line-height: 40px;
+        height: 45px;
+    }
+    .caja-logout{
+        padding: 5px 0;
+        height: 45px;
+        img{
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
