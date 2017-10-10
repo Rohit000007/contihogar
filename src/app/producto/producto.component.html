@@ -8,10 +8,11 @@
     <div class="col-md-8">
         <div class="control-fila1"  style="width:100%;display:inline-flex;">
             <div class="control-caja" style="width:35%">
-                <select class="form-control">
-                    <option>Valor 1</option>
-                    <option>Valor 2</option>
-                    <option>Valor 3</option>
+                <select class="form-control" #vProveedorElem (change)="changeProveedor(vProveedorElem.value)">
+                    <option>**** Seleccione **** </option>
+                    <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
+                        {{proveedor.name}}
+                    </option>
                 </select>
             </div>
             <div class="control-caja" style="width:35%">
