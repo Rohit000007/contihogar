@@ -12,7 +12,9 @@ import { Http } from '@angular/http';
 export class ProductoComponent implements OnInit {
   lListProveedor:any[];
 
-  /*constructor(private vProductService:ProductService) {
+  /*
+  Instanciar el servicio de Http
+  constructor(private vProductService:ProductService) {
     this.vProductService.getPost().subscribe(posts=>{
       console.log(posts);
     });
