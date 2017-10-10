@@ -1,14 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-//import {Supplier} from './Interfaces/suplier';
+import { Supplier } from './Interfaces/supplier';
+import { ProductService } from './services/product.service';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.scss']
+  styleUrls: ['./producto.component.scss'],
+  providers:[ProductService]
 })
 export class ProductoComponent implements OnInit {
   lListProveedor:any[];
-  constructor() { }
+
+  /*constructor(private vProductService:ProductService) {
+    this.vProductService.getPost().subscribe(posts=>{
+      console.log(posts);
+    });
+   }*/
+   constructor(){}
 
   ngOnInit() {
     this.lListProveedor = [
