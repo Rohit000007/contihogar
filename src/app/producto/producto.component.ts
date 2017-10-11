@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from './Interfaces/supplier';
 import { ProductService } from './services/product.service';
-import { Http } from '@angular/http';
+
 
 @Component({
   selector: 'app-producto',
@@ -13,13 +13,13 @@ export class ProductoComponent implements OnInit {
   lListProveedor:any[];
 
   /*
-  Instanciar el servicio de Http
+  Instanciar el servicio de Http*/
   constructor(private vProductService:ProductService) {
     this.vProductService.getPost().subscribe(posts=>{
-      console.log(posts);
+      //this.lListProveedor = posts.json();
     });
-   }*/
-   constructor(){}
+   }
+   //constructor(){}
 
   ngOnInit() {
     this.lListProveedor = [
@@ -30,7 +30,7 @@ export class ProductoComponent implements OnInit {
     ];
   }
 
-  changeProveedor(oProveedor){
+  obtenerMarcas(oProveedor){
     console.log(oProveedor);
   }
 

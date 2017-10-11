@@ -7,16 +7,21 @@ import { HeaderComponent } from './header/header.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { ProductPriceComponent } from './producto/product-price/product-price.component';
 
+import { HttpModule } from '@angular/http';
+import { CategoriaComponent } from './producto/categoria/categoria.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductoComponent,
     HeaderComponent,
     MenuLeftComponent,
-    ProductPriceComponent
+    ProductPriceComponent,
+    CategoriaComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

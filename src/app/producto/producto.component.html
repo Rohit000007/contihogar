@@ -1,14 +1,37 @@
 <div class="row fila-formulario-1">
-    <div class="col-md-8">Boton de ON/OFF</div>
-    <div class="col-md-2">Importar</div>
-    <div class="col-md-2">Exportar</div>
+    <div class="col-md-8">
+        <div class="toggle">
+            <input type="checkbox" />
+            <span class="btn"></span>
+            <span class="labels"></span>
+            <span class="bg"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="caja-modifica-masivo">
+            <img src="assets/img/importar.svg">
+            <span>Modificar Masivo</span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="caja-crear-masivo">
+            <img src="assets/img/importar.svg">
+            <span>Importar</span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="caja-exportar-masivo">
+            <img src="assets/img/exportar.svg">
+            <span>Exportar</span>
+        </div>
+    </div>
 </div>
 
 <div class="row fila-formulario-2">
     <div class="col-md-8">
         <div class="control-fila1"  style="width:100%;display:inline-flex;">
             <div class="control-caja" style="width:35%">
-                <select class="form-control" #vProveedorElem (change)="changeProveedor(vProveedorElem.value)">
+                <select class="form-control" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)">
                     <option>**** Seleccione **** </option>
                     <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
                         {{proveedor.name}}
@@ -66,9 +89,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="control-mapa" style="width:100%;height:300px;background-color:green;">
-            Contol centrado
-        </div>
+        <app-categoria></app-categoria>
     </div>
 
 </div>
