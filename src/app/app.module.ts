@@ -11,6 +11,7 @@ import { ProductPriceComponent } from './producto/product-price/product-price.co
 import { HttpModule } from '@angular/http';
 import { CategoriaComponent } from './producto/categoria/categoria.component';
 import { ProductItemComponent } from './producto/product-item/product-item.component';
+import { ImageManagerComponent } from './producto/image-manager/image-manager.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProductItemComponent } from './producto/product-item/product-item.compo
     MenuLeftComponent,
     ProductPriceComponent,
     CategoriaComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ImageManagerComponent
   ],
   imports: [
     BrowserModule,
