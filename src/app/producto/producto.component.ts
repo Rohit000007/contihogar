@@ -28,10 +28,24 @@ export class ProductoComponent implements OnInit {
       {id_supplier:3,name:"Juan Carlos 2"},
       {id_supplier:4,name:"Juan Carlos 3"},
     ];
+    //CKEDITOR.replace('');
+    window['CKEDITOR']['replace']('editor1');
+    window['CKEDITOR']['replace']('editor2');
   }
 
   obtenerMarcas(oProveedor){
     console.log(oProveedor);
+  }
+
+  //Controlar Tab Editor
+  changeTabClick(indexViewEditor){
+    if(indexViewEditor == 1){
+      document.getElementById("content-editor-2").style.display = "none";
+      document.getElementById("content-editor-1").style.display = "block";
+    }else{
+      document.getElementById("content-editor-2").style.display = "block";
+      document.getElementById("content-editor-1").style.display = "none";
+    }
   }
 
 }

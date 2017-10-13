@@ -1,0 +1,157 @@
+<div class="product-item-contenedor">
+  <div class="row">
+    <div class="col-md-3 product-item-label">
+        <div class="control-caja" style="width:100%">
+            <label class="label-resumen">Resumen :</label>
+        </div>  
+        <div class="control-caja" style="width:100%">
+            <label>Nombre :</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Estilo :</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Tipo de tapiz:</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Colo de tapiz:</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Tipo de relleno:</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Material de estrucctura:</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Armado:</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Garantia:</label>
+        </div>  
+        <div class="control-caja" style="width:100%">
+            <label>Entega (dias) :</label>
+        </div>
+        <div class="control-caja" style="width:10030%">
+            <label>Unidades :</label>
+        </div>
+        <div class="control-caja" style="width:10030%">
+            <label>Costo de envio</label>
+        </div>
+
+        <div class="control-caja" style="width:100%">
+            <label>Altura (cm):</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Ancho (cm):</label>
+        </div>
+        <div class="control-caja" style="width:100%">
+            <label>Profundidad (cm):</label>
+        </div>
+        <div class="control-caja" style="width:10030%">
+            <label>Peso (kg):</label>
+        </div>
+    </div>
+    <div class="col-md-8 product-item-control" id="tab-control-padre">
+        <div class="row-tab-control" style="display:inline-flex;">
+          <div class="tab-control-item" *ngFor="let tab of vTabsNombre;let i = index" id="tab_{{tab.indexTab}}">
+            <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{i}} </label>
+            <input id="{{'tab'+i}}" type="radio" name="tabs" checked="{{tab.default}}">
+            <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)">X</a>
+          </div>
+        </div>
+        <div id="{{vTabControlBody}}" class="control-form-body" style="visibility: visible;">
+            <form class="form-control-data" (ngSubmit)="onSubmit()">
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="nombre_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="estilo_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="tipo_tapiz_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="tipo_relleno_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="mat_estruct_producto" class="form-control" placeholder="" >
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="armado_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="garantia_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="entrega_dias_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="unidades_producto" class="form-control" placeholder="">
+                </div>
+                <div class="control-caja" style="width:100%">
+                    <input type="text" name="nombre_producto" class="form-control" placeholder="">
+                </div>
+        
+                <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                    <div class="control-caja" style="width:30%">
+                        <label>Transporte</label>
+                    </div>
+                </div>
+                <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="control-caja" style="width:30%">
+                        <label>Altura (cm):</label>
+                    </div>
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+        
+                <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="control-caja" style="width:30%">
+                        <label>Ancho cm (dias):</label>
+                    </div>
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+        
+                <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="control-caja" style="width:30%">
+                        <label>Profundidad (cm):</label>
+                    </div>
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+        
+                <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="control-caja" style="width:30%">
+                        <label>Peso (kg):</label>
+                    </div>
+                    <div class="control-caja" style="width:70%">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-1">
+      <div>
+        <a (click)="addTabClick()">+</a>
+      </div>
+    </div>
+  </div>
+</div>

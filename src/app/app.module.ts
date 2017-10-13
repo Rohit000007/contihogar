@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { ProductoComponent } from './producto/producto.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
@@ -9,6 +10,7 @@ import { ProductPriceComponent } from './producto/product-price/product-price.co
 
 import { HttpModule } from '@angular/http';
 import { CategoriaComponent } from './producto/categoria/categoria.component';
+import { ProductItemComponent } from './producto/product-item/product-item.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import { CategoriaComponent } from './producto/categoria/categoria.component';
     HeaderComponent,
     MenuLeftComponent,
     ProductPriceComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    ProductItemComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

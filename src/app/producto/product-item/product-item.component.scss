@@ -1,0 +1,79 @@
+@import "../../../assets/sass/variables-contihogar";
+
+.product-item-contenedor{
+    background-color: $contihogar-white;
+    .product-item-label{
+        color: $contihogar-gray-2;
+        border-right: 1px solid  $contihogar-gray-2;
+        .label-resumen{
+            color: $contihogar-soft-blue;
+        }
+    }
+    .control-caja{
+        margin-left: 10px;
+        font-size: $contihogar-font-size-11;
+        height: 40px;
+    }
+    .product-item-control{
+        .control-caja{
+            .form-control{
+                background-color: #d8d6d6!important;
+                color: $contihogar-gray-1!important;
+            }
+        }
+        main {
+            margin: 0 auto;
+            background: #fff;
+            .row-tab-control{
+                background-color: yellow;
+                position: relative;
+                overflow-y: scroll;
+                width: 100%;
+                .tab-control-item{
+                    background-color: red;
+                    display: flex;
+                    margin: 5px;
+                    //position: absolute;
+                    width: 150px;
+                    label{
+                        display: inline-table;
+                    }
+                }
+            }
+        }
+          
+          section {
+            display: none;
+            padding: 20px 0 0;
+            border-top: 1px solid #ddd;
+          }
+          
+          label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 5px 10px;
+            font-weight: 600;
+            text-align: center;
+            color: #bbb;
+            border: 1px solid transparent;
+          }
+          
+          label:before {
+            font-family: fontawesome;
+            font-weight: normal;
+            margin-right: 10px;
+          }
+          
+          label:hover {
+            color: #888;
+            cursor: pointer;
+          }
+          
+          input:checked + label {
+            color: #555;
+            border: 1px solid #ddd;
+            border-top: 2px solid orange;
+            border-bottom: 1px solid #fff;
+          }
+    }
+}
