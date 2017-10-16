@@ -1,7 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
-import { Supplier } from './Interfaces/supplier';
 import { ProductService } from './services/product.service';
 
+import{Manufacturer} from '../entity/manufacturer';
+import{ManufacturerLang} from '../entity/manufacturer-lang';
+import {Supplier} from '../entity/supplier';
 
 @Component({
   selector: 'app-producto',
@@ -10,31 +13,39 @@ import { ProductService } from './services/product.service';
   providers:[ProductService]
 })
 export class ProductoComponent implements OnInit {
-  lListProveedor:any[];
+  lListProveedor:Supplier[];
 
   /*
   Instanciar el servicio de Http*/
   constructor(private vProductService:ProductService) {
-    this.vProductService.getPost().subscribe(posts=>{
-      //this.lListProveedor = posts.json();
-    });
    }
    //constructor(){}
 
   ngOnInit() {
-    this.lListProveedor = [
-      {id_supplier:1,name:"Juan Carlos"},
-      {id_supplier:2,name:"Juan Carlos 1"},
-      {id_supplier:3,name:"Juan Carlos 2"},
-      {id_supplier:4,name:"Juan Carlos 3"},
-    ];
     //CKEDITOR.replace('');
     window['CKEDITOR']['replace']('editor1');
     window['CKEDITOR']['replace']('editor2');
+
+    var eManufacturer = new Manufacturer(0,'David Choque',null,null,0,new ManufacturerLang(0,2,"Hola Mundo","Hola Mundo Short","No se Nada",'KEY_WORD','Mi Mundo'));
+    console.log(eManufacturer);
+
+    /*this.vProductService.getPost().subscribe(posts=>{
+      this.lListProveedor = posts.json();
+    });*/
+    this.vProductService.getSupplier().subscribe(data=>{
+      //console.log(data.json());
+      this.lListProveedor = data.json();
+    });
+
   }
 
   obtenerMarcas(oProveedor){
-    console.log(oProveedor);
+    //console.log(oProveedor);
+    let eSupplier = new Supplier(0,"Coca Cola",new Date(),null,0);
+    console.log(eSupplier);
+    this.vProductService.postSupplier(eSupplier).subscribe(data=>{
+      console.log(data);
+    });
   }
 
   //Controlar Tab Editor
@@ -48,7 +59,4 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-}
-export interface IProveedor {
-  
 }
