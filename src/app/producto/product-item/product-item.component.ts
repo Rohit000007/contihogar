@@ -19,7 +19,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onSubmit(){
-    var oFormData = document.forms;
+    /*var oFormData = document.forms;
     var oFormDataJSON = [];
     for(let indexForm in oFormData){
       let oFormDataElements = oFormData[indexForm].elements;
@@ -27,7 +27,7 @@ export class ProductItemComponent implements OnInit {
         var value = oFormDataElements["nombre_producto"][0].value;
         console.log(value);
       }
-    }
+    }*/
   }
   onTabClick(indexView){
     console.log(indexView);

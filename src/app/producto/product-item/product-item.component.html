@@ -14,7 +14,7 @@
             <label>Tipo de tapiz:</label>
         </div>
         <div class="control-caja" style="width:100%">
-            <label>Colo de tapiz:</label>
+            <label>Color de tapiz:</label>
         </div>
         <div class="control-caja" style="width:100%">
             <label>Tipo de relleno:</label>
@@ -55,102 +55,101 @@
         <div class="row-tab-control" style="display:inline-flex;">
           <div class="tab-control-item" *ngFor="let tab of vTabsNombre;let i = index" id="tab_{{tab.indexTab}}">
             <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{i}} </label>
-            <input id="{{'tab'+i}}" type="radio" name="tabs" checked="{{tab.default}}">
-            <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)">X</a>
+            <input id="{{'tab'+(i+1)}}" type="radio" name="tabs" checked="{{tab.default}}" class="input_radio">
+            <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
           </div>
         </div>
         <div id="{{vTabControlBody}}" class="control-form-body" style="visibility: visible;">
-            <form class="form-control-data" (ngSubmit)="onSubmit()">
+            <form class="form-control-data" name="frmProductoItem">
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="nombre_producto" class="form-control" placeholder="">
+                    <input type="text" name="nombre_producto_item" class="form-control" value="" placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="estilo_producto" class="form-control" placeholder="">
+                    <input type="text" name="estilo_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_tapiz_producto" class="form-control" placeholder="">
+                    <input type="text" name="tipo_tapiz_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_relleno_producto" class="form-control" placeholder="">
+                    <input type="text" name="color_tapiz_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="mat_estruct_producto" class="form-control" placeholder="" >
+                    <input type="text" name="tipo_relleno_producto_item" class="form-control" value="" placeholder="" >
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="armado_producto" class="form-control" placeholder="">
+                    <input type="text" name="material_estructura_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="garantia_producto" class="form-control" placeholder="">
+                    <input type="text" name="armado_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="entrega_dias_producto" class="form-control" placeholder="">
+                    <input type="text" name="garantia_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="unidades_producto" class="form-control" placeholder="">
+                    <input type="text" name="entrega_dias_producto_item" class="form-control" value=""  placeholder="">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="nombre_producto" class="form-control" placeholder="">
+                    <input type="text" name="unidades_producto_item" class="form-control" value=""  placeholder="">
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:30%">
-                        <label>Transporte</label>
+                    <div class="control-caja" style="width:100%">
+                        <label style="text-align: center;display: block;">Transporte</label>
                     </div>
                 </div>
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="altura_cm_producto" value=""  placeholder="">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Altura (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="altura_cm_transporte" value="" placeholder="">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="ancho_cm_producto" value="" placeholder="">
                     </div>
                     <div class="control-caja" style="width:30%">
-                        <label>Ancho cm (dias):</label>
+                        <label>Ancho (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="ancho_cm_transporte" value="" placeholder="">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="profundidad_cm_producto" value="" placeholder="">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Profundidad (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="profundidad_cm_transporte" value="" placeholder="">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="peso_kg_producto" value="" placeholder="">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Peso (kg):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" name="peso_kg_transporte" value="" placeholder="">
                     </div>
                 </div>
-                <input type="submit" value="submit">
             </form>
         </div>
     </div>
-    <div class="col-md-1">
-      <div>
-        <a (click)="addTabClick()">+</a>
+    <div class="col-md-1 caja-col-tab">
+      <div class="caja-agregar-tab">
+        <a (click)="addTabClick()" class="control-agregar-tab">+</a>
       </div>
     </div>
   </div>

@@ -1,6 +1,9 @@
 import { ProductLang } from './product-lang'
 import { CategoryProduct } from './category-product';
 import { ProductEvent } from './product-event';
+import { ProductItem } from './product-item';
+import { ProductItemCaracteristica } from './product-item-caracteristica';
+import { ProductItemLang } from './product-item-lang';
 
 export interface Product {
      id_product?:number,
@@ -55,5 +58,8 @@ export interface Product {
      state? :number,
      ProductLang?:ProductLang,
      CategoryProduct?:CategoryProduct[],
-     ProductEvent?:ProductEvent
+     ProductEvent?:ProductEvent,
+     ProductItem?:ProductItem[],
+     ProductItemCaracteristica?:ProductItemCaracteristica[],
+     ProductItemLang?:ProductItemLang[]
 }

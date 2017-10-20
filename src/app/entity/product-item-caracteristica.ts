@@ -1,7 +1,5 @@
-export class ProductItemCaracteristica {
-    constructor(
-        public id_product_item?:number,
-        public nombre?:string,
-        public valor?:string
-    ){}
+export interface ProductItemCaracteristica {
+    id_product_item?:number,
+    nombre?:string,
+    valor?:string
 }

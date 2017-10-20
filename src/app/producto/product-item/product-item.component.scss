@@ -15,34 +15,43 @@
         height: 40px;
     }
     .product-item-control{
+        .row-tab-control{
+            position: relative;
+            overflow-y: scroll;
+            width: 100%;
+            .tab-control-item{
+                background-color: $contihogar-gray-1;
+                color: $contihogar-white;
+                cursor: pointer;
+                display: flex;
+                height: 35px;
+                margin: 2px 3px;
+                width: 120px;
+                label{
+                    display: inline-table;
+                    line-height: 2.5;
+                    margin-right: 10px;
+                    margin-left: 10px;
+                }
+                .input_radio{
+                    margin: 10px 0 0!important;
+                }
+                .link_eliminar{
+                    color: $contihogar-white;
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 0 10px;
+                }
+            }
+        }
         .control-caja{
             .form-control{
                 background-color: #d8d6d6!important;
                 color: $contihogar-gray-1!important;
             }
         }
-        main {
-            margin: 0 auto;
-            background: #fff;
-            .row-tab-control{
-                background-color: yellow;
-                position: relative;
-                overflow-y: scroll;
-                width: 100%;
-                .tab-control-item{
-                    background-color: red;
-                    display: flex;
-                    margin: 5px;
-                    //position: absolute;
-                    width: 150px;
-                    label{
-                        display: inline-table;
-                    }
-                }
-            }
-        }
           
-          section {
+          /*section {
             display: none;
             padding: 20px 0 0;
             border-top: 1px solid #ddd;
@@ -74,6 +83,23 @@
             border: 1px solid #ddd;
             border-top: 2px solid orange;
             border-bottom: 1px solid #fff;
-          }
+          }*/
+    }
+    .caja-col-tab{
+        margin:2px 0 0 0;
+        padding: 0;
+        .caja-agregar-tab{
+            cursor: pointer;
+            height: 40px;
+            .control-agregar-tab{
+                border: 1px solid;
+                border-radius: 50%;
+                color: $contihogar-gray-2;
+                font-size: 22px;
+                font-weight: bold;
+                padding: 2px 6px;
+                text-decoration: none;
+            }
+        }
     }
 }
