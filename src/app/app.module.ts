@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { CategoriaComponent } from './producto/categoria/categoria.component';
 import { ProductItemComponent } from './producto/product-item/product-item.component';
 import { ImageManagerComponent } from './producto/image-manager/image-manager.component';
+import { CategoryFilterPipe } from './pipi/category-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ImageManagerComponent } from './producto/image-manager/image-manager.co
     ProductPriceComponent,
     CategoriaComponent,
     ProductItemComponent,
-    ImageManagerComponent
+    ImageManagerComponent,
+    CategoryFilterPipe
   ],
   imports: [
     BrowserModule,

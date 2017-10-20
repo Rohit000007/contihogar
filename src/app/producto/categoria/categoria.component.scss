@@ -16,6 +16,10 @@
         background-color:$contihogar-white;
         position: absolute;
         width: 100%;
+        .control-right{
+            float: right;
+            margin-right: 10px;
+        }
     }
     &::-webkit-scrollbar-track
     {

@@ -4,48 +4,20 @@
     </div>
     <div class="caja-categoria-cuerpo">
       <ul>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Dormitorios</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Dormitorios</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Mueble de sala</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Seleccionales</li>
-        <li>Dormitorios</li>
+        <li *ngFor="let category of oListCategory">
+          {{category.category_lang.name}}
+          <input class="control-right" type="checkbox" value="{{category.id_category}}" (click)="obtenerCategoryId(category.id_category)" name="category">
+          <!--<ul>
+            <li *ngFor="let categoryLevel1 of oListCategory | categoryFilter:category.id_category">{{categoryLevel1.category_lang.name}}
+                <input type="checkbox" value="{{categoryLevel1.id_category}}" name="category">
+                <ul>
+                  <li *ngFor="let categoryLevel2 of oListCategory | categoryFilter:categoryLevel1.id_category">{{categoryLevel2.category_lang.name}}
+                      <input type="checkbox" value="{{categoryLevel2.id_category}}" name="category">
+                  </li>
+                </ul>
+            </li>
+          </ul>-->
+        </li>
       </ul>
     </div>
 </div>

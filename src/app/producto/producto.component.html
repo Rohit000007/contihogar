@@ -1,182 +1,180 @@
-<div class="row fila-formulario-1">
-    <div class="col-md-8">
-        <div class="toggle">
-            <input type="checkbox" />
-            <span class="btn"></span>
-            <span class="labels"></span>
-            <span class="bg"></span>
+<form class="form" name="frmProducto" #rForm (ngSubmit)="enviarProducto(rForm.value)">
+    <div class="row fila-formulario-1">
+        <div class="col-md-8">
+            <div class="toggle">
+                <input type="checkbox" name="active" ngModel/>
+                <span class="btn"></span>
+                <span class="labels"></span>
+                <span class="bg"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="caja-modifica-masivo">
+                <img src="assets/img/importar.svg">
+                <span>Modificar Masivo</span>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="caja-crear-masivo">
+                <img src="assets/img/importar.svg">
+                <span>Importar</span>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="caja-exportar-masivo">
+                <img src="assets/img/exportar.svg">
+                <span>Exportar</span>
+            </div>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="caja-modifica-masivo">
-            <img src="assets/img/importar.svg">
-            <span>Modificar Masivo</span>
-        </div>
-    </div>
-    <div class="col-md-1">
-        <div class="caja-crear-masivo">
-            <img src="assets/img/importar.svg">
-            <span>Importar</span>
-        </div>
-    </div>
-    <div class="col-md-1">
-        <div class="caja-exportar-masivo">
-            <img src="assets/img/exportar.svg">
-            <span>Exportar</span>
-        </div>
-    </div>
-</div>
 
-<div class="row fila-formulario-2">
-    <div class="col-md-8">
-        <div class="control-fila1"  style="width:100%;display:inline-flex;">
-            <div class="control-caja" style="width:35%">
-                <select class="form-control" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)">
-                    <option>**** Seleccione **** </option>
-                    <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
-                        {{proveedor.name}}
-                    </option>
-                </select>
+    <div class="row fila-formulario-2">
+        <div class="col-md-8">
+            <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                <div class="control-caja" style="width:35%">
+                    <select class="form-control" name="id_supplier" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)" [(ngModel)]="oProducto.id_supplier">
+                        <option>*** Seleccione proveedor *** </option>
+                        <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
+                            {{proveedor.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="control-caja" style="width:35%">
+                    <select class="form-control" name="id_manufacturer" ngModel>
+                        <option>*** Seleccione marca ***</option>
+                        <option *ngFor="let manufacturer of lListManufacturer" [value]="manufacturer.id_manufacturer">
+                            {{manufacturer.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="control-caja" style="width:10%">
+                    <label>Estado</label>
+                </div>
+                <div class="control-caja" style="width:20%">
+                    <input type="text" class="form-control" placeholder="Estado">
+                </div>
             </div>
-            <div class="control-caja" style="width:35%">
-                <select class="form-control">
-                    <option>Valor 1</option>
-                    <option>Valor 2</option>
-                    <option>Valor 3</option>
-                </select>
-            </div>
-            <div class="control-caja" style="width:10%">
-                <label>Estado</label>
-            </div>
-            <div class="control-caja" style="width:20%">
-                <input type="text" class="form-control" placeholder="Estado">
-            </div>
-        </div>
 
-        <div class="control-fila2" style="width:100%;display:inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>Nombre del producto</label>
+            <div class="control-fila2" style="width:100%;display:inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>Nombre del producto</label>
+                </div>
+                <div class="control-caja" style="width:80%">
+                    <input type="text" class="form-control" name="name" placeholder="Escribir el nombre del producto" [(ngModel)]="oProductLang.name">
+                    <span>(Marca / Categoria / Modelo / Caracteristicas)</span>
+                </div>
             </div>
-            <div class="control-caja" style="width:80%">
-                <input type="text" class="form-control" placeholder="Escribir el nombre del producto">
-                <span>(Marca / Categoria / Modelo / Caracteristicas)</span>
-            </div>
-        </div>
 
-        <div class="control-fila3" style="width:100%;display:inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>SKU Proveedor</label>
+            <div class="control-fila3" style="width:100%;display:inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>SKU Proveedor</label>
+                </div>
+                <div class="control-caja" style="width:30%">
+                    <input type="text" class="form-control" placeholder="Escribir SKU proveedor">
+                </div>
+                <div class="control-caja" style="width:20%">
+                    <label>Unidades </label>
+                </div>
+                <div class="control-caja" style="width:30%">
+                    <input type="text" name="quantity" class="form-control" placeholder="Cantidad de Unidades" [(ngModel)]="oProducto.quantity">
+                </div>
             </div>
-            <div class="control-caja" style="width:30%">
-                <input type="text" class="form-control" placeholder="Escribir SKU proveedor">
-            </div>
-            <div class="control-caja" style="width:20%">
-                <label>Unidades </label>
-            </div>
-            <div class="control-caja" style="width:30%">
-                <input type="text" class="form-control" placeholder="Cantidad de Unidades">
-            </div>
-        </div>
 
-        <div class="control-fila4" style="width:100%;display:inline-flex;">
-            <div class="caja-modelo" style="width:50%;height:170px;background-color:green;">
-                Modelo del produto
-            </div>
-            <div class="caja-nuevo" style="width:50%;height:170px;background-color:blue;">
-                Ingresae nuevo modelo
+            <div class="control-fila4" style="width:100%;display:inline-flex;">
+                <div class="caja-modelo" style="width:50%;height:170px;background-color:green;">
+                    Modelo del produto
+                </div>
+                <div class="caja-nuevo" style="width:50%;height:170px;background-color:blue;">
+                    Ingresae nuevo modelo
+                </div>
             </div>
         </div>
-    </div>
 
     <div class="col-md-4">
-        <app-categoria></app-categoria>
+        <app-categoria (ObtenerCategoryId)="getGategoryId($event)" ></app-categoria>
     </div>
 
-</div>
-
-<div class="row fila-formulario-3">
-    <div class="col-md-4">
-        <app-image-manager></app-image-manager>
     </div>
 
-    <div class="col-md-8">
-        <!--Precios-->
-        <app-product-price></app-product-price>
-    </div>
-</div>
+    <div class="row fila-formulario-3">
+        <div class="col-md-4">
+            <app-image-manager></app-image-manager>
+        </div>
 
-<div class="row fila-formulario-4">
-    <div class="col-md-7">
-       <app-product-item></app-product-item>
+        <div class="col-md-8">
+            <!--Precios-->
+            <app-product-price></app-product-price>
+        </div>
     </div>
 
-    <div class="col-md-5">
-        <div class="control-editor-text">
-            <div class="tab-editor-product">
-                <div class="tab-control-item" (click)="changeTabClick(1)"><span>Descripción Corta</span></div>
-                <div class="tab-control-item" (click)="changeTabClick(2)"><span>Descripción Larga</span></div>
-            </div>
-            <div class="content-editor-1" id="content-editor-1" style="display:blok;">
-                <textarea name="editor1" id="editor1" rows="20" cols="80">
-                        Editor 1 Hola Mundo (*.*)
-                </textarea>
-            </div>
-            <div class="content-editor-2" id="content-editor-2" style="display:none;">
-                <textarea name="editor2" id="editor2" rows="20" cols="80">
-                        Editor 2 Hola Mundo (*.*)
-                </textarea>
+    <div class="row fila-formulario-4">
+        <div class="col-md-7">
+            <app-product-item></app-product-item>
+        </div>
+        <div class="col-md-5">
+            <div class="control-editor-text">
+                <div class="tab-editor-product">
+                    <div class="tab-control-item" (click)="changeTabClick(1)"><span>Descripción Corta</span></div>
+                    <div class="tab-control-item" (click)="changeTabClick(2)"><span>Descripción Larga</span></div>
+                </div>
+                <div class="content-editor-1" id="content-editor-1" style="display:blok;">
+                    <textarea name="description_short" id="description_short" rows="20" cols="80"></textarea>
+                </div>
+                <div class="content-editor-2" id="content-editor-2" style="display:none;">
+                    <textarea name="description" id="description" rows="20" cols="80"></textarea>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row fila-formulario-5">
-    <div class="col-md-7">
-        <div style="width:100%;display: inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>Meta Titulo: </label>
+    <div class="row fila-formulario-5">
+        <div class="col-md-7">
+            <div style="width:100%;display: inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>Meta Titulo: </label>
+                </div>
+                <div class="control-caja" style="width:80%">
+                    <input type="text" name="meta_title" class="form-control" placeholder="" [(ngModel)]="oProductLang.meta_title">
+                </div>
             </div>
-            <div class="control-caja" style="width:80%">
-                <input type="text" name="nombre_producto" class="form-control" placeholder="">
+
+            <div style="width:100%;display: inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>Meta Descripcón: </label>
+                </div>
+                <div class="control-caja" style="width:80%">
+                    <input type="text" name="meta_description" class="form-control" placeholder="" [(ngModel)]="oProductLang.meta_description">
+                </div>
+            </div>
+
+            <div style="width:100%;display: inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>Palabras Clave: </label>
+                </div>
+                <div class="control-caja" style="width:80%">
+                    <input type="text" name="meta_keywords" class="form-control" placeholder="" [(ngModel)]="oProductLang.meta_keywords">
+                </div>
+            </div>
+
+            <div style="width:100%;display: inline-flex;">
+                <div class="control-caja" style="width:20%">
+                    <label>URL Amigable: </label>
+                </div>
+                <div class="control-caja" style="width:80%">
+                    <input type="text" name="link_rewrite" class="form-control" placeholder="" [(ngModel)]="oProductLang.link_rewrite">
+                </div>
             </div>
         </div>
-
-        <div style="width:100%;display: inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>Meta Descripcón: </label>
-            </div>
-            <div class="control-caja" style="width:80%">
-                <input type="text" name="nombre_producto" class="form-control" placeholder="">
-            </div>
-        </div>
-
-        <div style="width:100%;display: inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>Palabras Clave: </label>
-            </div>
-            <div class="control-caja" style="width:80%">
-                <input type="text" name="nombre_producto" class="form-control" placeholder="">
-            </div>
-        </div>
-
-        <div style="width:100%;display: inline-flex;">
-            <div class="control-caja" style="width:20%">
-                <label>URL Amigable: </label>
-            </div>
-            <div class="control-caja" style="width:80%">
-                <input type="text" name="nombre_producto" class="form-control" placeholder="">
-            </div>
+        <div class="col-md-5">
+            <label>Seccion de categoria</label>
         </div>
     </div>
-    <div class="col-md-5">
-        <label>Seccion de categoria</label>
-    </div>
-</div>
 
-<div class="row fila-formulario-6">
-    <button>Guardar y Salir</button>
-    <button>Guardar y Mantener</button>
-</div>
+    <div class="row fila-formulario-6">
+        <button>Guardar y Salir</button>
+        <button>Guardar y Mantener</button>
+    </div>
+</form>
 <br>
 <br>
 <br>
