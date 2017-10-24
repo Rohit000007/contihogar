@@ -13,6 +13,7 @@ import { CategoriaComponent } from './producto/categoria/categoria.component';
 import { ProductItemComponent } from './producto/product-item/product-item.component';
 import { ImageManagerComponent } from './producto/image-manager/image-manager.component';
 import { CategoryFilterPipe } from './pipi/category-filter.pipe';
+import { MessageManagerComponent } from './message-manager/message-manager.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoryFilterPipe } from './pipi/category-filter.pipe';
     CategoriaComponent,
     ProductItemComponent,
     ImageManagerComponent,
-    CategoryFilterPipe
+    CategoryFilterPipe,
+    MessageManagerComponent
   ],
   imports: [
     BrowserModule,

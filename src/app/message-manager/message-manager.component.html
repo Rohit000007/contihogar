@@ -1,0 +1,10 @@
+<div *ngIf="isVisible"  class="message-container" id="message-container-alert">
+  <div>
+    <h5>{{sDisplayModal}}</h5>
+  </div>
+  <div>
+    <ul>
+      <li *ngFor="let item of oListMessages" >{{item}}</li>
+    </ul>
+  </div>
+</div>

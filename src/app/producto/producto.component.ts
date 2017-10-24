@@ -14,6 +14,8 @@ import { ProductItemCaracteristica } from '../entity/product-item-caracteristica
 import { ProductItemLang } from '../entity/product-item-lang';
 import { Model } from '../entity/model';
 import { ModelProduct } from '../entity/model-product';
+import { Category } from '../entity/category';
+import { ProductCrossCategory } from '../entity/product-cross-category';
 
 @Component({
   selector: 'app-producto',
@@ -23,42 +25,40 @@ import { ModelProduct } from '../entity/model-product';
 })
 export class ProductoComponent implements OnInit {
 
+
   //#region "Variables"
+  oMessageError:string[] = [];
+  isVisible:boolean = false;
   oProductLang:ProductLang;
   oProducto:Product;
-  oProductEvent:ProductEvent;
+  oProductEvent:ProductEvent = {id_product:0};
   oProductItem:ProductItem;
-  oModel:Model;
+  oModel:Model = {nombre:""};
   
   oListModels:Model[];
-  oListProductModel:ModelProduct[];
+  oListProductModel:ModelProduct[] = [];
   lListProductItemCaracteristica:ProductItemCaracteristica[];
-  oListCategory:CategoryProduct[];
-  lListProveedor:Supplier[];
+  oListCategoryProduct:CategoryProduct[] = [];
+  lListProveedor:Supplier[] = [];
   lListManufacturer:Manufacturer[];
+  oListCategory:Category[] = [];
+  oListProductCrossCategory:ProductCrossCategory[] = [];
+
   //#endrregion 
   
   //#region "Metodos"
   constructor(private oAppService:AppService) {
-    this.oModel = {nombre:""};
-    this.oProducto = {id_supplier:0,id_manufacturer:0,quantity:0,reference:""};
-    this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:""};
-    this.oProductEvent = {id_product:3};
-    this.oListCategory = [];
-    this.oListProductModel = [];
+    this.oProducto = {id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:""};
+    this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
     this.inicializarCampos();
     
-    this.oAppService.getSupplier().subscribe(data=>{
-      this.lListProveedor = data.json().oProduct;
-    });
+    this.oAppService.getSupplier().subscribe(data=>this.lListProveedor = data.json().oProduct);
 
-    this.oAppService.getManufacturer().subscribe(data=>{
-      this.lListManufacturer = data.json();
-    });
+    this.oAppService.getManufacturer().subscribe(data=>this.lListManufacturer = data.json());
 
-    this.oAppService.getModelo().subscribe(data=>{
-      this.oListModels = data.json();
-    });
+    this.oAppService.getModelo().subscribe(data=>this.oListModels = data.json());
+
+    this.oAppService.getCategory().subscribe(data=>this.oListCategory = data.json());
   }
 
   ngOnInit() {
@@ -131,7 +131,9 @@ export class ProductoComponent implements OnInit {
       event_price:parseInt((<HTMLInputElement>document.getElementById('event_price')).value),
     }
     this.oProducto.ProductEvent = this.oProductEvent;
-    this.oProducto.CategoryProduct = this.oListCategory;
+    this.oProducto.CategoryProduct = this.oListCategoryProduct;
+    this.oProducto.ModelProduct = this.oListProductModel;
+    this.oProducto.ProductCrossCategory = this.oListProductCrossCategory;
     this.oProducto.ProductLang = {
       description:window["CKEDITOR"].instances.description.getData(),
       description_short:window["CKEDITOR"].instances.description_short.getData(),
@@ -141,25 +143,41 @@ export class ProductoComponent implements OnInit {
       meta_title:this.oProductLang.meta_title,
       link_rewrite:this.oProductLang.link_rewrite
     };
-    this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
+    /*this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
       console.log(data);
-      this.inicializarCampos();
-    });
+      
+    });*/
+    if(this.ValidarFormulario(this.oProducto)){
+      console.log("Agrega");
+    }else{
+      console.log("No Va");
+    }
+    console.log(this.oProducto);
+    this.inicializarCampos();
   }
   chekClickNow(item){
     console.log(item);
   }
 
-  agregarNuevoModelo(oModel):void{
-    let oModelProduct:ModelProduct = {id_model:0,id_product:0,model:oModel};
-    this.oListProductModel.push(oModelProduct);
-    console.log(this.oListProductModel);
-    this.oModel = {nombre:""};
+  agregarNuevoModelo(oModel:Model):void{
+    console.log(oModel);
+    if(oModel.nombre == ""){
+      console.log("Mostrar Alerta")
+    }else{
+      let oModelProduct:ModelProduct = {id_model:0,id_product:0,model:oModel};
+      this.oListProductModel.push(oModelProduct);
+      console.log(this.oListProductModel);
+      this.oModel = {nombre:""};
+    }
   }
   agregarModel(oModel):void{
-    var sModelSplit = oModel.toString().split("|");
-    let oModelProduct:ModelProduct = {id_model:sModelSplit[0],id_product:0,model:{nombre:sModelSplit[1]}};
-    this.oListProductModel.push(oModelProduct);
+    if(oModel == ""){
+      console.log("Mostrar Alerta");
+    }else{
+      var sModelSplit = oModel.toString().split("|");
+      let oModelProduct:ModelProduct = {id_model:sModelSplit[0],id_product:0,model:{nombre:sModelSplit[1]}};
+      this.oListProductModel.push(oModelProduct);
+    }
   }
 
   eliminarModelo(indexModelo):void{
@@ -167,12 +185,46 @@ export class ProductoComponent implements OnInit {
     this.oListProductModel.splice(indexModelo,1);
   }
    
-  getGategoryId(category){
-    this.oListCategory.push(category);
+  getGategoryId(category):void{
+    this.oListCategoryProduct.push(category);
+  }
+
+  agregarCrossCategery(sCategory):void{
+    let oCategory = sCategory.toString().split("|");
+    let iProductCrossCategory:ProductCrossCategory = {
+      id_categoria:parseInt(oCategory[0]),
+      Category:{CategoryLang:{name:oCategory[1]}}
+    };
+    this.oListProductCrossCategory.push(iProductCrossCategory);
+    console.log(this.oListProductCrossCategory);
+  }
+  eliminarCrossCategory(indexCrossCategory):void{
+    this.oListProductCrossCategory.splice(indexCrossCategory,1);
   }
   //#endregion
   inicializarCampos(): any {
     this.lListProductItemCaracteristica = [];
     this.oProducto.ProductItem = [];
+  }
+
+  ValidarFormulario(oProduct:Product): boolean {
+    let vRetorno = true;
+    if(oProduct.id_supplier == 0){
+      vRetorno = false;
+      this.oMessageError.push("Selecciona campo proveedor");
+    }
+    if(oProduct.id_manufacturer == 0){
+      vRetorno = false;
+      this.oMessageError.push("Selecciona campo marca");
+    }
+    if(oProduct.ProductLang.name == ""){
+      vRetorno = false;
+      this.oMessageError.push("Ingrese nombre del producto");
+    }
+    if(!vRetorno){
+      this.isVisible = true;
+    }
+    console.log(this.oMessageError);
+    return vRetorno;
   }
 }

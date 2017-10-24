@@ -13,7 +13,20 @@
     }
 }
 .fila-formulario-2{
+    .control-fila1{
+        .estado_producto{
+            border-radius: 50%;
+            background-color: red;
+            height: 30px;
+            width: 30px;
+        }
+    }
     .control-fila4{
+        .control-modelo-buscar{
+            background-color:$contihogar-white;;
+            height:130px;
+            width:60%;
+        }
         .control-modelo-nuevo{
             background-color: $contihogar-white;
             border-radius: 2%;
@@ -57,5 +70,11 @@
                 width: 50%;
             }
         }
+    }
+}
+.fila-formulario-5{
+    .control-categoria-ultimo{
+        border: 1px solid $contihogar-soft-blue;
+        padding: 10px;
     }
 }

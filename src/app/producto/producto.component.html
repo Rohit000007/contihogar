@@ -31,27 +31,30 @@
     <div class="row fila-formulario-2">
         <div class="col-md-7">
             <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                <div class="control-caja" style="width:35%">
+                <div class="control-caja" style="width:40%">
                     <select class="form-control" name="id_supplier" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)" [(ngModel)]="oProducto.id_supplier">
-                        <option>*** Seleccione proveedor *** </option>
+                        <option [ngValue]="oProducto.id_supplier">***  Proveedor *** </option>
                         <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
                             {{proveedor.name}}
                         </option>
                     </select>
                 </div>
-                <div class="control-caja" style="width:35%">
+                <div class="control-caja" style="width:5%">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="control-caja" style="width:40%">
                     <select class="form-control" name="id_manufacturer" [(ngModel)]="oProducto.id_manufacturer">
-                        <option>*** Seleccione marca ***</option>
+                        <option [ngValue]="oProducto.id_manufacturer">*** Marca ***</option>
                         <option *ngFor="let manufacturer of lListManufacturer" [value]="manufacturer.id_manufacturer">
                             {{manufacturer.name}}
                         </option>
                     </select>
                 </div>
-                <div class="control-caja" style="width:10%">
+                <div class="control-caja" style="width:8%">
                     <label>Estado</label>
                 </div>
-                <div class="control-caja" style="width:20%">
-                    <input type="text" class="form-control" placeholder="Estado">
+                <div class="control-caja" style="width:7%">
+                    <div class="estado_producto"></div>
                 </div>
             </div>
 
@@ -81,7 +84,7 @@
             </div>
 
             <div class="control-fila4" style="width:100%;display:inline-flex;">
-                <div class="control-modelo-buscar" style="width:60%;height:130px;background-color:green;">
+                <div class="control-modelo-buscar">
                     <div>
                         <label>Modelo del producto</label>
                     </div>
@@ -89,7 +92,7 @@
                         <select class="form-control" name="id_model" [(ngModel)]="id_model"  #vModelElem>
                             <option *ngFor="let model of oListModels"  [value]="model.id_model+'|'+model.nombre">{{model.nombre}}</option>
                         </select>
-                        <a href="#" (click)="agregarModel(vModelElem.value)">(+)</a>
+                        <a class="link-modelo-agregar" (click)="agregarModel(vModelElem.value)">(+)</a>
                     </div>
                     <div>
                         <ul class="list-group">
@@ -183,7 +186,53 @@
             </div>
         </div>
         <div class="col-md-5">
-            <label>Seccion de categoria</label>
+            <div class="control-categoria-ultimo">
+                <div class="control-categoria-asociada" style="display: flex;">
+                    <div class="izquierda" style="width: 60%;height: 160px">
+                        <div class="control-caja" style="width:100%">
+                            <label>Categoria asociada</label>
+                        </div>
+                        <div class="control-caja" style="display: block">
+                            <select class="form-control" name="id_category" #vCategoryElem>
+                                <option *ngFor="let category of oListCategory"  [value]="category.id_category+'|'+category.category_lang.name">{{category.category_lang.name}}</option>
+                            </select>
+                        </div>
+                        <div class="control-caja" style="display: block">
+                            <button class="btn btn-default" (click)="agregarCrossCategery(vCategoryElem.value)">AGREGAR</button>
+                        </div>
+                        <div class="control-caja" style="display: block">
+                            <label>Etiqueta cuando no hay stock</label>
+                        </div>
+                    </div>
+                    <div class="derecha" style="width: 40%;height: 160px">
+                        <div class="control-caja">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let oCrossCategory of oListProductCrossCategory;let i = index">
+                                    {{oCrossCategory.Category.CategoryLang.name}}
+                                    <a class="badge" (click)="eliminarCrossCategory(i)">X</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="control-estado-producto" style="display: block">
+                    <div class="control-caja" style="display: block;">
+                        <textarea rows="2" style="width: 100%;" name="inst_message" placeholder="Escriba una frase para cuando el producto no este con stock" [(ngModel)]="oProductLang.inst_message"></textarea>
+                    </div>
+                    <div class="control-caja" style="display: block;">
+                        <label>Estado del producto</label>
+                    </div>
+                    <div class="control-caja">
+                        <label>
+                            Nuevo <input type="radio" name="condition" value="new" [(ngModel)]="oProducto.condition">
+                        </label>
+                        <label>
+                            Usado <input type="radio" name="condition" value="used" [(ngModel)]="oProducto.condition">
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -192,6 +241,7 @@
         <button>Guardar y Mantener</button>
     </div>
 </form>
+<app-message-manager [isVisible]="isVisible"  [oListMessages]="oMessageError"></app-message-manager>
 <br>
 <br>
 <br>

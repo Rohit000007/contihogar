@@ -10,5 +10,6 @@ export interface ProductLang {
      meta_title?:string,
      name?:string,
      available_now?:number,
-     available_later?:number
+     available_later?:number,
+     inst_message?:string
 }

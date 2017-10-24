@@ -3,6 +3,7 @@ import { CategoryProduct } from './category-product';
 import { ProductEvent } from './product-event';
 import { ProductItem } from './product-item';
 import { ModelProduct } from './model-product';
+import { ProductCrossCategory } from './product-cross-category';
 
 export interface Product {
      id_product?:number,
@@ -59,5 +60,6 @@ export interface Product {
      CategoryProduct?:CategoryProduct[],
      ProductEvent?:ProductEvent,
      ProductItem?:ProductItem[],
-     ModelProduct?:ModelProduct
+     ModelProduct?:ModelProduct[],
+     ProductCrossCategory?:ProductCrossCategory[]
 }

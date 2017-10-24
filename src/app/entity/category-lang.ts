@@ -1,13 +1,11 @@
-export class CategoryLang {
-    constructor(
-        public id_category?:number,
-        public id_shop?:number,
-        public id_lang?:number,
-        public name?:string,
-        public description?:string,
-        public link_rewrite?:string,
-        public meta_title?:string,
-        public meta_keywords?:string,
-        public meta_description?:string
-    ){}
+export interface CategoryLang {
+    id_category?:number,
+    id_shop?:number,
+    id_lang?:number,
+    name?:string,
+    description?:string,
+    link_rewrite?:string,
+    meta_title?:string,
+    meta_keywords?:string,
+    meta_description?:string
 }
