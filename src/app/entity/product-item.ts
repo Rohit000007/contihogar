@@ -1,3 +1,6 @@
+import { ProductItemCaracteristica } from "./product-item-caracteristica";
+import { ProductItemLang } from "./product-item-lang";
+
 export interface ProductItem {
     id_product_item?:number,
     id_product?:number,
@@ -5,5 +8,7 @@ export interface ProductItem {
     ancho?:number,
     alto?:number,
     profundidad?:number,
-    peso?:string
+    peso?:string,
+    ProductItemCaracteristica?:ProductItemCaracteristica[],
+    ProductItemLang?:ProductItemLang
 }

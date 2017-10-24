@@ -1,8 +1,8 @@
 <div class="product-item-contenedor">
   <div class="row">
     <div class="col-md-3 product-item-label">
-        <div class="control-caja" style="width:100%">
-            <label class="label-resumen">Resumen :</label>
+        <div class="control-caja caja-resumen" style="width:100%;height: 50px;">
+            <label class="label-resumen">RESUMEN : {{vCantidadUnidades}} Und</label>
         </div>  
         <div class="control-caja" style="width:100%">
             <label>Nombre :</label>
@@ -54,7 +54,7 @@
     <div class="col-md-8 product-item-control" id="tab-control-padre">
         <div class="row-tab-control" style="display:inline-flex;">
           <div class="tab-control-item" *ngFor="let tab of vTabsNombre;let i = index" id="tab_{{tab.indexTab}}">
-            <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{i}} </label>
+            <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{(i+1)}} </label>
             <input id="{{'tab'+(i+1)}}" type="radio" name="tabs" checked="{{tab.default}}" class="input_radio">
             <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
           </div>

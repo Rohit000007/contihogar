@@ -2,8 +2,7 @@ import { ProductLang } from './product-lang'
 import { CategoryProduct } from './category-product';
 import { ProductEvent } from './product-event';
 import { ProductItem } from './product-item';
-import { ProductItemCaracteristica } from './product-item-caracteristica';
-import { ProductItemLang } from './product-item-lang';
+import { ModelProduct } from './model-product';
 
 export interface Product {
      id_product?:number,
@@ -60,6 +59,5 @@ export interface Product {
      CategoryProduct?:CategoryProduct[],
      ProductEvent?:ProductEvent,
      ProductItem?:ProductItem[],
-     ProductItemCaracteristica?:ProductItemCaracteristica[],
-     ProductItemLang?:ProductItemLang[]
+     ModelProduct?:ModelProduct
 }

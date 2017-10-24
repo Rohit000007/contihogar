@@ -1,4 +1,4 @@
-<form class="form" name="frmProducto" #rForm (ngSubmit)="enviarProducto(rForm.value)">
+<form class="form" name="frmProducto" #rForm>
     <div class="row fila-formulario-1">
         <div class="col-md-8">
             <div class="toggle">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="row fila-formulario-2">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="control-fila1"  style="width:100%;display:inline-flex;">
                 <div class="control-caja" style="width:35%">
                     <select class="form-control" name="id_supplier" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)" [(ngModel)]="oProducto.id_supplier">
@@ -40,7 +40,7 @@
                     </select>
                 </div>
                 <div class="control-caja" style="width:35%">
-                    <select class="form-control" name="id_manufacturer" ngModel>
+                    <select class="form-control" name="id_manufacturer" [(ngModel)]="oProducto.id_manufacturer">
                         <option>*** Seleccione marca ***</option>
                         <option *ngFor="let manufacturer of lListManufacturer" [value]="manufacturer.id_manufacturer">
                             {{manufacturer.name}}
@@ -70,7 +70,7 @@
                     <label>SKU Proveedor</label>
                 </div>
                 <div class="control-caja" style="width:30%">
-                    <input type="text" class="form-control" placeholder="Escribir SKU proveedor">
+                    <input type="text" class="form-control" placeholder="Escribir SKU proveedor" name="reference" [(ngModel)]="oProducto.reference">
                 </div>
                 <div class="control-caja" style="width:20%">
                     <label>Unidades </label>
@@ -81,18 +81,35 @@
             </div>
 
             <div class="control-fila4" style="width:100%;display:inline-flex;">
-                <div class="caja-modelo" style="width:50%;height:170px;background-color:green;">
-                    Modelo del produto
+                <div class="control-modelo-buscar" style="width:60%;height:130px;background-color:green;">
+                    <div>
+                        <label>Modelo del producto</label>
+                    </div>
+                    <div style="display: flex;">
+                        <select class="form-control" name="id_model" [(ngModel)]="id_model"  #vModelElem>
+                            <option *ngFor="let model of oListModels"  [value]="model.id_model+'|'+model.nombre">{{model.nombre}}</option>
+                        </select>
+                        <a href="#" (click)="agregarModel(vModelElem.value)">(+)</a>
+                    </div>
+                    <div>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let ProductModel of oListProductModel;let i = index">
+                                {{ProductModel.model.nombre}}
+                                <a class="badge" href="#" (click)="eliminarModelo(i)">X</a>
+                            </li>
+                        </ul>
+                    </div>                    
                 </div>
-                <div class="caja-nuevo" style="width:50%;height:170px;background-color:blue;">
-                    Ingresae nuevo modelo
+                <div class="control-modelo-nuevo">
+                    <input type="text" class="input-nuevo-modelo" name="nombre" placeholder="Ingrese nuevo modelo" [(ngModel)]="oModel.nombre">
+                    <button class="btn btn-defaul button-nuevo-modelo" (click)="agregarNuevoModelo(oModel)">NUEVO</button>
                 </div>
             </div>
         </div>
-
-    <div class="col-md-4">
-        <app-categoria (ObtenerCategoryId)="getGategoryId($event)" ></app-categoria>
-    </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <app-categoria (ObtenerCategoryId)="getGategoryId($event)" ></app-categoria>
+        </div>
 
     </div>
 
@@ -118,10 +135,10 @@
                     <div class="tab-control-item" (click)="changeTabClick(2)"><span>Descripción Larga</span></div>
                 </div>
                 <div class="content-editor-1" id="content-editor-1" style="display:blok;">
-                    <textarea name="description_short" id="description_short" rows="20" cols="80"></textarea>
+                    <textarea name="description_short" id="description_short"></textarea>
                 </div>
                 <div class="content-editor-2" id="content-editor-2" style="display:none;">
-                    <textarea name="description" id="description" rows="20" cols="80"></textarea>
+                    <textarea name="description" id="description"></textarea>
                 </div>
             </div>
         </div>
@@ -171,7 +188,7 @@
     </div>
 
     <div class="row fila-formulario-6">
-        <button>Guardar y Salir</button>
+        <button (click)="enviarProducto(rForm.value)">Guardar y Salir</button>
         <button>Guardar y Mantener</button>
     </div>
 </form>

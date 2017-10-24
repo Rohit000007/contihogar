@@ -12,6 +12,33 @@
         }
     }
 }
+.fila-formulario-2{
+    .control-fila4{
+        .control-modelo-nuevo{
+            background-color: $contihogar-white;
+            border-radius: 2%;
+            height:130px;
+            text-align: center;
+            padding: 25px 10px;
+            width:40%;
+            .input-nuevo-modelo{
+                border: none;
+                border-bottom:2px solid $contihogar-black;
+                height: 40px;
+                font-size: 15px;
+                text-align: center;
+                width: 100%;
+            }
+            .button-nuevo-modelo{
+                background-color: $contihogar-gray-1;
+                color: $contihogar-soft-blue;
+                font-weight: bold;
+                margin-top: 5%;
+                width: 150px;
+            }
+        }
+    }
+}
 .fila-formulario-4{
     .control-editor-text{
         background-color: $contihogar-white;

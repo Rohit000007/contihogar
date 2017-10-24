@@ -9,6 +9,7 @@ export class ProductItemComponent implements OnInit {
   vTabsNombre:any[];
   vTabControlBody = "tab-control-body_0";
   vTabVisible = true;
+  vCantidadUnidades = 0;
 
   constructor() { }
 
@@ -16,21 +17,10 @@ export class ProductItemComponent implements OnInit {
     this.vTabsNombre = [
       {indexTab:1,text:"Unidad",default:true},
     ];
+    this.vCantidadUnidades = this.vTabsNombre.length;
   }
 
-  onSubmit(){
-    /*var oFormData = document.forms;
-    var oFormDataJSON = [];
-    for(let indexForm in oFormData){
-      let oFormDataElements = oFormData[indexForm].elements;
-      for(let indexInput in oFormDataElements){
-        var value = oFormDataElements["nombre_producto"][0].value;
-        console.log(value);
-      }
-    }*/
-  }
   onTabClick(indexView){
-    console.log(indexView);
     var oControlPadre =  document.getElementById("tab-control-padre");
     var oHijos = oControlPadre.querySelectorAll(".control-form-body");
     for(let vHijoIndex in oHijos){
@@ -51,6 +41,7 @@ export class ProductItemComponent implements OnInit {
       vNumberTabIndex.push(this.vTabsNombre[index].indexTab);
     }
     let vNextTabIndex = this.getMaxOfArray(vNumberTabIndex)+1;
+    this.vCantidadUnidades = vNextTabIndex;
     var vTabControlBodyNewName = this.vTabControlBody.split('_')[0]+"_"+vNextTabIndex.toString();
     this.vTabsNombre.push({indexTab:vNextTabIndex,text:"Unidad",default:false});
 
@@ -60,7 +51,6 @@ export class ProductItemComponent implements OnInit {
     vTabControlBodyClone.id = this.vTabControlBody;
     document.getElementById("tab-control-padre").appendChild(vTabControlBodyCloneNew);
     document.getElementById(vTabControlBodyNewName).style.display = "none";
-    console.log(this.vTabsNombre);
   }
   removeTabClick(oRemoveControl){
     var oTabControlBodyName = this.vTabControlBody.split('_')[0]+"_"+oRemoveControl.name;
@@ -70,7 +60,7 @@ export class ProductItemComponent implements OnInit {
         break;
       }
     }
-    console.log(oRemoveControl.name);
+    this.vCantidadUnidades--;
     document.getElementById("tab_"+oRemoveControl.name).remove();
     document.getElementById(oTabControlBodyName).remove();
   }

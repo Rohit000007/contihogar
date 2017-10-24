@@ -20,6 +20,10 @@ export class AppService {
     return this.http.get(this.sUrlSite+"/manufacturer");
   }
 
+  public getModelo(){
+    return this.http.get(this.sUrlSite+"/modelo");
+  }
+
   //#region "Productos"
   public saveProduct(oProduct){
     return this.http.post(this.sUrlSite+"/product/store",{Product:oProduct},{headers: this.headers});
