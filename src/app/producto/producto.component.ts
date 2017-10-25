@@ -49,7 +49,7 @@ export class ProductoComponent implements OnInit {
   
   //#region "Metodos"
   constructor(private oAppService:AppService) {
-    this.oProducto = {id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:""};
+    this.oProducto = {id_product:0,id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:""};
     this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
     this.inicializarCampos();
     
@@ -238,5 +238,24 @@ export class ProductoComponent implements OnInit {
   }
   MessageBoxClose(bMessageBoxClose):void{
     this.isVisible = bMessageBoxClose;
+  }
+
+  buscarProduct():void{
+    this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
+      //console.log(data);
+      this.oProducto = data.json();
+      //this.oProducto.ProductEvent.cost_end_date.
+      /*(<HTMLInputElement>document.getElementById('cost_impact')).value = this.oProducto.ProductEvent.cost_impact.toString();
+      (<HTMLInputElement>document.getElementById('price_impact')).value),
+      (<HTMLInputElement>document.getElementById('price_start_date')).value),
+      (<HTMLInputElement>document.getElementById('price_end_date')).value),
+      (<HTMLInputElement>document.getElementById('tax_cost_impact')).value),
+      (<HTMLInputElement>document.getElementById('tax_price_impact')).value),
+      (<HTMLInputElement>document.getElementById('cost_end_date')).value),
+      (<HTMLInputElement>document.getElementById('cost_start_date')).value),
+      (<HTMLInputElement>document.getElementById('event_cost')).value),
+      (<HTMLInputElement>document.getElementById('event_price')).value),*/
+      console.log(this.oProducto.ProductEvent);
+    });
   }
 }

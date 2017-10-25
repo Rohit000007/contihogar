@@ -2,6 +2,10 @@
 
 .fila-formulario-1{
     height: 80px;
+    .control-buscar-producto{
+        display: flex;
+        margin-top: 15px;
+    }
     .caja-modifica-masivo,.caja-crear-masivo,.caja-exportar-masivo{
         height: 40px;
         margin: 10px 3px;

@@ -28,6 +28,10 @@ export class AppService {
   public saveProduct(oProduct){
     return this.http.post(this.sUrlSite+"/product/store",{Product:oProduct},{headers: this.headers});
   }
+
+  public editProduct(id_product){
+    return this.http.get(this.sUrlSite+"/product/"+id_product+"/edit");
+  }
   //#endregion
   //#endregion "Metodos"
 

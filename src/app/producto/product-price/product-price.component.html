@@ -2,45 +2,45 @@
   <div class="control-costo-fila1"  style="width:100%;display:inline-flex;">
       <div class="control-caja" style="width:30%">
           <label>Precio Base</label>
-          <input type="text" name="price_impact" id="price_impact" class="form-control" value="0">
+          <input type="text" name="price_impact" id="price_impact" class="form-control" value="0" [(ngModel)]="oProductEvent.price_impact">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Precio Promoción</label>
-          <input type="text" name="event_price" id="event_price" class="form-control" value="0">
+          <input type="text" name="event_price" id="event_price" class="form-control" value="0" [(ngModel)]="oProductEvent.event_price">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Fecha inicio <span class="glyphicon glyphicon-calendar"></span></label>
-          <input type="date" name="price_start_date" id="price_start_date" class="form-control">
+          <input type="date" name="price_start_date" id="price_start_date" class="form-control" [(ngModel)]="oProductEvent.price_start_date">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Fecha Final <span class="glyphicon glyphicon-calendar"></span></label>
-          <input type="date" name="price_end_date" id="price_end_date" class="form-control">
+          <input type="date" name="price_end_date" id="price_end_date" class="form-control" [(ngModel)]="oProductEvent.price_end_date">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Descuento</label>
-          <input type="text" name="tax_price_impact" id="tax_price_impact" class="form-control" value="0">
+          <input type="text" name="tax_price_impact" id="tax_price_impact" class="form-control" value="0" [(ngModel)]="oProductEvent.tax_price_impact">
       </div>
   </div>
   <div class="control-costo-fila2"  style="width:100%;display:inline-flex;">
       <div class="control-caja" style="width:30%">
           <label>Costo Base</label>
-          <input type="text" name="cost_impact" id="cost_impact" class="form-control" value="0">
+          <input type="text" name="cost_impact" id="cost_impact" class="form-control" value="0" [(ngModel)]="oProductEvent.cost_impact">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Costo Promoción</label>
-          <input type="text" name="event_cost" id="event_cost" class="form-control" value="0">
+          <input type="text" name="event_cost" id="event_cost" class="form-control" value="0" [(ngModel)]="oProductEvent.event_cost">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Fecha inicio <span class="glyphicon glyphicon-calendar"></span></label>
-          <input type="date" name="cost_start_date" id="cost_start_date" class="form-control">
+          <input type="date" name="cost_start_date" id="cost_start_date" class="form-control" [(ngModel)]="oProductEvent.cost_start_date">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Fecha Final <span class="glyphicon glyphicon-calendar"></span></label>
-          <input type="date" name="cost_end_date" id="cost_end_date" class="form-control">
+          <input type="date" name="cost_end_date" id="cost_end_date" class="form-control" [(ngModel)]="oProductEvent.cost_end_date">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Cantidad</label>
-          <input type="text" name="tax_cost_impact" id="tax_cost_impact" class="form-control" value="0">
+          <input type="text" name="tax_cost_impact" id="tax_cost_impact" class="form-control" value="0" [(ngModel)]="oProductEvent.tax_cost_impact">
       </div>
   </div>
 
