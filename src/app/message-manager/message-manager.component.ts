@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-message-manager',
@@ -8,16 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MessageManagerComponent implements OnInit {
   @Input() oListMessages:string[] = []; 
   @Input() sMessageTitle:string = "";
-  @Input() isVisible:boolean = false;
+  @Output() MessageBoxClose = new EventEmitter(); 
   constructor() { }
 
-  ngOnInit() {
-    this.closeComponent();
-  }
-
-  closeComponent(){
-    setTimeout(function(){ 
-      this.isVisible = false;
-    }, 3000);
-  }
+  ngOnInit() {}
+  
+  closeMessageBox():void{
+    this.MessageBoxClose.emit(false);
+  };
 }

@@ -27,6 +27,7 @@ export class ProductoComponent implements OnInit {
 
 
   //#region "Variables"
+  sMessageTitle:string = "";
   oMessageError:string[] = [];
   isVisible:boolean = false;
   oProductLang:ProductLang;
@@ -185,8 +186,8 @@ export class ProductoComponent implements OnInit {
     this.oListProductModel.splice(indexModelo,1);
   }
    
-  getGategoryId(category):void{
-    this.oListCategoryProduct.push(category);
+  getGategoryId(oListcCategoryProduct):void{
+    this.oListCategoryProduct = oListcCategoryProduct;
   }
 
   agregarCrossCategery(sCategory):void{
@@ -208,6 +209,7 @@ export class ProductoComponent implements OnInit {
   }
 
   ValidarFormulario(oProduct:Product): boolean {
+    this.oMessageError = [];
     let vRetorno = true;
     if(oProduct.id_supplier == 0){
       vRetorno = false;
@@ -221,10 +223,26 @@ export class ProductoComponent implements OnInit {
       vRetorno = false;
       this.oMessageError.push("Ingrese nombre del producto");
     }
+    if(oProduct.reference == ""){
+      vRetorno = false;
+      this.oMessageError.push("Ingrese SKU proveedor");
+    }
+    if(oProduct.quantity <= 0){
+      vRetorno = false;
+      this.oMessageError.push("Ingrese Unidades");
+    }
+    if(oProduct.CategoryProduct.length == 0){
+      vRetorno = false;
+      this.oMessageError.push("Seleccione categoria");
+    }
     if(!vRetorno){
       this.isVisible = true;
+      this.sMessageTitle = "Campos requeridos *";
     }
     console.log(this.oMessageError);
     return vRetorno;
+  }
+  MessageBoxClose(bMessageBoxClose):void{
+    this.isVisible = bMessageBoxClose;
   }
 }

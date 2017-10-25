@@ -25,7 +25,18 @@
         .control-modelo-buscar{
             background-color:$contihogar-white;;
             height:130px;
+            padding: 10px;
             width:60%;
+            .caja-label-modelo{
+                color: $contihogar-gray-2;
+            }
+            .link-modelo-agregar{
+                color: $contihogar-gray-2;
+                cursor: pointer;
+                font-size: 25px;
+                line-height: 1;
+                text-decoration: none;
+            }
         }
         .control-modelo-nuevo{
             background-color: $contihogar-white;

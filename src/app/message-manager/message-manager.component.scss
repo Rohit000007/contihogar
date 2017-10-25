@@ -1,8 +1,26 @@
 .message-container{
+    color: white;
     background-color: red;
     min-height: 50px;
     right: 0;
+    padding: 3px 10px;
     position: fixed;
     top: 50px;
-    width: 300px;    
+    width: 300px;
+    .message-control-title{
+        display: flex;
+        justify-content:space-between;
+        .close-message-modal{
+            border: 1px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            float: right;
+            height: 30px;
+            text-align: center;
+            text-decoration: none;
+            width: 30px;
+        }
+    }
 }

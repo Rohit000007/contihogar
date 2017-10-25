@@ -1,6 +1,7 @@
 import { Component, OnInit,EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../entity/category';
 import { AppService } from '../../service/app.service';
+import { CategoryProduct } from '../../entity/category-product';
 
 @Component({
   selector: 'app-categoria',
@@ -10,9 +11,9 @@ import { AppService } from '../../service/app.service';
 })
 export class CategoriaComponent implements OnInit {
   //#region "Variables"
-  oCategoryListSelected:any[];
-  oCategoryAllSelected:any[];
-  oListCategory:Category[];
+  oListCategoryId:number[] = [];
+  oListCategory:Category[] = [];
+  oListCategoryProduct:CategoryProduct[] = [];
   @Output() ObtenerCategoryId = new EventEmitter();
   //#endregion
 
@@ -20,32 +21,25 @@ export class CategoriaComponent implements OnInit {
   constructor(private oAppService:AppService) {
     this.oAppService.getCategory().subscribe(data=>{
       this.oListCategory = data.json();
-      //console.log(this.oListCategory);
-      this.oCategoryAllSelected = [];
-      this.oCategoryListSelected = [];
     });
    }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   obtenerCategoryId(id_category){
-    /*if(this.oCategoryAllSelected.length > 1){
-      for(let index in this.oCategoryAllSelected){
-        console.log(this.oCategoryAllSelected[index],id_category);
-        if(this.oCategoryAllSelected[index] !== id_category){
-          //console.log(this.oCategoryAllSelected[index],id_category);
-          //this.oCategoryListSelected.push({id_category:id_category});
-        }else{
-          this.oCategoryAllSelected.splice(parseInt(index),1)
-        }
-      }
-      console.log(this.oCategoryAllSelected);
+    this.oListCategoryProduct = [];
+    if(!this.oListCategoryId.includes(id_category)){
+      this.oListCategoryId.push(id_category);
+    }else{
+      this.oListCategoryId.splice(this.oListCategoryId.indexOf(id_category),1);
     }
-    this.oCategoryAllSelected.push(id_category);*/
-    this.ObtenerCategoryId.emit({id_category:id_category});
-    //this.oCategoryListSelected = [];
-  }
 
+    for(let indexToAdd in this.oListCategoryId){
+      this.oListCategoryProduct.push({
+        id_category:this.oListCategoryId[indexToAdd]
+      });
+    }
+    this.ObtenerCategoryId.emit(this.oListCategoryProduct);
+  }
   //#endregion
 }

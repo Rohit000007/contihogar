@@ -1,6 +1,7 @@
-<div *ngIf="isVisible"  class="message-container" id="message-container-alert">
-  <div>
-    <h5>{{sDisplayModal}}</h5>
+<div class="message-container" id="message-container-alert">
+  <div class="message-control-title">
+    <h4>{{sMessageTitle}}</h4>
+    <a class="close-message-modal" (click)="closeMessageBox()">X</a>
   </div>
   <div>
     <ul>

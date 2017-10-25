@@ -79,13 +79,13 @@
                     <label>Unidades </label>
                 </div>
                 <div class="control-caja" style="width:30%">
-                    <input type="text" name="quantity" class="form-control" placeholder="Cantidad de Unidades" [(ngModel)]="oProducto.quantity">
+                    <input type="number" min="1" name="quantity" class="form-control" placeholder="Cantidad de Unidades" [(ngModel)]="oProducto.quantity">
                 </div>
             </div>
 
             <div class="control-fila4" style="width:100%;display:inline-flex;">
                 <div class="control-modelo-buscar">
-                    <div>
+                    <div class="caja-label-modelo">
                         <label>Modelo del producto</label>
                     </div>
                     <div style="display: flex;">
@@ -241,7 +241,7 @@
         <button>Guardar y Mantener</button>
     </div>
 </form>
-<app-message-manager [isVisible]="isVisible"  [oListMessages]="oMessageError"></app-message-manager>
+<app-message-manager *ngIf="isVisible" [oListMessages]="oMessageError" [sMessageTitle]="sMessageTitle" (MessageBoxClose)="MessageBoxClose($event)"></app-message-manager>
 <br>
 <br>
 <br>
