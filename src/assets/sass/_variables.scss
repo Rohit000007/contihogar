@@ -36,17 +36,3 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
-
-$contihogar-black : #1a1a1a;
-/*CSS GENERAL*/
-.form-control{
-    background-color: $contihogar-black!important;
-    /*padding: 0px!important;*/
-    border-radius: 0px!important;
-    border: none!important;
-    height: 30px!important;
-    color: white!important;
-}
-.control-caja{
-    padding: 5px 4px;
-}

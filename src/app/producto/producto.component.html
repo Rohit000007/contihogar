@@ -94,15 +94,16 @@
                         </select>
                         <a class="link-modelo-agregar" (click)="agregarModel(vModelElem.value)">(+)</a>
                     </div>
-                    <div>
-                        <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let ProductModel of oListProductModel;let i = index">
+                    <div class="caja-modelo-list scrool_body">
+                        <ul>
+                            <li *ngFor="let ProductModel of oListProductModel;let i = index">
                                 {{ProductModel.model.nombre}}
-                                <a class="badge" href="#" (click)="eliminarModelo(i)">X</a>
+                                <a class="badge" (click)="eliminarModelo(i)">X</a>
                             </li>
                         </ul>
                     </div>                    
                 </div>
+                <div class="control-modelo-medio"></div>
                 <div class="control-modelo-nuevo">
                     <input type="text" class="input-nuevo-modelo" name="nombre" placeholder="Ingrese nuevo modelo" [(ngModel)]="oModel.nombre">
                     <button class="btn btn-defaul button-nuevo-modelo" (click)="agregarNuevoModelo(oModel)">NUEVO</button>
@@ -198,7 +199,7 @@
                             </select>
                         </div>
                         <div class="control-caja" style="display: block">
-                            <button class="btn btn-default" (click)="agregarCrossCategery(vCategoryElem.value)">AGREGAR</button>
+                            <button class="btn btn-default button-agregar-categoria" (click)="agregarCrossCategery(vCategoryElem.value)">AGREGAR</button>
                         </div>
                         <div class="control-caja" style="display: block">
                             <label>Etiqueta cuando no hay stock</label>
@@ -218,7 +219,7 @@
     
                 <div class="control-estado-producto" style="display: block">
                     <div class="control-caja" style="display: block;">
-                        <textarea rows="2" style="width: 100%;" name="inst_message" placeholder="Escriba una frase para cuando el producto no este con stock" [(ngModel)]="oProductLang.inst_message"></textarea>
+                        <textarea class="form-control" rows="2" style="width: 100%;" name="inst_message" placeholder="Escriba una frase para cuando el producto no este con stock" [(ngModel)]="oProductLang.inst_message"></textarea>
                     </div>
                     <div class="control-caja" style="display: block;">
                         <label>Estado del producto</label>

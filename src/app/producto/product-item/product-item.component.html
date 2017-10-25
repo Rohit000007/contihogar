@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="col-md-8 product-item-control" id="tab-control-padre">
-        <div class="row-tab-control" style="display:inline-flex;">
+        <div class="row-tab-control scrool_body" style="display:inline-flex;">
           <div class="tab-control-item" *ngFor="let tab of vTabsNombre;let i = index" id="tab_{{tab.indexTab}}">
             <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{(i+1)}} </label>
             <input id="{{'tab'+(i+1)}}" type="radio" name="tabs" checked="{{tab.default}}" class="input_radio">

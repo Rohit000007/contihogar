@@ -4,9 +4,9 @@
     background-color: $contihogar-black;
     border-bottom: 1px solid black;
     height: 45px;
-    display: flex;
-    position: static;
+    position: fixed;
     width: 100%;
+    z-index: 1;
     .logo-site{
         margin-left: 5px;
         padding: 10px 0;

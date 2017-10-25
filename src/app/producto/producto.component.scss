@@ -17,8 +17,8 @@
         .estado_producto{
             border-radius: 50%;
             background-color: red;
-            height: 30px;
-            width: 30px;
+            height: 35px;
+            width: 35px;
         }
     }
     .control-fila4{
@@ -26,7 +26,8 @@
             background-color:$contihogar-white;;
             height:130px;
             padding: 10px;
-            width:60%;
+            position: relative;
+            width:55%;
             .caja-label-modelo{
                 color: $contihogar-gray-2;
             }
@@ -37,6 +38,16 @@
                 line-height: 1;
                 text-decoration: none;
             }
+            .caja-modelo-list{
+                color: $contihogar-gray-1;
+                position: absolute;
+                height: 55px;
+                overflow-y: scroll;
+                width: 100%;
+            }
+        }
+        .control-modelo-medio{
+            width: 4%;
         }
         .control-modelo-nuevo{
             background-color: $contihogar-white;
@@ -44,7 +55,7 @@
             height:130px;
             text-align: center;
             padding: 25px 10px;
-            width:40%;
+            width:41%;
             .input-nuevo-modelo{
                 border: none;
                 border-bottom:2px solid $contihogar-black;
@@ -87,5 +98,21 @@
     .control-categoria-ultimo{
         border: 1px solid $contihogar-soft-blue;
         padding: 10px;
+        .control-categoria-asociada{
+            .izquierda{
+                .button-agregar-categoria{
+                    background-color: $contihogar-black;
+                    border: 1px solid $contihogar-gray-1;
+                    color: $contihogar-soft-blue;
+                    font-weight: bold;
+                    width: 150px;
+                }
+            }
+        }
+        .control-estado-producto{
+            textarea{
+                height: 55px!important;
+            }
+        }
     }
 }

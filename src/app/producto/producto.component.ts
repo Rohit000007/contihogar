@@ -144,22 +144,16 @@ export class ProductoComponent implements OnInit {
       meta_title:this.oProductLang.meta_title,
       link_rewrite:this.oProductLang.link_rewrite
     };
-    /*this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
-      console.log(data);
-      
-    });*/
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
-    }else{
-      console.log("No Va");
+      if(confirm("¿Está seguro de grabar?") == true){
+      /*this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
+          console.log(data);
+        });*/
+      }
     }
-    console.log(this.oProducto);
     this.inicializarCampos();
   }
-  chekClickNow(item){
-    console.log(item);
-  }
-
   agregarNuevoModelo(oModel:Model):void{
     console.log(oModel);
     if(oModel.nombre == ""){
