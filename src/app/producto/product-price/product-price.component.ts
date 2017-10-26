@@ -30,15 +30,19 @@ export class ProductPriceComponent implements OnInit {
     };
   }
   get cost_start_date(){
+    this.oProductEvent.cost_start_date = new Date(this.oProductEvent.cost_start_date);
     return this.oProductEvent.cost_start_date.toISOString().substring(0, 10);
   }
   get cost_end_date(){
+    this.oProductEvent.cost_end_date = new Date(this.oProductEvent.cost_end_date);
     return this.oProductEvent.cost_end_date.toISOString().substring(0, 10);
   }
   get price_end_date(){
+    this.oProductEvent.price_end_date = new Date(this.oProductEvent.price_end_date);
     return this.oProductEvent.price_end_date.toISOString().substring(0, 10);
   }
   get price_start_date(){
+    this.oProductEvent.price_start_date = new Date(this.oProductEvent.price_start_date);
     return this.oProductEvent.price_start_date.toISOString().substring(0, 10);
   }
 

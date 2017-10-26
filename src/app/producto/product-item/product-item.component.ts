@@ -1,23 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ProductItem } from '../../entity/product-item';
 
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemComponent implements OnChanges ,OnInit {
+
   vTabsNombre:any[];
-  vTabControlBody = "tab-control-body_0";
+  vTabControlBody:string = "tab-control-body_0";
   vTabVisible = true;
   vCantidadUnidades = 0;
+  id_formulario_item:number = 0;
+  @Input() oListProductItem:ProductItem[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.vTabsNombre = [
       {indexTab:1,text:"Unidad",default:true},
     ];
     this.vCantidadUnidades = this.vTabsNombre.length;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.vTabsNombre = [];
+    let oListProductItemHere:ProductItem[] = <ProductItem[]>changes.oListProductItem.currentValue;
+    let vNumberTabIndex = [];
+    for(let _i in oListProductItemHere){
+      vNumberTabIndex.push(_i);
+      this.agregarTabControl(vNumberTabIndex);
+    }
+    this.asigarnarDataFormulario(oListProductItemHere);
   }
 
   onTabClick(indexView){
@@ -36,21 +50,11 @@ export class ProductItemComponent implements OnInit {
 
   }
   addTabClick(){
-    var vNumberTabIndex = [];
+    let vNumberTabIndex = [];
     for(let index in this.vTabsNombre){
       vNumberTabIndex.push(this.vTabsNombre[index].indexTab);
     }
-    let vNextTabIndex = this.getMaxOfArray(vNumberTabIndex)+1;
-    this.vCantidadUnidades = vNextTabIndex;
-    var vTabControlBodyNewName = this.vTabControlBody.split('_')[0]+"_"+vNextTabIndex.toString();
-    this.vTabsNombre.push({indexTab:vNextTabIndex,text:"Unidad",default:false});
-
-    var vTabControlBodyClone =  document.getElementById(this.vTabControlBody);
-    vTabControlBodyClone.id = vTabControlBodyNewName
-    var vTabControlBodyCloneNew = vTabControlBodyClone.cloneNode(true);
-    vTabControlBodyClone.id = this.vTabControlBody;
-    document.getElementById("tab-control-padre").appendChild(vTabControlBodyCloneNew);
-    document.getElementById(vTabControlBodyNewName).style.display = "none";
+    this.agregarTabControl(vNumberTabIndex);
   }
   removeTabClick(oRemoveControl){
     var oTabControlBodyName = this.vTabControlBody.split('_')[0]+"_"+oRemoveControl.name;
@@ -66,5 +70,36 @@ export class ProductItemComponent implements OnInit {
   }
   getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
+  }
+  agregarTabControl(pNumberTabIndex): any {
+    let vNextTabIndex = this.getMaxOfArray(pNumberTabIndex)+1;
+    this.vCantidadUnidades = vNextTabIndex;
+    var vTabControlBodyNewName = this.vTabControlBody.split('_')[0]+"_"+vNextTabIndex.toString();
+    this.vTabsNombre.push({indexTab:vNextTabIndex,text:"Unidad",default:false});
+
+    var vTabControlBodyClone =  document.getElementById(this.vTabControlBody);
+    vTabControlBodyClone.id = vTabControlBodyNewName
+    var vTabControlBodyCloneNew = vTabControlBodyClone.cloneNode(true);
+    vTabControlBodyClone.id = this.vTabControlBody;
+    document.getElementById("tab-control-padre").appendChild(vTabControlBodyCloneNew);
+    document.getElementById(vTabControlBodyNewName).style.display = "none";
+  }
+
+  asigarnarDataFormulario(oListProductItem: ProductItem[]) {
+    let oFormName = this.vTabControlBody.split('_')[0]+"_";
+    for(let _i in oListProductItem){
+      let element = document.getElementById(oFormName+oListProductItem[_i].id_product_item);
+      let oProductItemCaracteristica = oListProductItem[_i].ProductItemCaracteristica;
+      for(let __i in oProductItemCaracteristica){
+        console.log(oProductItemCaracteristica)
+        let oso = element.getElementsByTagName(oProductItemCaracteristica[__i].campo);
+        console.log(oso);
+      }
+    }
+    /*for(let _i = 0;_i<oFormElements.length;_i++ ){
+      let oFormDataElements = (<HTMLFormElement>oFormElements[_i]).elements;
+      console.log(oFormDataElements);
+      oFormDataElements["altura_cm_transporte"].value
+    }*/
   }
 }

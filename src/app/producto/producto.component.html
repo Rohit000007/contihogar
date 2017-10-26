@@ -46,7 +46,7 @@
             <div class="control-fila1"  style="width:100%;display:inline-flex;">
                 <div class="control-caja" style="width:40%">
                     <select class="form-control" name="id_supplier" #vProveedorElem (change)="obtenerMarcas(vProveedorElem.value)" [(ngModel)]="oProducto.id_supplier">
-                        <option [ngValue]="oProducto.id_supplier">***  Proveedor *** </option>
+                        <option [ngValue]="null">***  Proveedor *** </option>
                         <option *ngFor="let proveedor of lListProveedor" [value]="proveedor.id_supplier">
                             {{proveedor.name}}
                         </option>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="control-caja" style="width:40%">
                     <select class="form-control" name="id_manufacturer" [(ngModel)]="oProducto.id_manufacturer">
-                        <option [ngValue]="oProducto.id_manufacturer">*** Marca ***</option>
+                        <option [ngValue]="null">*** Marca ***</option>
                         <option *ngFor="let manufacturer of lListManufacturer" [value]="manufacturer.id_manufacturer">
                             {{manufacturer.name}}
                         </option>
@@ -143,7 +143,7 @@
 
     <div class="row fila-formulario-4">
         <div class="col-md-7">
-            <app-product-item></app-product-item>
+            <app-product-item [oListProductItem]="oProducto.ProductItem"></app-product-item>
         </div>
         <div class="col-md-5">
             <div class="control-editor-text">

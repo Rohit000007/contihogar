@@ -59,8 +59,8 @@
             <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
           </div>
         </div>
-        <div id="{{vTabControlBody}}" class="control-form-body" style="visibility: visible;">
-            <form class="form-control-data" name="frmProductoItem">
+        <div id="{{vTabControlBody}}" class="control-form-body">
+            <form class="form-control-data" name="frmProductoItem" id="{{id_formulario_item}}">
                 <div class="control-caja" style="width:100%">
                     <input type="text" name="nombre_producto_item" class="form-control" value="" placeholder="">
                 </div>

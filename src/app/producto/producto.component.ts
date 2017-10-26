@@ -97,24 +97,25 @@ export class ProductoComponent implements OnInit {
         ProductItemLang:{nombre:""}
       };
 
-      this.lListProductItemCaracteristica.push({nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Entega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Unidades",valor:oFormDataElements["unidades_producto_item"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value});
-      this.lListProductItemCaracteristica.push({nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value});
+      this.lListProductItemCaracteristica.push({nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value,campo:"estilo_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value,campo:"tipo_tapiz_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value,campo:"color_tapiz_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value,campo:"tipo_relleno_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value,campo:"material_estructura_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value,campo:"armado_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value,campo:"garantia_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Entega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value,campo:"entrega_dias_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Unidades",valor:oFormDataElements["unidades_producto_item"].value,campo:"unidades_producto_item"});
+      this.lListProductItemCaracteristica.push({nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value,campo:"altura_cm_producto"});
+      this.lListProductItemCaracteristica.push({nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value,campo:"ancho_cm_producto"});
+      this.lListProductItemCaracteristica.push({nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value,campo:"profundidad_cm_producto"});
+      this.lListProductItemCaracteristica.push({nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value,campo:"peso_kg_producto"});
 
 
       this.oProductItem.ProductItemCaracteristica = this.lListProductItemCaracteristica;
       this.oProductItem.ProductItemLang = {nombre:oFormDataElements["nombre_producto_item"].value};
       this.lListProductItemCaracteristica = [];
+      console.log(this.oProducto);
       this.oProducto.ProductItem.push(this.oProductItem);
     }
 
@@ -147,9 +148,9 @@ export class ProductoComponent implements OnInit {
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
       if(confirm("¿Está seguro de grabar?") == true){
-      /*this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
+      this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
           console.log(data);
-        });*/
+        });
       }
     }
     this.inicializarCampos();
@@ -242,14 +243,10 @@ export class ProductoComponent implements OnInit {
 
   buscarProduct():void{
     this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
-      //console.log(data);
       this.oProducto = data.json();
-      this.oProducto.ProductEvent.cost_start_date = new Date(this.oProducto.ProductEvent.cost_start_date);
-      this.oProducto.ProductEvent.price_end_date = new Date(this.oProducto.ProductEvent.price_end_date);
-      this.oProducto.ProductEvent.price_start_date = new Date(this.oProducto.ProductEvent.price_start_date);
-      this.oProducto.ProductEvent.cost_end_date = new Date(this.oProducto.ProductEvent.cost_end_date);
-
-      console.log(this.oProducto.ProductEvent);
+      this.oProductLang = this.oProducto.ProductLang;
+      window["CKEDITOR"].instances["description_short"].setData(this.oProductLang.description_short);
+      window["CKEDITOR"].instances["description"].setData(this.oProductLang.description);
     });
   }
 }
