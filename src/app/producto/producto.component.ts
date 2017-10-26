@@ -244,17 +244,11 @@ export class ProductoComponent implements OnInit {
     this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
       //console.log(data);
       this.oProducto = data.json();
-      //this.oProducto.ProductEvent.cost_end_date.
-      /*(<HTMLInputElement>document.getElementById('cost_impact')).value = this.oProducto.ProductEvent.cost_impact.toString();
-      (<HTMLInputElement>document.getElementById('price_impact')).value),
-      (<HTMLInputElement>document.getElementById('price_start_date')).value),
-      (<HTMLInputElement>document.getElementById('price_end_date')).value),
-      (<HTMLInputElement>document.getElementById('tax_cost_impact')).value),
-      (<HTMLInputElement>document.getElementById('tax_price_impact')).value),
-      (<HTMLInputElement>document.getElementById('cost_end_date')).value),
-      (<HTMLInputElement>document.getElementById('cost_start_date')).value),
-      (<HTMLInputElement>document.getElementById('event_cost')).value),
-      (<HTMLInputElement>document.getElementById('event_price')).value),*/
+      this.oProducto.ProductEvent.cost_start_date = new Date(this.oProducto.ProductEvent.cost_start_date);
+      this.oProducto.ProductEvent.price_end_date = new Date(this.oProducto.ProductEvent.price_end_date);
+      this.oProducto.ProductEvent.price_start_date = new Date(this.oProducto.ProductEvent.price_start_date);
+      this.oProducto.ProductEvent.cost_end_date = new Date(this.oProducto.ProductEvent.cost_end_date);
+
       console.log(this.oProducto.ProductEvent);
     });
   }

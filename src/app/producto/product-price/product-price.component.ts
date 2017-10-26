@@ -29,5 +29,17 @@ export class ProductPriceComponent implements OnInit {
       tax_price_impact:0
     };
   }
+  get cost_start_date(){
+    return this.oProductEvent.cost_start_date.toISOString().substring(0, 10);
+  }
+  get cost_end_date(){
+    return this.oProductEvent.cost_end_date.toISOString().substring(0, 10);
+  }
+  get price_end_date(){
+    return this.oProductEvent.price_end_date.toISOString().substring(0, 10);
+  }
+  get price_start_date(){
+    return this.oProductEvent.price_start_date.toISOString().substring(0, 10);
+  }
 
 }
