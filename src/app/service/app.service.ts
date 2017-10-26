@@ -32,6 +32,10 @@ export class AppService {
   public editProduct(id_product){
     return this.http.get(this.sUrlSite+"/product/"+id_product+"/edit");
   }
+
+  public updateProduct(oProduct){
+    return this.http.put(this.sUrlSite+"/product/"+oProduct.id_product,oProduct);
+  }
   //#endregion
   //#endregion "Metodos"
 

@@ -53,43 +53,45 @@
     </div>
     <div class="col-md-8 product-item-control" id="tab-control-padre">
         <div class="row-tab-control scrool_body" style="display:inline-flex;">
-          <div class="tab-control-item" *ngFor="let tab of vTabsNombre;let i = index" id="tab_{{tab.indexTab}}">
-            <label (click)="onTabClick(tab.indexTab)">{{tab.text}} {{(i+1)}} </label>
-            <input id="{{'tab'+(i+1)}}" type="radio" name="tabs" checked="{{tab.default}}" class="input_radio">
-            <a *ngIf="tab.indexTab > 1"  name="{{tab.indexTab}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
-          </div>
+            <div *ngFor="let tab of oListTabControl">
+                <div class="tab-control-item" id="tab_{{tab.id}}" *ngIf="tab.state == 1">
+                    <label (click)="onTabClick(tab.id)">{{tab.name}} {{(tab.id+1)}} </label>
+                    <input id="{{'tab_'+(tab.id+1)}}" type="radio" name="tabs" checked="{{tab.priority}}" class="input_radio">
+                    <a *ngIf="oListTabControl.length > 1 && tab.state == 1" name="{{tab.id}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
+                </div>
+            </div>
         </div>
-        <div id="{{vTabControlBody}}" class="control-form-body">
-            <form class="form-control-data" name="frmProductoItem" id="{{id_formulario_item}}">
+        <div class="control-form-body"  *ngFor="let tab of oListTabControl" id="{{vTabControlBody+tab.id}}" style="display: {{tab.display}}">
+            <form class="form-control-data" name="frmProductoItem{{tab.id}}" id="frm_item_{{tab.id}}">
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="nombre_producto_item" class="form-control" value="" placeholder="">
+                    <input type="text" name="nombre_producto_item" class="form-control" value="" placeholder="" id="nombre_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="estilo_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="estilo_producto_item" class="form-control" value=""  placeholder="" id="estilo_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_tapiz_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="tipo_tapiz_producto_item" class="form-control" value=""  placeholder="" id="tipo_tapiz_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="color_tapiz_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="color_tapiz_producto_item" class="form-control" value=""  placeholder="" id="color_tapiz_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_relleno_producto_item" class="form-control" value="" placeholder="" >
+                    <input type="text" name="tipo_relleno_producto_item" class="form-control" value="" placeholder="" id="tipo_relleno_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="material_estructura_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="material_estructura_producto_item" class="form-control" value=""  placeholder="" id="material_estructura_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="armado_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="armado_producto_item" class="form-control" value=""  placeholder="" id="armado_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="garantia_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="garantia_producto_item" class="form-control" value=""  placeholder="" id="garantia_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="entrega_dias_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="entrega_dias_producto_item" class="form-control" value=""  placeholder="" id="entrega_dias_producto_item_{{tab.id}}">
                 </div>
                 <div class="control-caja" style="width:100%">
-                    <input type="text" name="unidades_producto_item" class="form-control" value=""  placeholder="">
+                    <input type="text" name="unidades_producto_item" class="form-control" value=""  placeholder="" id="unidades_producto_item_{{tab.id}}">
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
@@ -99,49 +101,49 @@
                 </div>
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="altura_cm_producto" value=""  placeholder="">
+                        <input type="text" class="form-control" name="altura_cm_producto" value=""  placeholder="" id="altura_cm_producto_{{tab.id}}">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Altura (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="altura_cm_transporte" value="" placeholder="">
+                        <input type="text" class="form-control" name="altura_cm_transporte" value="" placeholder="" id="altura_cm_transporte_{{tab.id}}">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="ancho_cm_producto" value="" placeholder="">
+                        <input type="text" class="form-control" name="ancho_cm_producto" value="" placeholder="" id="ancho_cm_producto_{{tab.id}}">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Ancho (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="ancho_cm_transporte" value="" placeholder="">
+                        <input type="text" class="form-control" name="ancho_cm_transporte" value="" placeholder="" id="ancho_cm_transporte_{{tab.id}}">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="profundidad_cm_producto" value="" placeholder="">
+                        <input type="text" class="form-control" name="profundidad_cm_producto" value="" placeholder="" id="profundidad_cm_producto_{{tab.id}}">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Profundidad (cm):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="profundidad_cm_transporte" value="" placeholder="">
+                        <input type="text" class="form-control" name="profundidad_cm_transporte" value="" placeholder="" id="profundidad_cm_transporte_{{tab.id}}">
                     </div>
                 </div>
         
                 <div class="control-fila1"  style="width:100%;display:inline-flex;">
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="peso_kg_producto" value="" placeholder="">
+                        <input type="text" class="form-control" name="peso_kg_producto" value="" placeholder="" id="peso_kg_producto_{{tab.id}}">
                     </div>
                     <div class="control-caja" style="width:30%">
                         <label>Peso (kg):</label>
                     </div>
                     <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="peso_kg_transporte" value="" placeholder="">
+                        <input type="text" class="form-control" name="peso_kg_transporte" value="" placeholder="" id="peso_kg_transporte_{{tab.id}}">
                     </div>
                 </div>
             </form>

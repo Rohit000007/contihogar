@@ -147,10 +147,18 @@ export class ProductoComponent implements OnInit {
     };
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
-      if(confirm("¿Está seguro de grabar?") == true){
-      this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
-          console.log(data);
-        });
+      if(this.oProducto.id_product == 0){
+        if(confirm("¿Está seguro de grabar?") == true){
+        this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
+            console.log(data);
+          });
+        }
+      }else{
+        if(confirm("¿Está seguro de actualizar?") == true){
+          this.oAppService.updateProduct(this.oProducto).subscribe(data=>{
+              console.log(data);
+            });
+          }
       }
     }
     this.inicializarCampos();
@@ -245,6 +253,10 @@ export class ProductoComponent implements OnInit {
     this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
       this.oProducto = data.json();
       this.oProductLang = this.oProducto.ProductLang;
+      console.log(this.oProducto.ProductCrossCategory);
+      this.oListProductCrossCategory = <ProductCrossCategory[]>this.oProducto.ProductCrossCategory;
+      
+      //this.oListProductModel = this.oProducto.ModelProduct;
       window["CKEDITOR"].instances["description_short"].setData(this.oProductLang.description_short);
       window["CKEDITOR"].instances["description"].setData(this.oProductLang.description);
     });

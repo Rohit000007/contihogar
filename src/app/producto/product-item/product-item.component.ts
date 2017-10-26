@@ -8,33 +8,36 @@ import { ProductItem } from '../../entity/product-item';
 })
 export class ProductItemComponent implements OnChanges ,OnInit {
 
-  vTabsNombre:any[];
-  vTabControlBody:string = "tab-control-body_0";
-  vTabVisible = true;
+  oListTabControl:iTabControl[];
+  vTabControlBody:string = "tab-control-body_";
   vCantidadUnidades = 0;
-  id_formulario_item:number = 0;
   @Input() oListProductItem:ProductItem[] = [];
 
   constructor() {}
 
   ngOnInit() {
-    this.vTabsNombre = [
-      {indexTab:1,text:"Unidad",default:true},
-    ];
-    this.vCantidadUnidades = this.vTabsNombre.length;
+    this.oListTabControl.push({
+      id:0,
+      is_active:true,
+      name:"Unidad",
+      priority:true,
+      state:1,
+      display:"block"
+    });
+    this.vCantidadUnidades = this.oListTabControl.length;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.vTabsNombre = [];
+    this.oListTabControl = [];
     let oListProductItemHere:ProductItem[] = <ProductItem[]>changes.oListProductItem.currentValue;
     let vNumberTabIndex = [];
     for(let _i in oListProductItemHere){
       vNumberTabIndex.push(_i);
       this.agregarTabControl(vNumberTabIndex);
     }
-    this.asigarnarDataFormulario(oListProductItemHere);
+    this.asignarDataFormulario(oListProductItemHere);
   }
 
-  onTabClick(indexView){
+  onTabClick(idTab){
     var oControlPadre =  document.getElementById("tab-control-padre");
     var oHijos = oControlPadre.querySelectorAll(".control-form-body");
     for(let vHijoIndex in oHijos){
@@ -43,24 +46,22 @@ export class ProductItemComponent implements OnChanges ,OnInit {
           oHijos[vHijoIndex].setAttribute("style","display:none");
       }
     }
-    if(indexView> 1)
-      document.getElementById(this.vTabControlBody.split('_')[0]+"_"+indexView.toString()).style.display = "block";
-    else
-      document.getElementById(this.vTabControlBody).style.display = "block";
-
+    document.getElementById(this.vTabControlBody+idTab.toString()).style.display = "block";
   }
   addTabClick(){
     let vNumberTabIndex = [];
-    for(let index in this.vTabsNombre){
-      vNumberTabIndex.push(this.vTabsNombre[index].indexTab);
+    for(let index in this.oListTabControl){
+      vNumberTabIndex.push(this.oListTabControl[index].id);
     }
     this.agregarTabControl(vNumberTabIndex);
   }
   removeTabClick(oRemoveControl){
+    console.log(this.oListTabControl);
     var oTabControlBodyName = this.vTabControlBody.split('_')[0]+"_"+oRemoveControl.name;
-    for(let indexTab in this.vTabsNombre){
-      if(this.vTabsNombre[indexTab].indexTab == parseInt(oRemoveControl.name)){
-        this.vTabsNombre.splice(parseInt(indexTab),1);
+
+    for(let indexTab in this.oListTabControl){
+      if(this.oListTabControl[indexTab].id == parseInt(oRemoveControl.name)){
+        this.oListTabControl[indexTab].state =  0;
         break;
       }
     }
@@ -71,30 +72,44 @@ export class ProductItemComponent implements OnChanges ,OnInit {
   getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
   }
-  agregarTabControl(pNumberTabIndex): any {
-    let vNextTabIndex = this.getMaxOfArray(pNumberTabIndex)+1;
-    this.vCantidadUnidades = vNextTabIndex;
-    var vTabControlBodyNewName = this.vTabControlBody.split('_')[0]+"_"+vNextTabIndex.toString();
-    this.vTabsNombre.push({indexTab:vNextTabIndex,text:"Unidad",default:false});
-
-    var vTabControlBodyClone =  document.getElementById(this.vTabControlBody);
-    vTabControlBodyClone.id = vTabControlBodyNewName
-    var vTabControlBodyCloneNew = vTabControlBodyClone.cloneNode(true);
-    vTabControlBodyClone.id = this.vTabControlBody;
-    document.getElementById("tab-control-padre").appendChild(vTabControlBodyCloneNew);
-    document.getElementById(vTabControlBodyNewName).style.display = "none";
+  agregarTabControl(pNumberTabId): any {
+    let vNextTabId = this.getMaxOfArray(pNumberTabId)+1;
+    this.oListTabControl.push({
+      id:vNextTabId,
+      is_active:false,
+      name:"Unidad",
+      priority:false,
+      state:1,
+      display:"none"
+    });
+    this.vCantidadUnidades = this.oListTabControl.length;
   }
 
-  asigarnarDataFormulario(oListProductItem: ProductItem[]) {
-    let oFormName = this.vTabControlBody.split('_')[0]+"_";
+  asignarDataFormulario(oListProductItem: ProductItem[]) {
+    console.log(oListProductItem);
     for(let _i in oListProductItem){
-      let element = document.getElementById(oFormName+oListProductItem[_i].id_product_item);
-      let oProductItemCaracteristica = oListProductItem[_i].ProductItemCaracteristica;
+      let oProductItem = oListProductItem[_i];
+      try{
+        /*let control = (<HTMLInputElement>document.getElementById("nombre_producto_item_"+oProductItem.id_product_item));
+        control.value = oProductItem.ProductItemLang.nombre;
+        control.style.backgroundColor = "red";
+        console.log(control);*/
+      }catch(ex){
+        console.log(ex);
+      }
+      //let elementForm = document.forms["frmProductoItem"+oListProductItem[_i].id_product_item].elements;
+      
+      /*elementForm["ancho_cm_transporte"].value = oProductItem.ancho;
+      elementForm["profundidad_cm_transporte"].value = oProductItem.profundidad;
+      elementForm["peso_kg_transporte"].value = oProductItem.peso;
+
+      elementForm["nombre_producto_item"].value = oProductItem.ProductItemLang.nombre;*/
+      /*let oProductItemCaracteristica = oListProductItem[_i].ProductItemCaracteristica;
       for(let __i in oProductItemCaracteristica){
         console.log(oProductItemCaracteristica)
         let oso = element.getElementsByTagName(oProductItemCaracteristica[__i].campo);
         console.log(oso);
-      }
+      }*/
     }
     /*for(let _i = 0;_i<oFormElements.length;_i++ ){
       let oFormDataElements = (<HTMLFormElement>oFormElements[_i]).elements;
@@ -102,4 +117,13 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       oFormDataElements["altura_cm_transporte"].value
     }*/
   }
+}
+
+export interface iTabControl{
+  id:number,
+  name:string,
+  is_active:boolean,
+  priority:boolean,
+  state:number,
+  display:string
 }
