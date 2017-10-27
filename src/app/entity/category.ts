@@ -12,5 +12,7 @@ export interface Category {
     date_upd? :Date,
     position?:number,
     is_root_category?:number,
-    CategoryLang?:CategoryLang
+    CategoryLang?:CategoryLang,
+
+    isChecked?:boolean
 }

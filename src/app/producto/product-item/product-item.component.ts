@@ -90,10 +90,10 @@ export class ProductItemComponent implements OnChanges ,OnInit {
     for(let _i in oListProductItem){
       let oProductItem = oListProductItem[_i];
       try{
-        /*let control = (<HTMLInputElement>document.getElementById("nombre_producto_item_"+oProductItem.id_product_item));
+        let control = (<HTMLInputElement>document.getElementById("nombre_producto_item_"+oProductItem.id_product_item));
         control.value = oProductItem.ProductItemLang.nombre;
         control.style.backgroundColor = "red";
-        console.log(control);*/
+        console.log(control);
       }catch(ex){
         console.log(ex);
       }

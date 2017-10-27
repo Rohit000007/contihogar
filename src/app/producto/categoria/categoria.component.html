@@ -6,7 +6,7 @@
       <ul>
         <li *ngFor="let category of oListCategory">
           {{category.category_lang.name}}
-          <input class="control-right" type="checkbox" value="{{category.id_category}}" (click)="obtenerCategoryId(category.id_category)" name="category">
+          <input #CategoryCheckBox class="control-right" type="checkbox" value="{{category.id_category}}" [checked]="oNgChecked"  (change)="obtenerCategoryId(category.id_category,CategoryCheckBox.checked)" name="category">
           <!--<ul>
             <li *ngFor="let categoryLevel1 of oListCategory | categoryFilter:category.id_category">{{categoryLevel1.category_lang.name}}
                 <input type="checkbox" value="{{categoryLevel1.id_category}}" name="category">

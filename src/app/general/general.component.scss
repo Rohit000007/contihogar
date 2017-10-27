@@ -1,0 +1,74 @@
+@import "../../assets/sass/variables-contihogar";
+
+.form-general{
+    font-size: 15px;
+    .fila-general-1{
+        .control-container{
+            display: flex;
+            width: 100%;
+        }
+    }
+    
+    .fila-general-2{
+        .control-top{
+            background-color: white;
+            height: 160px;
+            .control-header{
+                background-color: $contihogar-black ;
+                height: 30px;
+                line-height: 2;
+                text-align: center;
+            }
+            .control-body{
+                color: $contihogar-black ;
+                padding: 10px 0;
+            }
+        }
+        .control-top-SKU{
+            background-color: white;
+            height: 340px;
+            .control-header{
+                background-color: $contihogar-black ;
+                height: 30px;
+                line-height: 2;
+                text-align: center;
+            }
+            .control-body{
+                color: $contihogar-black ;
+                padding: 10px 0;
+            }
+        }
+        .control-avance-mes{
+            background-color: white;
+            height: 130px;
+            width: 60% ;
+            .control-header{
+                background-color: $contihogar-black ;
+                height: 30px;
+                line-height: 2;
+                text-align: center;
+            }
+            .control-body{
+                color: $contihogar-black ;
+                padding: 10px 0;
+            }
+        }
+    }
+}
+
+.fila-tabla{
+    .table-responsive{
+        background-color: white;
+        .table{
+            border-color: $contihogar-gray-1;
+            .thead-black{
+                background-color: $contihogar-black ;
+                color: $contihogar-soft-blue ;
+            }
+            .tbody-white >tr >td{
+                line-height: 3;
+                color: $contihogar-black ;
+            }
+        }
+    }
+}

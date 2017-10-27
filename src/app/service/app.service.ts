@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers  } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { Product } from '../entity/product';
 
 @Injectable()
 export class AppService {
+  oProductObserver:Observable<Product>;
   private sUrlSite:string = "http://127.0.0.1:8000/api";
   private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
 
@@ -29,8 +32,10 @@ export class AppService {
     return this.http.post(this.sUrlSite+"/product/store",{Product:oProduct},{headers: this.headers});
   }
 
-  public editProduct(id_product){
-    return this.http.get(this.sUrlSite+"/product/"+id_product+"/edit");
+  public editProduct(id_product):Observable<Product>{
+    return this.oProductObserver = this.http.get(this.sUrlSite+"/product/"+id_product+"/edit").map(data=>{
+      return data.json();
+    });
   }
 
   public updateProduct(oProduct){
