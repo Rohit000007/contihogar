@@ -142,7 +142,7 @@
 
     <div class="row fila-formulario-4">
         <div class="col-md-7">
-            <app-product-item [oListProductItem]="oProducto.ProductItem"></app-product-item>
+            <app-product-item [oListProductItem]="oProducto.ProductItem" [isEdit]="isEditProductItem"></app-product-item>
         </div>
         <div class="col-md-5">
             <div class="control-editor-text">
@@ -201,7 +201,7 @@
         <div class="col-md-5">
             <div class="control-categoria-ultimo">
                 <div class="control-categoria-asociada" style="display: flex;">
-                    <div class="izquierda" style="width: 60%;height: 160px">
+                    <div class="izquierda">
                         <div class="control-caja" style="width:100%">
                             <label>Categoria asociada</label>
                         </div>
@@ -217,15 +217,13 @@
                             <label>Etiqueta cuando no hay stock</label>
                         </div>
                     </div>
-                    <div class="derecha" style="width: 40%;height: 160px">
-                        <div class="control-caja">
-                            <ul class="list-group">
-                                <li class="list-group-item" *ngFor="let oCrossCategory of oListProductCrossCategory;let i = index">
-                                    {{oCrossCategory.Category.CategoryLang.name}}
-                                    <a class="badge" (click)="eliminarCrossCategory(i)">X</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="derecha scrool_body">
+                        <ul class="list-group_category">
+                            <li class="list-group-item_category" *ngFor="let oCrossCategory of oListProductCrossCategory;let i = index">
+                                {{oCrossCategory.Category.CategoryLang.name}}
+                                <a class="badge" (click)="eliminarCrossCategory(i)">X</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
     

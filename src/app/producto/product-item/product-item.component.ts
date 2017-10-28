@@ -8,33 +8,50 @@ import { ProductItem } from '../../entity/product-item';
 })
 export class ProductItemComponent implements OnChanges ,OnInit {
 
-  oListTabControl:iTabControl[];
-  vTabControlBody:string = "tab-control-body_";
+  oListTabControl:iTabControl[] = [{id:0,is_active:true,name:"Unidad",priority:true,state:1,display:"block"}];
+  oListFormItemInputFeatures:IFormItemInput[] = [
+    {class:"form-control",id:"nombre_producto_item_0",name:"nombre_producto_item",type:"text",value:"1234"},
+    {class:"form-control",id:"estilo_producto_item_0",name:"estilo_producto_item",type:"text",value:"23456789"},
+    {class:"form-control",id:"tipo_tapiz_producto_item_0",name:"tipo_tapiz_producto_item",type:"text",value:""},
+    {class:"form-control",id:"color_tapiz_producto_item_0",name:"color_tapiz_producto_item",type:"text",value:""},
+    {class:"form-control",id:"tipo_relleno_producto_item_0",name:"tipo_relleno_producto_item",type:"text",value:""},
+    {class:"form-control",id:"material_estructura_producto_item_0",name:"material_estructura_producto_item",type:"text",value:""},
+    {class:"form-control",id:"armado_producto_item_0",name:"armado_producto_item",type:"text",value:""},
+    {class:"form-control",id:"garantia_producto_item_0",name:"garantia_producto_item",type:"text",value:""},
+    {class:"form-control",id:"entrega_dias_producto_item_0",name:"entrega_dias_producto_item",type:"text",value:""},
+    {class:"form-control",id:"unidades_producto_item_0",name:"unidades_producto_item",type:"number",value:"1234"}
+  ];
+  oListFormItemInputProperties:IFormItemInput[] = [
+    {class:"form-control",id:"altura_cm_producto_0",name:"altura_cm_producto",type:"number",value:"1234"},
+    {class:"form-control",id:"ancho_cm_producto_0",name:"ancho_cm_producto",type:"number",value:"1"},
+    {class:"form-control",id:"profundidad_cm_producto_0",name:"profundidad_cm_producto",type:"number",value:"0"},
+    {class:"form-control",id:"peso_kg_producto_0",name:"peso_kg_producto",type:"number",value:"0"},
+  ];
+
+  oListFormItem:iFormItem[] = [];
+  vFormNamePrefix:string = "frm_item_";
   vCantidadUnidades = 0;
+  @Input() isEdit:boolean = false;
   @Input() oListProductItem:ProductItem[] = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
-    this.oListTabControl.push({
-      id:0,
-      is_active:true,
-      name:"Unidad",
-      priority:true,
-      state:1,
-      display:"block"
-    });
+    this.crearFormulario(0,true);//Formulario de inicio param[id_inicio:0,esNuevo:true]
     this.vCantidadUnidades = this.oListTabControl.length;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.oListTabControl = [];
-    let oListProductItemHere:ProductItem[] = <ProductItem[]>changes.oListProductItem.currentValue;
-    let vNumberTabIndex = [];
-    for(let _i in oListProductItemHere){
-      vNumberTabIndex.push(_i);
-      this.agregarTabControl(vNumberTabIndex);
+    if(this.isEdit){
+      this.oListTabControl = [];
+      this.oListFormItem = [];
+      let oListProductItemHere:ProductItem[] = <ProductItem[]>changes.oListProductItem.currentValue;
+      let vNumberTabIndex = [];
+      for(let _i in oListProductItemHere){
+        vNumberTabIndex.push(_i);
+        this.crearFormulario(this.agregarTabControl(vNumberTabIndex),false,oListProductItemHere[_i]);
+      }
     }
-    this.asignarDataFormulario(oListProductItemHere);
   }
 
   onTabClick(idTab){
@@ -46,18 +63,19 @@ export class ProductItemComponent implements OnChanges ,OnInit {
           oHijos[vHijoIndex].setAttribute("style","display:none");
       }
     }
-    document.getElementById(this.vTabControlBody+idTab.toString()).style.display = "block";
+    document.getElementById(this.vFormNamePrefix+idTab.toString()).style.display = "block";
   }
   addTabClick(){
     let vNumberTabIndex = [];
     for(let index in this.oListTabControl){
       vNumberTabIndex.push(this.oListTabControl[index].id);
     }
-    this.agregarTabControl(vNumberTabIndex);
+    ;
+    this.crearFormulario(this.agregarTabControl(vNumberTabIndex),true);
   }
   removeTabClick(oRemoveControl){
     console.log(this.oListTabControl);
-    var oTabControlBodyName = this.vTabControlBody.split('_')[0]+"_"+oRemoveControl.name;
+    var oTabControlBodyName = this.vFormNamePrefix+oRemoveControl.name;
 
     for(let indexTab in this.oListTabControl){
       if(this.oListTabControl[indexTab].id == parseInt(oRemoveControl.name)){
@@ -72,7 +90,7 @@ export class ProductItemComponent implements OnChanges ,OnInit {
   getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
   }
-  agregarTabControl(pNumberTabId): any {
+  agregarTabControl(pNumberTabId): number {
     let vNextTabId = this.getMaxOfArray(pNumberTabId)+1;
     this.oListTabControl.push({
       id:vNextTabId,
@@ -83,39 +101,47 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       display:"none"
     });
     this.vCantidadUnidades = this.oListTabControl.length;
+    return vNextTabId;
   }
 
-  asignarDataFormulario(oListProductItem: ProductItem[]) {
-    console.log(oListProductItem);
-    for(let _i in oListProductItem){
-      let oProductItem = oListProductItem[_i];
-      try{
-        let control = (<HTMLInputElement>document.getElementById("nombre_producto_item_"+oProductItem.id_product_item));
-        control.value = oProductItem.ProductItemLang.nombre;
-        control.style.backgroundColor = "red";
-        console.log(control);
-      }catch(ex){
-        console.log(ex);
-      }
-      //let elementForm = document.forms["frmProductoItem"+oListProductItem[_i].id_product_item].elements;
+  crearFormulario(idForm,isNew,itemData:ProductItem = null){
+    if(isNew){
+      this.oListFormItem.push(
+        {id:this.vFormNamePrefix+idForm,class:"form-horizontal",name:"frmProductoItem",
+        inputFeatures:this.oListFormItemInputFeatures,
+        inputProperties:this.oListFormItemInputProperties}
+      );
+    }else{
+      this.oListFormItemInputFeatures = [];
+      this.oListFormItemInputProperties = [];
       
-      /*elementForm["ancho_cm_transporte"].value = oProductItem.ancho;
-      elementForm["profundidad_cm_transporte"].value = oProductItem.profundidad;
-      elementForm["peso_kg_transporte"].value = oProductItem.peso;
-
-      elementForm["nombre_producto_item"].value = oProductItem.ProductItemLang.nombre;*/
-      /*let oProductItemCaracteristica = oListProductItem[_i].ProductItemCaracteristica;
-      for(let __i in oProductItemCaracteristica){
-        console.log(oProductItemCaracteristica)
-        let oso = element.getElementsByTagName(oProductItemCaracteristica[__i].campo);
-        console.log(oso);
-      }*/
+      this.oListFormItemInputFeatures.push({class:"form-control",id:"nombre_producto_item"+"_"+itemData.id_product_item,name:"nombre_producto_item",type:"text",value:itemData.ProductItemLang.nombre});
+      let vItemCaracteristica = itemData.ProductItemCaracteristica;
+      for(let _i in vItemCaracteristica){
+        if(vItemCaracteristica[_i].campo == "altura_cm_producto"){
+          this.oListFormItemInputProperties.push({class:"form-control",id:"altura_cm_producto_"+itemData.id_product_item,name:"altura_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+        }else if(vItemCaracteristica[_i].campo == "ancho_cm_producto"){
+          this.oListFormItemInputProperties.push({class:"form-control",id:"ancho_cm_producto_"+itemData.id_product_item,name:"ancho_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+        }else if(vItemCaracteristica[_i].campo == "profundidad_cm_producto"){
+          this.oListFormItemInputProperties.push({class:"form-control",id:"profundidad_cm_producto_"+itemData.id_product_item,name:"profundidad_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+        }else if(vItemCaracteristica[_i].campo == "peso_kg_producto"){
+          this.oListFormItemInputProperties.push({class:"form-control",id:"peso_kg_producto_"+itemData.id_product_item,name:"peso_kg_producto",type:"number",value:vItemCaracteristica[_i].valor});
+        }else{
+          this.oListFormItemInputFeatures.push({
+            class:"form-control",
+            id:vItemCaracteristica[_i].campo+"_"+itemData.id_product_item,
+            name:vItemCaracteristica[_i].campo,
+            type:(vItemCaracteristica[_i].campo == "unidades_producto_item")?"number":"text",
+            value:vItemCaracteristica[_i].valor
+          });
+        }
+      }
+      this.oListFormItem.push(
+        {id:this.vFormNamePrefix+itemData.id_product_item,class:"form-horizontal",name:"frmProductoItem",
+        inputFeatures:this.oListFormItemInputFeatures,
+        inputProperties:this.oListFormItemInputProperties}
+      )
     }
-    /*for(let _i = 0;_i<oFormElements.length;_i++ ){
-      let oFormDataElements = (<HTMLFormElement>oFormElements[_i]).elements;
-      console.log(oFormDataElements);
-      oFormDataElements["altura_cm_transporte"].value
-    }*/
   }
 }
 
@@ -126,4 +152,20 @@ export interface iTabControl{
   priority:boolean,
   state:number,
   display:string
+}
+
+export interface iFormItem{
+  id:string,
+  class:string,
+  name:string,
+  inputFeatures:IFormItemInput[],
+  inputProperties:IFormItemInput[],
+}
+
+export interface IFormItemInput{
+  id:string,
+  name:string,
+  value:string,
+  type:string,
+  class:string
 }

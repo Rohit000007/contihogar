@@ -53,97 +53,65 @@
     </div>
     <div class="col-md-8 product-item-control" id="tab-control-padre">
         <div class="row-tab-control scrool_body" style="display:inline-flex;">
-            <div *ngFor="let tab of oListTabControl">
+            <div *ngFor="let tab of oListTabControl;let i = index">
                 <div class="tab-control-item" id="tab_{{tab.id}}" *ngIf="tab.state == 1">
-                    <label (click)="onTabClick(tab.id)">{{tab.name}} {{(tab.id+1)}} </label>
+                    <label (click)="onTabClick(tab.id)">{{tab.name}} {{(i+1)}} </label>
                     <input id="{{'tab_'+(tab.id+1)}}" type="radio" name="tabs" checked="{{tab.priority}}" class="input_radio">
                     <a *ngIf="oListTabControl.length > 1 && tab.state == 1" name="{{tab.id}}" #elementRemove (click)="removeTabClick(elementRemove)" class="link_eliminar">X</a>
                 </div>
             </div>
         </div>
-        <div class="control-form-body"  *ngFor="let tab of oListTabControl" id="{{vTabControlBody+tab.id}}" style="display: {{tab.display}}">
-            <form class="form-control-data" name="frmProductoItem{{tab.id}}" id="frm_item_{{tab.id}}">
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="nombre_producto_item" class="form-control" value="" placeholder="" id="nombre_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="estilo_producto_item" class="form-control" value=""  placeholder="" id="estilo_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_tapiz_producto_item" class="form-control" value=""  placeholder="" id="tipo_tapiz_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="color_tapiz_producto_item" class="form-control" value=""  placeholder="" id="color_tapiz_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="tipo_relleno_producto_item" class="form-control" value="" placeholder="" id="tipo_relleno_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="material_estructura_producto_item" class="form-control" value=""  placeholder="" id="material_estructura_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="armado_producto_item" class="form-control" value=""  placeholder="" id="armado_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="garantia_producto_item" class="form-control" value=""  placeholder="" id="garantia_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="entrega_dias_producto_item" class="form-control" value=""  placeholder="" id="entrega_dias_producto_item_{{tab.id}}">
-                </div>
-                <div class="control-caja" style="width:100%">
-                    <input type="text" name="unidades_producto_item" class="form-control" value=""  placeholder="" id="unidades_producto_item_{{tab.id}}">
-                </div>
-        
-                <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:100%">
-                        <label style="text-align: center;display: block;">Transporte</label>
+        <div class="control-form-body"  *ngFor="let formItem of oListFormItem" id="{{formItem.id}}">
+            <form class="{{formItem.class}}" name="{{formItem.name}}" id="{{formItem.id}}">
+                <div class="div_item_100" style="background-color: red;width: 100%;">
+                    <div class="control-caja" style="width:100%" *ngFor="let input of formItem.inputFeatures" >
+                        <input type="{{input.type}}" name="{{input.name}}" class="{{input.class}}" value="{{input.value}}" id="{{input.id}}">
                     </div>
                 </div>
-                <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="altura_cm_producto" value=""  placeholder="" id="altura_cm_producto_{{tab.id}}">
+                <br>
+                <div class="div_item_container" style="display: flex;">
+                    <div class="div_item_50" style="background-color: yellow;width: 50%;">
+                        <div class="control-caja" style="width:100%" *ngFor="let inputProp of formItem.inputProperties">
+                            <input type="{{inputProp.type}}" class="{{inputProp.class}}" name="{{inputProp.name}}" value="{{inputProp.value}}" id="{{inputProp.id}}">
+                        </div>
                     </div>
-                    <div class="control-caja" style="width:30%">
-                        <label>Altura (cm):</label>
-                    </div>
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="altura_cm_transporte" value="" placeholder="" id="altura_cm_transporte_{{tab.id}}">
-                    </div>
-                </div>
-        
-                <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="ancho_cm_producto" value="" placeholder="" id="ancho_cm_producto_{{tab.id}}">
-                    </div>
-                    <div class="control-caja" style="width:30%">
-                        <label>Ancho (cm):</label>
-                    </div>
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="ancho_cm_transporte" value="" placeholder="" id="ancho_cm_transporte_{{tab.id}}">
-                    </div>
-                </div>
-        
-                <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="profundidad_cm_producto" value="" placeholder="" id="profundidad_cm_producto_{{tab.id}}">
-                    </div>
-                    <div class="control-caja" style="width:30%">
-                        <label>Profundidad (cm):</label>
-                    </div>
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="profundidad_cm_transporte" value="" placeholder="" id="profundidad_cm_transporte_{{tab.id}}">
-                    </div>
-                </div>
-        
-                <div class="control-fila1"  style="width:100%;display:inline-flex;">
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="peso_kg_producto" value="" placeholder="" id="peso_kg_producto_{{tab.id}}">
-                    </div>
-                    <div class="control-caja" style="width:30%">
-                        <label>Peso (kg):</label>
-                    </div>
-                    <div class="control-caja" style="width:70%">
-                        <input type="text" class="form-control" name="peso_kg_transporte" value="" placeholder="" id="peso_kg_transporte_{{tab.id}}">
+
+                    <div class="div_item_50" style="background-color: green;width: 50%;">
+                        <div class="control-caja" style="width:100%">
+                            <label style="text-align: center;display: block;">Transporte</label>
+                        </div>
+                        <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                            <div class="control-caja" style="width:30%">
+                                <label>Altura (cm):</label>
+                            </div>
+                            <div class="control-caja" style="width:70%">
+                                <input type="text" class="form-control" name="altura_cm_transporte" value="" placeholder="" id="altura_cm_transporte_">
+                            </div>
+                        </div>
+                        <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                            <div class="control-caja" style="width:30%">
+                                <label>Ancho (cm):</label>
+                            </div>
+                            <div class="control-caja" style="width:70%">
+                                <input type="text" class="form-control" name="ancho_cm_transporte" value="" placeholder="" id="ancho_cm_transporte_">
+                            </div>
+                        </div>
+                        <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                            <div class="control-caja" style="width:30%">
+                                <label>Profundidad (cm):</label>
+                            </div>
+                            <div class="control-caja" style="width:70%">
+                                <input type="text" class="form-control" name="profundidad_cm_transporte" value="" placeholder="" id="profundidad_cm_transporte_">
+                            </div>
+                        </div>
+                        <div class="control-fila1"  style="width:100%;display:inline-flex;">
+                            <div class="control-caja" style="width:30%">
+                                <label>Peso (kg):</label>
+                            </div>
+                            <div class="control-caja" style="width:70%">
+                                <input type="text" class="form-control" name="peso_kg_transporte" value="" placeholder="" id="peso_kg_transporte_">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

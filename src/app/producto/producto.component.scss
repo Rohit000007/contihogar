@@ -104,12 +104,28 @@
         padding: 10px;
         .control-categoria-asociada{
             .izquierda{
+                height: 160px;
+                width: 50%;
                 .button-agregar-categoria{
                     background-color: $contihogar-black;
                     border: 1px solid $contihogar-gray-1;
                     color: $contihogar-soft-blue;
                     font-weight: bold;
                     width: 150px;
+                }
+            }
+            .derecha{
+                color: $contihogar-gray-1;
+                background-color: white;
+                height: 160px;
+                overflow: scroll;
+                width: 50%;
+                .list-group_category{
+                    .list-group-item_category{
+                        .badge{
+                            float: right;
+                        }
+                    }
                 }
             }
         }

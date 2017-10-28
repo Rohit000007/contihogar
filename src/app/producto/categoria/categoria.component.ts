@@ -11,7 +11,6 @@ import { CategoryProduct } from '../../entity/category-product';
 })
 export class CategoriaComponent implements OnChanges,OnInit {
   //#region "Variables"
-  oNgChecked:boolean = false;
   oListCategoryId:number[] = [];
   oListCategory:Category[] = [];
   oListCategoryProduct:CategoryProduct[] = [];
@@ -23,19 +22,21 @@ export class CategoriaComponent implements OnChanges,OnInit {
   constructor(private oAppService:AppService) {
     this.oAppService.getCategory().subscribe(data=>{
       this.oListCategory = data.json();
-      this.oListCategory.forEach(e=>e.isChecked = true);
     });
-    setTimeout(function(){
-      this.oNgChecked = true;
-      console.log("aqui");
-    },3000);
    }
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes.oNgChecked);
-    console.log(changes.CategoryProduct);
+    let oListCategoryProduct = <CategoryProduct[]>changes.CategoryProduct.currentValue;
+    for(let _i in oListCategoryProduct){
+      this.oListCategoryId.push(oListCategoryProduct[_i].id_category);
+      for(let __i in this.oListCategory){
+        if(this.oListCategory[__i].id_category == oListCategoryProduct[_i].id_category)
+          this.oListCategory[__i].isChecked = true;
+      }
+    }
+    this.emitirResultadoPadre(this.oListCategoryId);
   }
   
   obtenerCategoryId(id_category,isChecked){
@@ -45,13 +46,14 @@ export class CategoriaComponent implements OnChanges,OnInit {
     }else{
       this.oListCategoryId.splice(this.oListCategoryId.indexOf(id_category),1);
     }
-
+    this.emitirResultadoPadre(this.oListCategoryId);
+  }
+  emitirResultadoPadre(oListCategoryId){
     for(let indexToAdd in this.oListCategoryId){
       this.oListCategoryProduct.push({
         id_category:this.oListCategoryId[indexToAdd]
       });
     }
-    console.log(this.oListCategoryProduct);
     this.ObtenerCategoryId.emit(this.oListCategoryProduct);
   }
   //#endregion

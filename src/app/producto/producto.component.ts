@@ -30,6 +30,7 @@ export class ProductoComponent implements OnInit {
   sMessageTitle:string = "";
   oMessageError:string[] = [];
   isVisible:boolean = false;
+  isEditProductItem:boolean = false;
   oProductLang:ProductLang;
   oProducto:Product;
   oProductEvent:ProductEvent = {id_product:0};
@@ -270,6 +271,7 @@ export class ProductoComponent implements OnInit {
         };
         this.oListProductModel.push(oModelProduct);
       }
+      this.isEditProductItem = true;
       console.log(this.oProducto.CategoryProduct);
       
       //this.oListProductModel = this.oProducto.ModelProduct;
