@@ -112,22 +112,22 @@ export class ProductItemComponent implements OnChanges ,OnInit {
         inputProperties:this.oListFormItemInputProperties}
       );
     }else{
-      this.oListFormItemInputFeatures = [];
-      this.oListFormItemInputProperties = [];
-      
-      this.oListFormItemInputFeatures.push({class:"form-control",id:"nombre_producto_item"+"_"+itemData.id_product_item,name:"nombre_producto_item",type:"text",value:itemData.ProductItemLang.nombre});
+      let oListFormItemInputFeaturesEdit:IFormItemInput[] = [];
+      let oListFormItemInputPropertiesEdit:IFormItemInput[] = [];
+
+      oListFormItemInputFeaturesEdit.push({class:"form-control",id:"nombre_producto_item"+"_"+itemData.id_product_item,name:"nombre_producto_item",type:"text",value:itemData.ProductItemLang.nombre});
       let vItemCaracteristica = itemData.ProductItemCaracteristica;
       for(let _i in vItemCaracteristica){
         if(vItemCaracteristica[_i].campo == "altura_cm_producto"){
-          this.oListFormItemInputProperties.push({class:"form-control",id:"altura_cm_producto_"+itemData.id_product_item,name:"altura_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"altura_cm_producto_"+itemData.id_product_item,name:"altura_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else if(vItemCaracteristica[_i].campo == "ancho_cm_producto"){
-          this.oListFormItemInputProperties.push({class:"form-control",id:"ancho_cm_producto_"+itemData.id_product_item,name:"ancho_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"ancho_cm_producto_"+itemData.id_product_item,name:"ancho_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else if(vItemCaracteristica[_i].campo == "profundidad_cm_producto"){
-          this.oListFormItemInputProperties.push({class:"form-control",id:"profundidad_cm_producto_"+itemData.id_product_item,name:"profundidad_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"profundidad_cm_producto_"+itemData.id_product_item,name:"profundidad_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else if(vItemCaracteristica[_i].campo == "peso_kg_producto"){
-          this.oListFormItemInputProperties.push({class:"form-control",id:"peso_kg_producto_"+itemData.id_product_item,name:"peso_kg_producto",type:"number",value:vItemCaracteristica[_i].valor});
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"peso_kg_producto_"+itemData.id_product_item,name:"peso_kg_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else{
-          this.oListFormItemInputFeatures.push({
+          oListFormItemInputFeaturesEdit.push({
             class:"form-control",
             id:vItemCaracteristica[_i].campo+"_"+itemData.id_product_item,
             name:vItemCaracteristica[_i].campo,
@@ -138,8 +138,8 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       }
       this.oListFormItem.push(
         {id:this.vFormNamePrefix+itemData.id_product_item,class:"form-horizontal",name:"frmProductoItem",
-        inputFeatures:this.oListFormItemInputFeatures,
-        inputProperties:this.oListFormItemInputProperties}
+        inputFeatures:oListFormItemInputFeaturesEdit,
+        inputProperties:oListFormItemInputPropertiesEdit}
       )
     }
   }
