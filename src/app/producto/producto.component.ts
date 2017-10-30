@@ -16,6 +16,7 @@ import { Model } from '../entity/model';
 import { ModelProduct } from '../entity/model-product';
 import { Category } from '../entity/category';
 import { ProductCrossCategory } from '../entity/product-cross-category';
+import { ProductItemShipping } from '../entity/product-item-shipping';
 
 @Component({
   selector: 'app-producto',
@@ -27,6 +28,7 @@ export class ProductoComponent implements OnInit {
 
 
   //#region "Variables"
+  bProductCategoryEdit:boolean = false;
   sMessageTitle:string = "";
   oMessageError:string[] = [];
   isVisible:boolean = false;
@@ -34,12 +36,10 @@ export class ProductoComponent implements OnInit {
   oProductLang:ProductLang;
   oProducto:Product;
   oProductEvent:ProductEvent = {id_product:0};
-  oProductItem:ProductItem;
   oModel:Model = {nombre:""};
   
   oListModels:Model[];
   oListProductModel:ModelProduct[] = [];
-  lListProductItemCaracteristica:ProductItemCaracteristica[];
   oListCategoryProduct:CategoryProduct[] = [];
   lListProveedor:Supplier[] = [];
   lListManufacturer:Manufacturer[];
@@ -52,7 +52,7 @@ export class ProductoComponent implements OnInit {
   constructor(private oAppService:AppService) {
     this.oProducto = {id_product:0,id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:""};
     this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
-    this.inicializarCampos();
+    this.oProducto.ProductItem = [];
     
     this.oAppService.getSupplier().subscribe(data=>this.lListProveedor = data.json().oProduct);
 
@@ -84,44 +84,57 @@ export class ProductoComponent implements OnInit {
   }
 
   enviarProducto(){
+    //Limpiar Variables antes de llenar
+    this.oProducto.ProductItem = [];
     //Recoger los ProductsItem
     var oFormElements = document.getElementsByName("frmProductoItem");
     for(let i = 0;i<oFormElements.length;i++ ){
       let oFormDataElements = (<HTMLFormElement>oFormElements[i]).elements;
-      this.oProductItem = {
-        alto:oFormDataElements["altura_cm_transporte"].value,
-        ancho:oFormDataElements["ancho_cm_transporte"].value,
+      let vProductItem:ProductItem = {
+        id_product_item:oFormDataElements["id_product_item"].value,
+        id_product:0,
         cantidad:oFormDataElements["unidades_producto_item"].value,
-        peso:oFormDataElements["peso_kg_transporte"].value,
-        profundidad:oFormDataElements["profundidad_cm_transporte"].value,
-        ProductItemCaracteristica :[],
-        ProductItemLang:{nombre:""}
+        nombre:oFormDataElements["nombre_producto_item"].value,
+        descripcion:"",
+        ProductItemShipping:[],
+        ProductItemCaracteristica:[]
       };
 
-      this.lListProductItemCaracteristica.push({nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value,campo:"estilo_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value,campo:"tipo_tapiz_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value,campo:"color_tapiz_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value,campo:"tipo_relleno_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value,campo:"material_estructura_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value,campo:"armado_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value,campo:"garantia_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Entega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value,campo:"entrega_dias_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Unidades",valor:oFormDataElements["unidades_producto_item"].value,campo:"unidades_producto_item"});
-      this.lListProductItemCaracteristica.push({nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value,campo:"altura_cm_producto"});
-      this.lListProductItemCaracteristica.push({nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value,campo:"ancho_cm_producto"});
-      this.lListProductItemCaracteristica.push({nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value,campo:"profundidad_cm_producto"});
-      this.lListProductItemCaracteristica.push({nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value,campo:"peso_kg_producto"});
+      let oFormsItemShipping = document.getElementsByName(oFormElements[i].id);//Buscar su formulario de Product Shipping
+      for(let __i = 0;__i<oFormsItemShipping.length;__i++){
+        let oFormDataElementsShipping = (<HTMLFormElement>oFormsItemShipping[__i]).elements;
+        let vProductItemShipping:ProductItemShipping = {
+          alto:oFormDataElementsShipping["altura_cm_transporte"].value,
+          ancho:oFormDataElementsShipping["ancho_cm_transporte"].value,
+          peso:oFormDataElementsShipping["peso_kg_transporte"].value,
+          profundidad:oFormDataElementsShipping["profundidad_cm_transporte"].value,
+          id_product_item:0
+        }
+        vProductItem.ProductItemShipping.push(vProductItemShipping);
+      }
+      let oListProductItemCaracteristica = [
+        {nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value,campo:"estilo_producto_item"},
+        {nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value,campo:"tipo_tapiz_producto_item"},
+        {nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value,campo:"color_tapiz_producto_item"},
+        {nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value,campo:"tipo_relleno_producto_item"},
+        {nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value,campo:"material_estructura_producto_item"},
+        {nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value,campo:"armado_producto_item"},
+        {nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value,campo:"garantia_producto_item"},
+        {nombre:"Entega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value,campo:"entrega_dias_producto_item"},
+        {nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value,campo:"altura_cm_producto"},
+        {nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value,campo:"ancho_cm_producto"},
+        {nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value,campo:"profundidad_cm_producto"},
+        {nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value,campo:"peso_kg_producto"}
+      ];
 
 
-      this.oProductItem.ProductItemCaracteristica = this.lListProductItemCaracteristica;
-      this.oProductItem.ProductItemLang = {nombre:oFormDataElements["nombre_producto_item"].value};
-      this.lListProductItemCaracteristica = [];
-      console.log(this.oProducto);
-      this.oProducto.ProductItem.push(this.oProductItem);
+      vProductItem.ProductItemCaracteristica = oListProductItemCaracteristica;
+      this.oProducto.ProductItem.push(vProductItem);
     }
 
   //Recoger le precio de producto
     this.oProductEvent = {
+      id_product_event:parseInt((<HTMLInputElement>document.getElementById('id_product_event')).value),
       cost_impact: parseInt((<HTMLInputElement>document.getElementById('cost_impact')).value),
       price_impact:parseInt((<HTMLInputElement>document.getElementById('price_impact')).value),
       price_start_date:new Date((<HTMLInputElement>document.getElementById('price_start_date')).value),
@@ -144,8 +157,12 @@ export class ProductoComponent implements OnInit {
       meta_description:this.oProductLang.meta_description,
       meta_keywords:this.oProductLang.meta_keywords,
       meta_title:this.oProductLang.meta_title,
-      link_rewrite:this.oProductLang.link_rewrite
+      link_rewrite:this.oProductLang.link_rewrite,
+      inst_message:this.oProductLang.inst_message
     };
+
+    console.log(this.oProducto);
+    console.log(this.oProducto.ProductItem);
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
       if(this.oProducto.id_product == 0){
@@ -162,16 +179,13 @@ export class ProductoComponent implements OnInit {
           }
       }
     }
-    this.inicializarCampos();
   }
   agregarNuevoModelo(oModel:Model):void{
-    console.log(oModel);
     if(oModel.nombre == ""){
       console.log("Mostrar Alerta")
     }else{
       let oModelProduct:ModelProduct = {id_model:0,id_product:0,model:oModel};
       this.oListProductModel.push(oModelProduct);
-      console.log(this.oListProductModel);
       this.oModel = {nombre:""};
     }
   }
@@ -186,11 +200,11 @@ export class ProductoComponent implements OnInit {
   }
 
   eliminarModelo(indexModelo):void{
-    console.log(indexModelo);
     this.oListProductModel.splice(indexModelo,1);
   }
    
   getGategoryId(oListcCategoryProduct):void{
+    console.log(oListcCategoryProduct);
     this.oListCategoryProduct = oListcCategoryProduct;
   }
 
@@ -207,10 +221,6 @@ export class ProductoComponent implements OnInit {
     this.oListProductCrossCategory.splice(indexCrossCategory,1);
   }
   //#endregion
-  inicializarCampos(): any {
-    this.lListProductItemCaracteristica = [];
-    this.oProducto.ProductItem = [];
-  }
 
   ValidarFormulario(oProduct:Product): boolean {
     this.oMessageError = [];
@@ -252,6 +262,7 @@ export class ProductoComponent implements OnInit {
 
   buscarProduct():void{
     this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
+      this.bProductCategoryEdit = true;
       this.oProducto = data;
       this.oProductLang = this.oProducto.ProductLang;
       this.oListProductCrossCategory = [];

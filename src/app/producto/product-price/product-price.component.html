@@ -1,5 +1,6 @@
 <div class="caja-precio-producto" style="width:100%;height:300px;">
   <div class="control-costo-fila1"  style="width:100%;display:inline-flex;">
+      <input type="hidden" value="0" name="id_product_event" id="id_product_event" [(ngModel)]="oProductEvent.id_product_event">
       <div class="control-caja" style="width:30%">
           <label>Precio Base</label>
           <input type="text" name="price_impact" id="price_impact" class="form-control" value="0" [(ngModel)]="oProductEvent.price_impact">

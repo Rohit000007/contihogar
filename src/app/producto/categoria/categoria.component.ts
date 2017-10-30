@@ -16,6 +16,7 @@ export class CategoriaComponent implements OnChanges,OnInit {
   oListCategoryProduct:CategoryProduct[] = [];
   @Output() ObtenerCategoryId = new EventEmitter();
   @Input() CategoryProduct:CategoryProduct[]
+  @Input() ProductCategoryEdit:boolean = false;
   //#endregion
 
   //#region "Metodos"
@@ -28,15 +29,17 @@ export class CategoriaComponent implements OnChanges,OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    let oListCategoryProduct = <CategoryProduct[]>changes.CategoryProduct.currentValue;
-    for(let _i in oListCategoryProduct){
-      this.oListCategoryId.push(oListCategoryProduct[_i].id_category);
-      for(let __i in this.oListCategory){
-        if(this.oListCategory[__i].id_category == oListCategoryProduct[_i].id_category)
-          this.oListCategory[__i].isChecked = true;
+    if(this.ProductCategoryEdit){
+      let oListCategoryProduct = <CategoryProduct[]>changes.CategoryProduct.currentValue;
+      for(let _i in oListCategoryProduct){
+        this.oListCategoryId.push(oListCategoryProduct[_i].id_category);
+        for(let __i in this.oListCategory){
+          if(this.oListCategory[__i].id_category == oListCategoryProduct[_i].id_category)
+            this.oListCategory[__i].isChecked = true;
+        }
       }
+      this.emitirResultadoPadre(this.oListCategoryId);
     }
-    this.emitirResultadoPadre(this.oListCategoryId);
   }
   
   obtenerCategoryId(id_category,isChecked){

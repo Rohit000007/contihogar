@@ -56,6 +56,31 @@
                 color: $contihogar-gray-1!important;
             }
         }
+        .control-form-body{
+            .caja_item_container{
+                .caja-item-shipping{
+                    background-color: green;
+                    width: 70%;
+                    .header-box{
+                        background-color: $contihogar-black;
+                        color: white;
+                        height: 30px;
+                        line-height: 2;
+                        padding: 0 5px;
+                        .link-agregar-shipping{
+                            border: 1px solid white;
+                            border-radius: 50%;
+                            color: white;
+                            cursor: pointer;
+                            float: right;
+                            font-weight: bold;
+                            text-align: center;
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
     }
     .caja-col-tab{
         margin:2px 0 0 0;
