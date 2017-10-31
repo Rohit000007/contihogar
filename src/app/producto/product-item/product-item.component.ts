@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductItem } from '../../entity/product-item'; 
 import { ProductItemShipping } from '../../entity/product-item-shipping';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-product-item',
@@ -8,7 +9,6 @@ import { ProductItemShipping } from '../../entity/product-item-shipping';
   styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent implements OnChanges ,OnInit {
-
   oListTabControl:iTabControl[] = [];
   oListFormItemInputFeatures:IFormItemInput[] = [
     {class:"form-control",id:"nombre_producto_item_0",name:"nombre_producto_item",type:"text",value:"1234"},
@@ -129,7 +129,24 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       }
     }
   }
-
+  
+  quitarFormItemShipping(idParentForm,idFormChipping):void{
+    let sFormIdShipping:string = "";
+    for(let _i in this.oListFormItem){
+      if(this.oListFormItem[_i].id == idParentForm){
+        for(let __i in this.oListFormItem[_i].oListFormItemShipping){
+          if(this.oListFormItem[_i].oListFormItemShipping[__i].id == idFormChipping){
+            this.oListFormItem[_i].oListFormItemShipping.splice(parseInt(__i),1);
+            break;
+          }
+        }
+        sFormIdShipping = this.oListFormItem[_i].oListFormItemShipping[0].id;
+      }
+    }
+    console.log(sFormIdShipping);
+    let divItemShipping = <HTMLDivElement>document.getElementById(sFormIdShipping);
+    divItemShipping.className = "item active form-item-shipping";
+  }
   agregarNuevoFormShipping(oFormItem:iFormItem,isNew:boolean,oProductItemShipping:ProductItemShipping = null):iFormItemShipping{
     let vNonceFormItemShipping = this.obtenerMaxNonceFormItemShipping(oFormItem.oListFormItemShipping);
     let oFormItemShipping:iFormItemShipping = {
@@ -138,6 +155,7 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       display:"block",
       id:this.vFormItemShippingName+vNonceFormItemShipping,
       name:oFormItem.id,
+      isActive:(oFormItem.oListFormItemShipping.length == 0)?"active":"",
       inputTransport:this.getInputTransport(vNonceFormItemShipping,isNew,oProductItemShipping)
     }
     return oFormItemShipping;
@@ -239,6 +257,7 @@ export interface iFormItemShipping{
   class:string,
   name:string,
   display:string,
+  isActive:string,
   inputTransport:IFormItemInput[]
 }
 

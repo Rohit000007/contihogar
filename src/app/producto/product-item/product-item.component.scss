@@ -58,8 +58,10 @@
         }
         .control-form-body{
             .caja_item_container{
+                border-top:1px solid $contihogar-gray-2;
+                margin-top: 12px;
+                padding: 5px 0;
                 .caja-item-shipping{
-                    background-color: green;
                     width: 70%;
                     .header-box{
                         background-color: $contihogar-black;
@@ -67,6 +69,7 @@
                         height: 30px;
                         line-height: 2;
                         padding: 0 5px;
+                        width: 100%;
                         .link-agregar-shipping{
                             border: 1px solid white;
                             border-radius: 50%;
@@ -77,6 +80,11 @@
                             text-align: center;
                             width: 30px;
                         }
+                    }
+                    .left_shipping-label{
+                        clear: left;
+                        float: left;
+                        width: 35%;
                     }
                 }
             }

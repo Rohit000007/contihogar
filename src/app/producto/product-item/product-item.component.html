@@ -35,6 +35,7 @@
             <label>Unidades :</label>
         </div>
         <br>
+        <br>
 
         <div class="control-caja" style="width:100%">
             <label>Altura (cm):</label>
@@ -68,10 +69,10 @@
                         <input type="{{input.type}}" name="{{input.name}}" class="{{input.class}}" value="{{input.value}}" id="{{input.id}}">
                     </div>
                 </div>
-                <br>
                 <div class="caja_item_container" style="display: flex;">
-                    <div class="div_item_50" style="width: 30%;">
-                        <div class="control-caja" style="width:100%" *ngFor="let inputProp of formItem.inputProperties">
+                    <div class="caja_product_item" style="width: 30%;">
+                        <div class="header-box" style="height: 28px"><span>Item</span></div>
+                        <div class="control-caja" *ngFor="let inputProp of formItem.inputProperties">
                             <input type="{{inputProp.type}}" class="{{inputProp.class}}" name="{{inputProp.name}}" value="{{inputProp.value}}" id="{{inputProp.id}}">
                         </div>
                     </div>
@@ -79,9 +80,10 @@
                     <div class="caja-item-shipping">
                         <div class="header-box">
                             <span>Transporte</span>
+                            <span> | {{formItem.oListFormItemShipping.length}} Item(s)</span>
                             <a class="link-agregar-shipping" (click)="agregarNuevoShipping(formItem.id)">+</a>
                         </div>
-                        <div class="left_label" style="width: 120px;background-color: red;clear: left;float: left;">
+                        <div class="left_shipping-label">
                             <div class="control-caja" style="width:100%">
                                 <label>Altura (cm):</label>
                             </div>
@@ -96,13 +98,24 @@
                             </div>
                         </div>
 
-                        <div class="form-shipping-container" style="float: left;">
-                            <div *ngFor="let formItemShipping of formItem.oListFormItemShipping" class="form-item-shipping" >
-                                <form name="{{formItemShipping.name}}" id="{{formItemShipping.id}}">
-                                    <div *ngFor="let transport of formItemShipping.inputTransport"  class="control-caja" style="width:100%">
-                                        <input type="{{transport.type}}" class="{{transport.class}}" name="{{transport.name}}" value="{{transport.value}}" id="{{transport.id}}">
-                                    </div>    
-                                </form>                  
+                        <div id="slide_{{formItem.id}}" data-ride="carousel" class="carousel form-shipping-container" style="float: left; width:65%;">
+                            <div class="carousel-inner">
+                                <div *ngFor="let formItemShipping of formItem.oListFormItemShipping" class="item {{formItemShipping.isActive}} form-item-shipping" id="{{formItemShipping.id}}">
+                                    <form name="{{formItemShipping.name}}" style="width: 80%;clear: left;float: left;">
+                                        <div *ngFor="let transport of formItemShipping.inputTransport"  class="control-caja" style="width:100%">
+                                            <input type="{{transport.type}}" class="{{transport.class}}" name="{{transport.name}}" value="{{transport.value}}" id="{{transport.id}}">
+                                        </div>    
+                                    </form>
+                                    <div *ngIf="formItem.oListFormItemShipping.length > 1"  style="float: left; font-size: 20px;text-align: right;cursor: pointer;width: 20%;padding: 7px;">
+                                        <a (click)="quitarFormItemShipping(formItem.id,formItemShipping.id)" style="border: 1px solid black;color: black;border-radius: 50%;padding: 2px 6px;">X</a>
+                                    </div>              
+                                </div>
+                                <a class="left carousel-control"  name="slide_{{formItem.id}}" style="width: 0px;" data-slide="prev" onclick="prevCarrousel(this)">
+                                    <span class="glyphicon glyphicon-chevron-left" style="color: black;"></span>
+                                </a>
+                                <a class="right carousel-control" name="slide_{{formItem.id}}" style="width: 0px;"  data-slide="next" onclick="nextCarrousel(this)">
+                                    <span class="glyphicon glyphicon-chevron-right" style="color: black;"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
