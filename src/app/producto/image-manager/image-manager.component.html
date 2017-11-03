@@ -1,8 +1,24 @@
-<div class="control-image-manage" style="width:100%;height:300px;background:white;">
-    <input type="file" name="ImageName" id="image_name" multiple (change)="subirImagen($event)">
-    <div class="img-container" style="height: 50px;">
-        <div *ngFor="let file of oListFile" >
-            <img src="{{file.file}}" class="img-thumbnail" alt="Mi Imagen">
+<div class="control-image-manage scrool_body">
+    <div class="container-header-box">
+        <span>IMAGENES</span>
+    </div>
+    <div *ngFor="let oListImage of oListColorImages"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
+        <div class="img-container-item img-container-item-new">
+            <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce)">
+            <a style="position: absolute;margin-top: -100px;text-align: center;">+</a>
         </div>
+        <div style="background-color: white;width: 50px;position: absolute;right: 0px;height: 120px;text-align: center;">
+            <a (click)="eliminarImageColor(oListImage.nonce)">X</a><br>
+            <input type="color" name="color_img">
+        </div>
+        <div class="img-container-item" *ngFor="let image of oListImage.image_list_html;let i = index">
+            <img src="http://www.contihogar.com.pe/api/images/products/1/1" alt="">
+            <div class="caja-control-img">
+                <a class="link-borrar-img" (click)="eliminarImagen(oListImage.nonce,image.id)">X</a>
+            </div>
+        </div>
+    </div>
+    <div class="agregar-caja-img">
+        <a (click)="agregarImageList()">Agregar nueva fila</a>        
     </div>
 </div>

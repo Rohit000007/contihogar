@@ -1,0 +1,38 @@
+@import "../../../assets/sass/variables-contihogar";
+
+.control-image-manage{
+    background:white;
+    height:300px;
+    padding: 5px 10px;
+    position: relative;
+    overflow-y: scroll;
+    .container-header-box{
+        color: $contihogar-gray-1;
+        font-size: 16px;
+    }
+    .img-container-row{
+        display: flex;
+        margin-bottom: 10px;
+        position: relative;
+        overflow-x: scroll;
+        .img-container-item{
+            height: 120px;
+            margin-right:10px;
+            width: 120px;
+            img{
+                height: 100%;
+                width: 120px;
+            }
+        }
+        .img-container-item-new{
+            background-color: gray;
+            text-align: center;
+            font-size: 30px;
+            .input-file{
+                height: 120px;
+                opacity:0;
+                width: 120px;
+            }
+        }
+    }
+}
