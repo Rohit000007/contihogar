@@ -44,7 +44,11 @@ export class AppService {
   }
 
   public postIamage(oForData:FormData){
-    return this.http.post(this.sUrlSite+"/category/store",oForData);
+    return this.http.post(this.sUrlSite+"/image/store",oForData);
+  }
+
+  public getImage(IdProduct){
+    return this.http.get(this.sUrlSite+"/image/"+IdProduct);
   }
   //#endregion
   //#endregion "Metodos"

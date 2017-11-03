@@ -28,6 +28,7 @@ export class ProductoComponent implements OnInit {
 
 
   //#region "Variables"
+  iIdProduct:number = 0;
   bProductCategoryEdit:boolean = false;
   sMessageTitle:string = "";
   oMessageError:string[] = [];
@@ -169,12 +170,14 @@ export class ProductoComponent implements OnInit {
         if(confirm("¿Está seguro de grabar?") == true){
         this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
             console.log(data);
+            this.iIdProduct = data.json().id_product;
           });
         }
       }else{
         if(confirm("¿Está seguro de actualizar?") == true){
           this.oAppService.updateProduct(this.oProducto).subscribe(data=>{
               console.log(data);
+              this.iIdProduct = data.json().id_product;
             });
           }
       }
@@ -217,10 +220,10 @@ export class ProductoComponent implements OnInit {
     this.oListProductCrossCategory.push(iProductCrossCategory);
     console.log(this.oListProductCrossCategory);
   }
+
   eliminarCrossCategory(indexCrossCategory):void{
     this.oListProductCrossCategory.splice(indexCrossCategory,1);
   }
-  //#endregion
 
   ValidarFormulario(oProduct:Product): boolean {
     this.oMessageError = [];
@@ -256,38 +259,45 @@ export class ProductoComponent implements OnInit {
     console.log(this.oMessageError);
     return vRetorno;
   }
+
   MessageBoxClose(bMessageBoxClose):void{
     this.isVisible = bMessageBoxClose;
   }
 
+
   buscarProduct():void{
     this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
-      this.bProductCategoryEdit = true;
-      this.oProducto = data;
-      this.oProductLang = this.oProducto.ProductLang;
-      this.oListProductCrossCategory = [];
-      for(let _i in this.oProducto.ProductCrossCategory){
-        let iProductCrossCategory:ProductCrossCategory = {
-          id_categoria:this.oProducto.ProductCrossCategory[_i].id_categoria,
-          Category:{CategoryLang:this.oProducto.ProductCrossCategory[_i].Category["category_lang"]}
-        };
-        this.oListProductCrossCategory.push(iProductCrossCategory);
+      if(data == "NO DATA"){
+        console.log("no hay datos");
+      }else{
+        this.iIdProduct = data.id_product;
+        this.bProductCategoryEdit = true;
+        this.oProducto = data;
+        this.oProductLang = this.oProducto.ProductLang;
+        this.oListProductCrossCategory = [];
+        for(let _i in this.oProducto.ProductCrossCategory){
+          let iProductCrossCategory:ProductCrossCategory = {
+            id_categoria:this.oProducto.ProductCrossCategory[_i].id_categoria,
+            Category:{CategoryLang:this.oProducto.ProductCrossCategory[_i].Category["category_lang"]}
+          };
+          this.oListProductCrossCategory.push(iProductCrossCategory);
+        }
+        this.oListProductModel = [];
+        for(let __i in this.oProducto.ModelProduct){
+          let oModelProduct:ModelProduct = {
+            id_model:this.oProducto.ModelProduct[__i].id_model,
+            id_product:this.oProducto.ModelProduct[__i].id_product,
+            model:this.oProducto.ModelProduct[__i].model
+          };
+          this.oListProductModel.push(oModelProduct);
+        }
+        this.isEditProductItem = true;
+        console.log(this.oProducto.CategoryProduct);
+        
+        //this.oListProductModel = this.oProducto.ModelProduct;
+        window["CKEDITOR"].instances["description_short"].setData(this.oProductLang.description_short);
+        window["CKEDITOR"].instances["description"].setData(this.oProductLang.description);
       }
-      this.oListProductModel = [];
-      for(let __i in this.oProducto.ModelProduct){
-        let oModelProduct:ModelProduct = {
-          id_model:this.oProducto.ModelProduct[__i].id_model,
-          id_product:this.oProducto.ModelProduct[__i].id_product,
-          model:this.oProducto.ModelProduct[__i].model
-        };
-        this.oListProductModel.push(oModelProduct);
-      }
-      this.isEditProductItem = true;
-      console.log(this.oProducto.CategoryProduct);
-      
-      //this.oListProductModel = this.oProducto.ModelProduct;
-      window["CKEDITOR"].instances["description_short"].setData(this.oProductLang.description_short);
-      window["CKEDITOR"].instances["description"].setData(this.oProductLang.description);
     });
   }
   verificarEnter(eEvent):boolean{
@@ -295,4 +305,6 @@ export class ProductoComponent implements OnInit {
     console.log(event);
     return false;
   }
+  //#endregion
+
 }

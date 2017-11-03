@@ -131,7 +131,7 @@
 
     <div class="row fila-formulario-3">
         <div class="col-md-4">
-            <app-image-manager></app-image-manager>
+            <app-image-manager [IdProduct]="iIdProduct"></app-image-manager>
         </div>
 
         <div class="col-md-8">
@@ -248,7 +248,7 @@
     </div>
 
     <div class="row fila-formulario-6">
-        <button (click)="enviarProducto(rForm.value)">Guardar y Salir</button>
+        <button (click)="enviarProducto()">Guardar y Salir</button>
         <button>Guardar y Mantener</button>
     </div>
 </form>

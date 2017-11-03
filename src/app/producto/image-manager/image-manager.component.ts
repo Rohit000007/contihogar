@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,OnChanges, SimpleChanges } from '@angular/core';
 import { AppService } from '../../service/app.service';
 
 @Component({
@@ -7,7 +7,16 @@ import { AppService } from '../../service/app.service';
   styleUrls: ['./image-manager.component.scss'],
   providers:[AppService]
 })
-export class ImageManagerComponent implements OnInit {
+export class ImageManagerComponent implements OnChanges,OnInit {
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.IdProduct);
+    if(this.IdProduct > 0){
+      this.oAppService.getImage(changes.IdProduct.currentValue).subscribe(data=>{
+        console.log(data);
+      });
+    }
+  }
+  @Input() IdProduct:number = 0;
   sNameImageList:string = "list_img_";
   oListColorImages:iImageColorList[] = [];
   constructor(private oAppService:AppService) { }
@@ -20,6 +29,7 @@ export class ImageManagerComponent implements OnInit {
     let oListImages:iImage[] = [];
     let oFiles = oEventControl.target.files;
     let oListDataForm = new FormData();
+    oListDataForm.append("id_product",this.IdProduct.toString());
     for(let _i = 0;_i<oFiles.length;_i++){
       let oFile = oFiles[_i];
       let oFileReader = new FileReader();
@@ -36,6 +46,10 @@ export class ImageManagerComponent implements OnInit {
         this.oListColorImages[_i].image_list_html = oListImages;
       }
     }
+
+    this.oAppService.postIamage(oListDataForm).subscribe(res=>{
+      console.log(res);
+    });
   }
 
   agregarImageList():void{
