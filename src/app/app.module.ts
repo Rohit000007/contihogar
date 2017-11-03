@@ -15,6 +15,7 @@ import { ImageManagerComponent } from './producto/image-manager/image-manager.co
 import { CategoryFilterPipe } from './pipi/category-filter.pipe';
 import { MessageManagerComponent } from './message-manager/message-manager.component';
 import { GeneralComponent } from './general/general.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GeneralComponent } from './general/general.component';
     ImageManagerComponent,
     CategoryFilterPipe,
     MessageManagerComponent,
-    GeneralComponent
+    GeneralComponent,
+    ProveedorComponent
   ],
   imports: [
     BrowserModule,
