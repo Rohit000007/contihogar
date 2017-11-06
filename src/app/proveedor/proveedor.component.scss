@@ -1,0 +1,100 @@
+@import "../../assets/sass/variables-contihogar";
+.cuerpo
+{
+  width: 100%;
+  height: 100vh;
+}
+.espacio
+{
+  padding-top: 2em;
+}
+select  {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: $contihogar-black;
+  background-image: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+  width: 190px;
+  height: 2em;
+  line-height: 2;
+  overflow: hidden;
+  border-radius: 3px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+}
+select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.select::after {
+  content: url('../../assets/img/botoncircular.svg');
+  display:block;
+  width: 30px;
+  height: auto;
+  position:absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+.btn-design
+{
+  background: $contihogar-gray-1;
+  border: .5px solid #000;
+  text-transform: uppercase;
+  height: 30px;
+}
+.estilo--input
+{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: $contihogar-black;
+  background-image: none;
+  width: 190px;
+}
+.espacio__
+{
+  padding-left: 2px;
+}
+
+
+::placeholder { color:  #fff;
+text-align: center}
+.label-for
+{
+  font-weight: lighter;
+}
+
+.estilo--input::placeholder{
+  text-align: left}
