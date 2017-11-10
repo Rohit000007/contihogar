@@ -129,4 +129,17 @@ export class ProveedorComponent implements OnInit {
     this.sListAlmacen.splice(parseInt(indexAdress),1);
   }
 
+  marcarDepartamento(id_departament):void{
+    console.log(id_departament);
+    console.log(this.oListZoneDelivery);
+  }
+
+  marcarProvincia(id_province):void{
+    console.log(id_province);
+  }
+
+  marcarDistrict(id_district):void{
+    console.log(id_district);
+  }
+
 }

@@ -264,19 +264,19 @@
           <div class="panel panel-primary">
             <div class="panel-heading">Restricción por zona - Envío Gratis</div>
             <div class="panel-body scrool_body" style="height: 240px;position: relative;overflow-y: scroll;">
-              <details class="details" *ngFor="let departament of oListZoneDelivery" >
+              <details class="details" *ngFor="let departament of oListZoneDelivery;let i = index" >
                 <summary>
                   <span>{{departament.name}}</span>
-                  <input style="float: right;" type="checkbox" name="id_departament_zone" value="{{departament.id_state}}">
+                  <input style="float: right;" type="checkbox" name="id_departament_zone-{{i}}" [(ngModel)]="departament.is_checked"  (change)="marcarDepartamento(departament.id_state)">
                 </summary>
-                <details class="details" *ngFor="let province of departament.Province" >
+                <details class="details" *ngFor="let province of departament.Province;let _i = index" >
                   <summary>
                     <span>{{province.nombre}}</span> 
-                    <input style="float: right;" type="checkbox" name="id_province_zone" value="{{province.id_provincia}}">
+                    <input style="float: right;" type="checkbox" name="id_province_zone-{{_i}}" [(ngModel)]="province.is_checked">
                   </summary>
-                  <div class="cont-radio" *ngFor="let district of province.Distrinct" >
+                  <div class="cont-radio" *ngFor="let district of province.Distrinct;let __i = index" >
                     <p class="sumary_details">{{district.nombre}}</p>
-                    <input type="checkbox" name="id_district_zone" value="{{district.id_distrito}}">
+                    <input type="checkbox" name="id_district_zone-{{__i}}" [(ngModel)]="district.is_checked">
                   </div>
                 </details>
               </details>

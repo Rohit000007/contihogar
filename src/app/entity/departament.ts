@@ -8,7 +8,9 @@ export class Departament {
     public iso_code?:string;
     public tax_behavior?:number;
     public active?:number;
+    public is_checked?:boolean;
     public Province?:Province[];
+
     constructor(){
         this.tax_behavior = 0;
         this.active = 0;

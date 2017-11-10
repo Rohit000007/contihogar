@@ -9,8 +9,8 @@
           <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce)">
         </div>
         <div style="background-color: white;width: 50px;position: absolute;right: 0px;height: 120px;text-align: center;">
-            <a (click)="eliminarImageColor(oListImage.nonce)">X</a><br>
-            <input type="color" name="color_img">
+            <input type="color" name="color_img" style="height: 35px;width: 35px"><br>
+            <a (click)="eliminarImageColor(oListImage.nonce)">X</a>
         </div>
         <div class="img-container-item" *ngFor="let image of oListImage.image_list_html;let i = index">
             <img src="{{image.src}}" alt="">
