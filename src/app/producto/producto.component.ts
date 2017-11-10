@@ -70,7 +70,7 @@ export class ProductoComponent implements OnInit {
   }
 
   obtenerMarcas(oProveedor){
-    let eSupplier = new Supplier(0,"Coca Cola",new Date(),null,0);
+    let eSupplier = new Supplier();
   }
 
   //Controlar Tab Editor

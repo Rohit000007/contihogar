@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { ProductoComponent } from './producto/producto.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { ProductPriceComponent } from './producto/product-price/product-price.component';
-
-import { HttpModule } from '@angular/http';
 import { CategoriaComponent } from './producto/categoria/categoria.component';
 import { ProductItemComponent } from './producto/product-item/product-item.component';
 import { ImageManagerComponent } from './producto/image-manager/image-manager.component';

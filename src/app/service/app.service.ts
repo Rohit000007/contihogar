@@ -62,6 +62,24 @@ export class AppService {
   public getImage(IdProduct){
     return this.http.get(this.sUrlSite+"/image/"+IdProduct);
   }
+
+  public getDepartament(){
+    return this.http.get(this.sUrlSite+"/departament");
+  }
+
+  public getProvincia(id_departament){
+    return this.http.get(this.sUrlSite+"/province/"+id_departament);
+  }
+  public getDistrict(id_province){
+    return this.http.get(this.sUrlSite+"/district/"+id_province);
+  }
+
+  public getZoneDelivery(){
+    return this.http.get(this.sUrlSite+"/zone/delivery");
+  }
+  public postSupplier(oSupplier){
+    return this.http.post(this.sUrlSite+"/supplier/store",oSupplier);
+  }
   //#endregion
   //#endregion "Metodos"
 

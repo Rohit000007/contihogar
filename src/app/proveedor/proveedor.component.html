@@ -1,112 +1,90 @@
-
-<div class="cuerpo">
-      <div class="espacio">
-        <div class="container">
-          <div class="row">
-              <div class="col-sm-2 detalle">
-                <div class="select">
-                  <select name="slct" id="slct">
-                    <option>Buscar Proveedor</option>
-                    <option value="1">Pure CSS</option>
-                    <option value="2">No JS</option>
-                    <option value="3">Nice!</option>
-                  </select>
-                </div>
+<form>
+  <div class="cuerpo">
+    <div class="espacio">
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-2 detalle">
+              <div class="select">
+                <select name="is_supplier" [(ngModel)]="eSupplier.id_supplier" >
+                  <option [value]="0">Buscar Proveedor</option>
+                  <option *ngFor="let supplier of oListSupplier" [value]="supplier.id_supplier">{{supplier.name}}</option>
+                </select>
               </div>
-              <div class="col-md-offset-1 col-sm-2 detalle ">
-                <div class="select">
-                  <select name="slct" id="slct">
-                    <option>Buscar Marca</option>
-                    <option value="1">Pure CSS</option>
-                    <option value="2">No JS</option>
-                    <option value="3">Nice!</option>
-                  </select>
-                </div>
+            </div>
+            <div class="col-md-offset-1 col-sm-2 detalle">
+              <div class="select">
+                <select name="id_manufacturer">
+                  <option [value]="">Buscar Marca</option>
+                  <option *ngFor="let manufacturer of oListManufacturer" [value]="manufacturer.id_manufacturer">{{manufacturer.name}}</option>
+                </select>
               </div>
-          </div>
+            </div>
         </div>
       </div>
-        <br>  <br>
-
+    </div>
+    <br><br>
     <div class="container">
-          <div class="row">
-            <div class="col-md-offset-2 col-sm-3">
-                <button class="btn-block btn-design">Crear</button>
-            </div>
-            <div class="col-sm-3">
-              <button  class="btn-block btn-design">Editar</button>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-md-offset-2 col-sm-3">
+            <button class="btn-block btn-design">Crear</button>
         </div>
-    <br>  <br>
+        <div class="col-sm-3">
+          <button  class="btn-block btn-design">Editar</button>
+        </div>
+      </div>
+    </div>
+    <br><br>
     <div class="container">
       <div class="row">
         <div class="col-sm-3 detalle">
           <div class="select">
-            <select name="slct" id="slct">
-              <option>Facturación</option>
-              <option value="1">Pure CSS</option>
-              <option value="2">No JS</option>
-              <option value="3">Nice!</option>
+            <select name="invoice_type" [(ngModel)]="eSupplier.invoice_type">
+              <option value="0">Facturación</option>
+              <option value="1">Cliente</option>
+              <option value="2">Empresa</option>
             </select>
           </div>
         </div>
         <div class="col-sm-3 detalle">
           <div class="select">
-            <select name="slct" id="slct">
-              <option>Tipo de Envío</option>
-              <option value="1">Pure CSS</option>
-              <option value="2">No JS</option>
-              <option value="3">Nice!</option>
+            <select name="shipping_type" [(ngModel)]="eSupplier.shipping_type">
+              <option [value]="0">Tipo de Envío</option>
+              <option [value]="1">Envío gratis</option>
+              <option [value]="2">Sin envío</option>
             </select>
           </div>
         </div>
         <div class="col-sm-3 detalle">
           <div class="select">
-            <select name="slct" id="slct">
-              <option>Modelo de Negocio</option>
-              <option value="1">Pure CSS</option>
-              <option value="2">No JS</option>
-              <option value="3">Nice!</option>
+            <select name="bussines_model" [(ngModel)]="eSupplier.bussines_model">
+              <option [value]="0">Modelo de Negocio</option>
+              <option [value]="1">Comisionista</option>
+              <option [value]="2">Costo</option>
             </select>
           </div>
         </div>
         <div class="col-sm-3 detalle">
           <div class="select">
-            <select name="slct" id="slct">
-              <option>Tipo de Pago</option>
-              <option value="1">Pure CSS</option>
-              <option value="2">No JS</option>
-              <option value="3">Nice!</option>
+            <select name="payment_type" [(ngModel)]="eSupplier.payment_type">
+              <option [value]="0">Tipo de Pago</option>
+              <option [value]="1">Contado</option>
+              <option [value]="2">Crédito</option>
             </select>
           </div>
         </div>
       </div>
     </div>
-    <br>  <br>
+    <br>
     <div class="container">
-      <div class="row">
+      <div *ngIf="eSupplier.payment_type == 2"  class="row">
+        <div class="col-sm-9 detalle"></div>
         <div class="col-sm-3 detalle">
-          <div class="">
-            <input type="text" class="estilo--input espacio__ cw  " placeholder="Cliente">
-          </div>
-        </div>
-        <div class="col-sm-3 detalle">
-          <div class="">
-            <input type="text" class="estilo--input espacio__" placeholder="Seleccione Tipo de Envio">
-          </div>
-        </div>
-        <div class="col-sm-3 detalle">
-        </div>
-        <div class="col-sm-3 detalle">
-          <input type="text" class="estilo--input espacio__ col-sm-1 estilo--input__contado" placeholder="Contado">
           <label for="" class="col-sm-1">Días</label>
-          <input type="text" class="estilo--input espacio__ col-sm-1 estilo--input__contado__numero" placeholder="20">
+          <input type="text" class="estilo--input espacio__ col-sm-1 estilo--input__contado__numero" placeholder="20" name="total_days" [(ngModel)]="eSupplier.total_days">
         </div>
-
       </div>
     </div>
-    <br>  <br>
+    <br>
     <div class="container">
       <div class="row">
         <div class="col-sm-11 detalle form-group" >
@@ -114,8 +92,7 @@
             <label for="" class="label-for">Nombre de la Empresa</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-            placeholder="Escribir nombre de la empresa">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir nombre de la empresa" name="company" [(ngModel)]="eSupplier.Address.company">
           </div>
         </div>
 
@@ -124,8 +101,7 @@
             <label for="" class="label-for">Razón Social</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                   placeholder="Escribir razón social">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir razón social" name="lastname" [(ngModel)]="eSupplier.Address.lastname">
           </div>
         </div>
 
@@ -134,8 +110,7 @@
             <label for="" class="label-for">RUC</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                   placeholder="Escribir RUC">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir RUC" name="dni" [(ngModel)]="eSupplier.Address.dni">
           </div>
         </div>
 
@@ -144,8 +119,7 @@
             <label for="" class="label-for">Dirección de Oficina</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                   placeholder="Escribir dirección de la oficina">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir dirección de la oficina" name="address1" [(ngModel)]="eSupplier.Address.address1">
           </div>
         </div>
 
@@ -155,6 +129,7 @@
             <div class="row form-group">Logo de Marca</div>
           </div>
         </div>
+
         <div class="col-sm-3 detalleform-group pl_espacio">
           <div class="container">
             <div class="row form-group flex__marca">
@@ -163,32 +138,30 @@
             </div>
 
             <div class="row form-group flex__marca">
-                <div class="bloque_img" style="height: 70px;width: 100px;background: #E7E7E7;"></div>
+              <div class="bloque_img" style="height: 70px;width: 100px;background: #E7E7E7;"></div>
               <div class="content_opcion">
-              <span class="add">+</span>
-              <span class="add">x</span>
+                <span class="add">+</span>
+                <span class="add">x</span>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-sm-5 detalleform-group">
-                <div class="panel-group">
-              <div class="panel panel-primary">
-                <div class="panel-heading">Panel with panel-primary class</div>
-                <div class="panel-body">Panel Content</div>
-              </div>
+          <div class="panel-group">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Panel with panel-primary class</div>
+              <div class="panel-body">Panel Content</div>
             </div>
+          </div>
         </div>
-
-
 
         <div class="col-sm-11 detalle form-group">
           <div class="col-xs-2 pl_espacio">
-            <label for="" class="label-for">Descripción de Marca</label>
+            <label for="" class="label-for">Descripción de proveedor</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                   placeholder="Escribir descripción de la marca">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir descripción de la marca" name="description" [(ngModel)]="eSupplier.SupplierLang.description">
           </div>
         </div>
         <div class="col-sm-11 detalle form-group">
@@ -196,8 +169,7 @@
             <label for="" class="label-for">Meta Título</label>
           </div>
           <div class="col-xs-9 ">
-            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                   placeholder="Escribir nombre con el que el usuario encontrará al producto">
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir nombre con el que el usuario encontrará al producto" name="meta_title" [(ngModel)]="eSupplier.SupplierLang.meta_title">
           </div>
         </div>
 
@@ -206,169 +178,156 @@
             <label for="" class="label-for">Palabras Claves</label>
           </div>
           <div class="col-xs-9 ">
-                <div class="panel-group">
-                  <div class="panel panel-primary panelito">
-                    <div class="panel-body panel-cuerpo">
-                      <div class="articulo_item">
-                            <h3 class="articulos">Hogar</h3>
-                            <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Casa</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Muebles en oferta</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Muebles online</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Muebles de promoción</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Muebles modernos</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
-                      <div class="articulo_item">
-                        <h3 class="articulos">Amoblar</h3>
-                        <span class="articluo_x">x</span>
-                      </div>
+            <div class="panel-group">
+              <div class="panel panel-primary panelito">
+                <div class="panel-body panel-cuerpo">
+                  <div class="articulo_item" *ngFor="let item of olistMetaKeyWords;let i = index" >
+                    <h3 class="articulos">{{item}}</h3>
+                    <span class="articluo_x" (click)="eliminarMetaKeyWords(i)">x</span>
+                  </div>
+                  <div class="articulo_item">
+                    <input type="text" name="meta_keywords" [(ngModel)]="sStrMeta_keywords" (keyup)="verficarKeyComa($event,sStrMeta_keywords)" style="color:black;">
                   </div>
                 </div>
-          </div>
-        </div>
-      </div>
-        <div class="col-sm-10 detalle form-group">
-          <div class="panel-group">
-            <div class="panel panel-primary">
-              <div class="almacen__title">Direccion de Almacén<span class="add">+</span></div>
-              <ol class="lista_almacen">
-                <li class="calle_almacen">Calle las gaviotas 1248 - Chorrillos -Lima</li>
-                <li class="calle_almacen">Escriba descripcion 2 (opcional)</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-3 detalle form-group title__head__contacto">CARGO</div>
-        <div class="col-sm-3 detalle form-group title__head__contacto">CONTACTO</div>
-        <div class="col-sm-3 detalle form-group title__head__contacto">CORREO</div>
-        <div class="col-sm-2 detalle form-group title__head__contacto">TELÉFONO</div>
-
-
-        <div class="col-sm-3 detalle form-group">
-          <input type="text" class="estilo--input espacio__ cw bloque">
-        </div>
-        <div class="col-sm-3 detalle form-group">
-          <input type="text" class="estilo--input espacio__ cw bloque">
-        </div>
-        <div class="col-sm-3 detalle form-group">
-          <input type="text" class="estilo--input espacio__ cw bloque">
-        </div>
-        <div class="col-sm-2 detalle form-group">
-          <div class="input__add">
-            <input type="text" class="estilo--input espacio__ cw bloque">
-            <span class="add add_height">+</span>
-          </div>
-        </div>
-
-
-        <div class="col-sm-4 detalle form-group">
-          <div class="panel-group">
-            <div class="panel panel-primary">
-              <div class="panel-heading">Restricción por zona - Envío Gratis</div>
-              <details class="details">
-               <summary>Lima</summary>
-                     <div class="cont-radio">
-                          <p class="sumary_details">Cercado de Lima </p>
-                          <input type="radio" name="radio" value="1" checked>
-                     </div>
-
-                    <div class="cont-radio">
-                      <p class="sumary_details">Ate</p>
-                      <input type="radio" name="radio" value="1" checked>
-                    </div>
-
-                    <div class="cont-radio">
-                      <p class="sumary_details">Breña </p>
-                      <input type="radio" name="radio" value="1" checked>
-                    </div>
-
-                    <div class="cont-radio">
-                      <p class="sumary_details">San Juan de Miraflores </p>
-                      <input type="radio" name="radio" value="1" checked>
-                    </div>
-
-                    <div class="cont-radio">
-                      <p class="sumary_details">Santiago de Surco </p>
-                      <input type="radio" name="radio" value="1" checked>
-                    </div>
-
-                  </details>
-              <details class="details">
-                <summary>La Libertad</summary>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-              </details>
-              <details class="details">
-                <summary>Arequipa</summary>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-                <p class="sumary_details">lorem</p>
-              </details>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-4 col-sm-offset-2 detalle form-group">
-          <div class="panel-group">
-            <div class="panel panel-primary">
-              <div class="panel-heading">Pago al Contado</div>
-              <div class="content-pago">
-                  <div class="content-pago__details">
-                    <input type="radio" name="radio" value="1" checked>
-                    <p class="pago__color">Pago antes de entregar producto </p>
-                  </div>
-
-                <div class="content-pago__details_2">
-                    <p class="pago_dias">Dias Previos</p>
-                    <p class="pago_dias bgcolor">ingreso días</p>
-                </div>
-                <hr>
-
-                <div class="content-pago__details">
-                  <input type="radio" name="radio" value="1" checked>
-                  <p class="pago__color">Pago antes de entregar producto </p>
-                </div>
-                <hr>
-                <div class="content-pago__details">
-                  <input type="radio" name="radio" value="1" checked>
-                  <p class="pago__color">Porcentage de pago antes de la entrega</p>
-                </div>
-
-                <div class="content-pago__details_2">
-                  <p class="pago_dias">%pago</p>
-                  <p class="pago_dias bgcolor">pago</p>
-                </div>
-                <hr>
-                <div class="content-pago__details">
-                  <input type="radio" name="radio" value="1" checked>
-                  <p class="pago__color">Pago antes de enviar la orden de compra </p>
-                </div>
-
               </div>
             </div>
           </div>
         </div>
-
-
-          </div>
       </div>
-</div>
+
+      <div class="col-sm-10 detalle form-group">
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="almacen__title" style="width: 100%">
+              <div style="width: 20%">
+                  <span>Direccion de Almacén:</span>
+              </div>
+              <div style="width: 30%">
+                  <input type="text" name="address1" [(ngModel)]="address1" style="width: 90%;color: black;">
+              </div>
+              <div style="width: 15%">
+                <select name="id_state" [(ngModel)]="id_state" #oElemDepartament (change)="listarProvincia(oElemDepartament.value)">
+                    <option value="0">Departamento</option>
+                    <option *ngFor="let departament of oListDepartament" [value]="departament.id_state+'|'+departament.name">{{departament.name}}</option>
+                </select>
+              </div>
+              <div style="width: 15%">
+                <select name="id_province" [(ngModel)]="id_province" #oElemProvince (change)="listarDistrito(oElemProvince.value)">
+                  <option value="0">Provincia</option>
+                  <option *ngFor="let province of this.oListProvince" [value]="province.id_provincia+'|'+province.nombre">{{province.nombre}}</option>
+                </select>
+              </div>
+              <div style="width: 15%">
+                <select name="id_district" [(ngModel)]="id_district" #eElemDistrict>
+                  <option value="0">Distrito</option>
+                  <option *ngFor="let district of this.oListDistrict" [value]="district.id_distrito+'|'+district.nombre">{{district.nombre}}</option>
+                </select>
+              </div>
+              <div style="width: 5%">
+                  <span class="add" style="cursor: pointer" (click)="agregarDireccionAlmacen()">+</span>
+              </div>
+            </div>
+            <ol class="lista_almacen">
+              <li class="calle_almacen" *ngFor="let item of sListAlmacen;let i = index">{{item}}<a style="float: right;" class="badge" (click)="eliminarAlmacen(i)">x</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 detalle form-group title__head__contacto">CARGO</div>
+      <div class="col-sm-3 detalle form-group title__head__contacto">CONTACTO</div>
+      <div class="col-sm-3 detalle form-group title__head__contacto">CORREO</div>
+      <div class="col-sm-2 detalle form-group title__head__contacto">TELÉFONO</div>
+
+      <div *ngFor="let SupplierContact of oListSupplierContact;let i = index" >
+        <div class="col-sm-3 detalle form-group">
+          <input type="text" class="estilo--input espacio__ cw bloque" name="cargo-{{i}}" [(ngModel)]="oListSupplierContact[i].cargo">
+        </div>
+
+        <div class="col-sm-3 detalle form-group">
+          <input type="text" class="estilo--input espacio__ cw bloque" name="nombres-{{i}}" [(ngModel)]="oListSupplierContact[i].nombres">
+        </div>
+        <div class="col-sm-3 detalle form-group">
+          <input type="text" class="estilo--input espacio__ cw bloque" name="correo-{{i}}" [(ngModel)]="oListSupplierContact[i].correo">
+        </div>
+        <div class="col-sm-2 detalle form-group">
+          <div class="input__add">
+            <input type="text" class="estilo--input espacio__ cw bloque" name="telefono-{{i}}" [(ngModel)]="oListSupplierContact[i].telefono">
+            <span class="add add_height" style="cursor: pointer;" (click)="agregarContacto()">+</span>
+            <span *ngIf="oListSupplierContact.length > 1"  class="add add_height" style="cursor: pointer;" (click)="eliminarContacto(i)">x</span>
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-sm-4 detalle form-group">
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Restricción por zona - Envío Gratis</div>
+            <div class="panel-body scrool_body" style="height: 240px;position: relative;overflow-y: scroll;">
+              <details class="details" *ngFor="let departament of oListZoneDelivery" >
+                <summary>
+                  <span>{{departament.name}}</span>
+                  <input style="float: right;" type="checkbox" name="id_departament_zone" value="{{departament.id_state}}">
+                </summary>
+                <details class="details" *ngFor="let province of departament.Province" >
+                  <summary>
+                    <span>{{province.nombre}}</span> 
+                    <input style="float: right;" type="checkbox" name="id_province_zone" value="{{province.id_provincia}}">
+                  </summary>
+                  <div class="cont-radio" *ngFor="let district of province.Distrinct" >
+                    <p class="sumary_details">{{district.nombre}}</p>
+                    <input type="checkbox" name="id_district_zone" value="{{district.id_distrito}}">
+                  </div>
+                </details>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-sm-offset-2 detalle form-group">
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Pago al Contado</div>
+            <div class="content-pago">
+              <div class="content-pago__details">
+                <input type="radio" name="radio" value="1" checked>
+                <p class="pago__color">Pago antes de entregar producto </p>
+              </div>
+
+              <div class="content-pago__details_2">
+                  <p class="pago_dias">Dias Previos</p>
+                  <p class="pago_dias bgcolor">ingreso días</p>
+              </div>
+              <hr>
+
+              <div class="content-pago__details">
+                <input type="radio" name="radio" value="1" checked>
+                <p class="pago__color">Pago antes de entregar producto </p>
+              </div>
+              <hr>
+              <div class="content-pago__details">
+                <input type="radio" name="radio" value="1" checked>
+                <p class="pago__color">Porcentage de pago antes de la entrega</p>
+              </div>
+
+              <div class="content-pago__details_2">
+                <p class="pago_dias">%pago</p>
+                <p class="pago_dias bgcolor">pago</p>
+              </div>
+              <hr>
+              <div class="content-pago__details">
+                <input type="radio" name="radio" value="1" checked>
+                <p class="pago__color">Pago antes de enviar la orden de compra </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-sm-offset-2 detalle form-group">
+          <button (click)=grabarSupplier(1)>Guardar Salir</button>
+          <button (click)="grabarSupplier(2)">Guardar y Mantener</button>
+        </div>
+    </div>
+  </div>
+</form>
