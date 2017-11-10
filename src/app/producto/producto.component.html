@@ -114,7 +114,7 @@
                                 <a class="badge" (click)="eliminarModelo(i)">X</a>
                             </li>
                         </ul>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="control-modelo-medio"></div>
                 <div class="control-modelo-nuevo">
@@ -226,7 +226,7 @@
                         </ul>
                     </div>
                 </div>
-    
+
                 <div class="control-estado-producto" style="display: block">
                     <div class="control-caja" style="display: block;">
                         <textarea class="form-control" rows="2" style="width: 100%;" name="inst_message" placeholder="Escriba una frase para cuando el producto no este con stock" [(ngModel)]="oProductLang.inst_message"></textarea>
@@ -246,10 +246,11 @@
             </div>
         </div>
     </div>
-
+    <br>
+    <br>
     <div class="row fila-formulario-6">
-        <button (click)="enviarProducto()">Guardar y Salir</button>
-        <button>Guardar y Mantener</button>
+        <button (click)="enviarProducto()" class="button_style">Guardar y Salir</button>
+        <button class="button_style">Guardar y Mantener</button>
     </div>
 </form>
 <app-message-manager *ngIf="isVisible" [oListMessages]="oMessageError" [sMessageTitle]="sMessageTitle" (MessageBoxClose)="MessageBoxClose($event)"></app-message-manager>

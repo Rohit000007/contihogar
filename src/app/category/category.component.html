@@ -1,0 +1,132 @@
+<div class="cuerpo">
+  <div class="espacio">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+          <button class="btn-block btn__bt">EDITAR</button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn-block btn__bt">CREAR</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading color__title">Mapa de Categoría</div>
+            <div class="panel-body scrool_body">
+              <div class="" *ngFor="let category of oListCategory">
+              <details class="details" >
+                <summary class="summary__space" (click)="categoryByParents(category.id_category)">{{ category.category_lang.name}}</summary>
+                <div class="cont-radio">
+                  <p class="sumary_details">Juegos de Sala </p>
+                  <input type="radio" name="radio" value="1" checked class="radio_1">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+                <div class="cont-radio">
+                  <p class="sumary_details">Sofá</p>
+                  <input type="radio" name="radio" value="1" checked class="radio_1">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+                <div class="cont-radio">
+                  <p class="sumary_details">Sillones y Butacas </p>
+                  <input type="radio" name="radio" value="1" checked class="radio_1">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+
+                </div>
+
+                <div class="cont-radio">
+                  <p class="sumary_details">Organizadores y Muebles </p>
+                  <input type="radio" name="radio" value="1" checked class="radio_1">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+                <div class="cont-radio">
+                <p class="sumary_details">Seccionales </p>
+                <input type="radio" name="radio" value="1" checked class="radio_1">
+                <label class="switch">
+                  <input type="checkbox">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+                <div class="cont-radio">
+                  <p class="sumary_details">Puff </p>
+                  <input type="radio" name="radio" value="1" checked class="radio_1">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+              </details>
+              </div>
+            </div>
+          </div>
+          <p>Cargar Imagen</p>
+          <div class="img_cargar">
+            <img src="" alt="" class="img-responsive img_cate">
+            <div class="mas">+</div>
+          </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="col-xs-12 form-group">
+              <label for="" class="label-for">Nombre de la Categoría</label>
+              <input type="text" class="estilo--input" style="width: 100%;height: 30px"
+                     placeholder="Escribir nombre de la categoría" name="name" [(ngModel)]="eCategory.CategoryLang.name">
+            </div>
+          <div class="col-xs-12 form-group">
+            <label for="" class="label-for">Descripción</label>
+            <textarea type="text" class="estilo--input" style="width: 100%;height: 60px"
+                      placeholder="Escribir nombre de la categoría" name="description" [(ngModel)]="eCategory.CategoryLang.description"></textarea>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="" class="label-for">Meta Título</label>
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
+                   placeholder="Escribir nombre de la categoría" name="meta_title" [(ngModel)]="eCategory.CategoryLang.meta_title">
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="" class="label-for">Meta descripción</label>
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
+                   placeholder="Escribir nombre de la categoría" name="meta_description" [(ngModel)]="eCategory.CategoryLang.meta_description" >
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="" class="label-for">Palabras Claves</label>
+            <textarea type="text" class="estilo--input" style="width: 100%;height: 60px"
+                      placeholder="Escribir nombre de la categoría" name="meta_keywords" [(ngModel)]="eCategory.CategoryLang.meta_keywords"></textarea>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="" class="label-for">URL amigable</label>
+            <input type="text" class="estilo--input" style="width: 100%;height: 30px"
+                   placeholder="Escribir nombre de la categoría" name="link_rewrite" [(ngModel)]="eCategory.CategoryLang.link_rewrite">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="borde_previa">
+              <button class="btn-block btn__bt">Vista Previa</button>
+              <br>
+              <img src="../../assets/img/vista_previa.png" class="img-responsive img_centrado" alt="">
+          </div>
+          <br>
+          <button class="btn__bt color_blue__button" style="width: 47%;height: 50px;" (click)="grabarCategory(1)" >GUARDAR Y SALIR</button>
+          <button class="btn__bt color_blue__button" style="width: 47%;height: 50px;" (click)="grabarCategory(2)">GUARDAR Y MANTENER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

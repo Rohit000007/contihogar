@@ -16,6 +16,18 @@ export class AppService {
   public getCategory(){
     return this.http.get(this.sUrlSite+'/category');
   }
+  public getCategoryByDepth(){
+    return this.http.get(this.sUrlSite+'/categoryByDepth');
+  }
+  public getCategoryByParents(id_parent){
+    return this.http.get(this.sUrlSite+'/categoryByParents/'+ id_parent);
+  }
+
+  public postCategory(eCategory){
+    return this.http.post(this.sUrlSite+"/category/store",eCategory);
+  }
+
+
 
   public getSupplier(){
     return this.http.get(this.sUrlSite+'/supplier');
