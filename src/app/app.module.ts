@@ -16,6 +16,8 @@ import { CategoryFilterPipe } from './pipi/category-filter.pipe';
 import { MessageManagerComponent } from './message-manager/message-manager.component';
 import { GeneralComponent } from './general/general.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
+import { MerchComponent } from './merch/merch.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProveedorComponent } from './proveedor/proveedor.component';
     CategoryFilterPipe,
     MessageManagerComponent,
     GeneralComponent,
-    ProveedorComponent
+    ProveedorComponent,
+    MerchComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

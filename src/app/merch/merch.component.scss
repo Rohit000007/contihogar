@@ -1,0 +1,52 @@
+@import "../../assets/sass/variables-contihogar";
+
+
+
+.cuerpo
+{
+  height: 100vh;
+}
+.espacio
+{
+  padding-top: 2em;
+}
+.contenedor-pf
+{
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+}
+.panel-heading
+{
+  background: $contihogar-black ;
+  color: $contihogar-soft-blue;
+  text-align: center;
+  padding-top: 5px;
+}
+.p_text, .p_numero
+{
+  color: $contihogar-gray-2;
+}
+.input__search
+{
+  background: $contihogar-black;
+  border: none;
+  height: 30px;
+  display: block;
+  width: 70%;
+}
+
+thead
+{
+  background: $contihogar-black;
+  color: white;
+}
+th
+{
+  font-weight: lighter;
+}
+.tbody-white
+{
+  color: white;
+  background: white;
+}
