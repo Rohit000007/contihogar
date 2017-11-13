@@ -3,13 +3,13 @@
         <span>IMAGENES</span>
         <span>{{IdProduct}}</span>
     </div>
-    <div *ngFor="let oListImage of oListColorImages"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
+    <div *ngFor="let oListImage of oListColorImages;let i = index"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
         <div class="img-container-item img-container-item-new">
           <span class="add_image">+</span>
           <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce)">
         </div>
         <div style="background-color: white;width: 50px;position: absolute;right: 0px;height: 120px;text-align: center;">
-            <input type="color" name="color_img" style="height: 35px;width: 35px"><br>
+            <input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i)" style="height: 35px;width: 35px"><br>
             <a (click)="eliminarImageColor(oListImage.nonce)">X</a>
         </div>
         <div class="img-container-item" *ngFor="let image of oListImage.image_list_html;let i = index">

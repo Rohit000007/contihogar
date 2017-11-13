@@ -81,6 +81,11 @@ export class AppService {
   public postSupplier(oSupplier){
     return this.http.post(this.sUrlSite+"/supplier/store",oSupplier);
   }
+
+  public putAttribute(oAttribute,oProductAttribute){
+
+    return this.http.post(this.sUrlSite+"/product/attribute",{Attribute:oAttribute,ProductAttribute:oProductAttribute});
+  }
   //#endregion
   //#endregion "Metodos"
 

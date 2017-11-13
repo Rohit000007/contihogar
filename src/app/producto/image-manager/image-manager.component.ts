@@ -1,5 +1,7 @@
 import { Component, OnInit, Input,OnChanges, SimpleChanges } from '@angular/core';
 import { AppService } from '../../service/app.service';
+import { Attribute } from '../../entity/attribute';
+import { ProductAttribute } from '../../entity/product-attribute';
 
 @Component({
   selector: 'app-image-manager',
@@ -70,6 +72,7 @@ export class ImageManagerComponent implements OnChanges,OnInit {
       }
     }
   }
+
   eliminarImageColor(oImgColorId):void{
     console.log(oImgColorId);
     for(let _i in this.oListColorImages){
@@ -78,8 +81,21 @@ export class ImageManagerComponent implements OnChanges,OnInit {
         break;
       }}
   }
+
   getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
+  }
+  
+  agregarColor(indexColor):void{
+    this.IdProduct = 90;
+    let colorItem = this.oListColorImages[indexColor];
+    let oAttribute = new Attribute();
+    oAttribute.color = colorItem.color;
+    let oProductAttribute = new ProductAttribute();
+    oProductAttribute.id_product = this.IdProduct;
+    this.oAppService.putAttribute(oAttribute,oProductAttribute).subscribe(data=>{
+      console.log(data);
+    });
   }
 }
 
