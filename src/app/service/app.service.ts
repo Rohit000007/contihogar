@@ -8,6 +8,7 @@ import { Product } from '../entity/product';
 export class AppService {
   oProductObserver:Observable<Product>;
   private sUrlSite:string = "http://127.0.0.1:8000/api";
+  private sUrlPrestahop:string = "https://www.contihogar.com.pe/apitest.php";
   private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
 
@@ -55,8 +56,8 @@ export class AppService {
     return this.http.put(this.sUrlSite+"/product/"+oProduct.id_product,oProduct);
   }
 
-  public postIamage(oForData:FormData){
-    return this.http.post(this.sUrlSite+"/image/store",oForData);
+  public sendImagePrestaShop(oForData:FormData){
+    return this.http.post(this.sUrlPrestahop,oForData);
   }
 
   public getImage(IdProduct){

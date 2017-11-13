@@ -28,28 +28,23 @@ export class ImageManagerComponent implements OnChanges,OnInit {
   subirImagen(oEventControl,oControlId):void{
     let oListImages:iImage[] = [];
     let oFiles = oEventControl.target.files;
-    let oListDataForm = new FormData();
-    oListDataForm.append("id_product",this.IdProduct.toString());
     for(let _i = 0;_i<oFiles.length;_i++){
-      let oFile = oFiles[_i];
+      let oListDataForm = new FormData();
+      //oListDataForm.append("id_product",this.IdProduct.toString());
+      oListDataForm.append("id_product","7");
+      oListDataForm.append("image",oFiles[_i]);
+      this.oAppService.sendImagePrestaShop(oListDataForm).subscribe(res=>{
+        console.log(res);
+      });
+      /*let oFile = oFiles[_i];
       let oFileReader = new FileReader();
-      oListDataForm.append("files[]",oFiles[_i]);
       oFileReader.onloadend  = function(){
         oListImages.push({id:_i.toString(),src:this.result});
       }
       if(oFile){
         oFileReader.readAsDataURL(oFile);
-      }
+      }*/
     }
-    for(let _i in this.oListColorImages){
-      if(this.oListColorImages[_i].nonce == oControlId){
-        this.oListColorImages[_i].image_list_html = oListImages;
-      }
-    }
-
-    this.oAppService.postIamage(oListDataForm).subscribe(res=>{
-      console.log(res);
-    });
   }
 
   agregarImageList():void{
