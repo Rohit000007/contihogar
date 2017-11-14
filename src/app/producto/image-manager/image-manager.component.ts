@@ -10,14 +10,6 @@ import { ProductAttribute } from '../../entity/product-attribute';
   providers:[AppService]
 })
 export class ImageManagerComponent implements OnChanges,OnInit {
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.IdProduct);
-    if(this.IdProduct > 0){
-      this.oAppService.getImage(changes.IdProduct.currentValue).subscribe(data=>{
-        console.log(data);
-      });
-    }
-  }
   @Input() IdProduct:number = 0;
   sNameImageList:string = "list_img_";
   oListColorImages:iImageColorList[] = [];
@@ -26,14 +18,25 @@ export class ImageManagerComponent implements OnChanges,OnInit {
   ngOnInit() {
     this.oListColorImages.push({nonce:0,color:"#2E2EFE",id:this.sNameImageList+"0",image_list:[],image_list_html:[]});
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.IdProduct > 0){
+      this.oAppService.getImage(changes.IdProduct.currentValue).subscribe(data=>{
+        console.log(data);
+      });
+      this.oAppService.getAttribute(changes.IdProduct.currentValue).subscribe(data=>{
+        console.log(data);
+      });
+    }
+  }
 
   subirImagen(oEventControl,oControlId):void{
     let oListImages:iImage[] = [];
     let oFiles = oEventControl.target.files;
     for(let _i = 0;_i<oFiles.length;_i++){
       let oListDataForm = new FormData();
-      //oListDataForm.append("id_product",this.IdProduct.toString());
-      oListDataForm.append("id_product","7");
+      console.log(this.IdProduct);
+      oListDataForm.append("id_product",this.IdProduct.toString());
+      //oListDataForm.append("id_product","7");
       oListDataForm.append("image",oFiles[_i]);
       this.oAppService.sendImagePrestaShop(oListDataForm).subscribe(res=>{
         console.log(res);

@@ -16,12 +16,12 @@
         position: relative;
         overflow-x: scroll;
         .img-container-item{
-            height: 120px;
+            height: 110px;
             margin-right:10px;
-            width: 120px;
+            width: 110px;
             img{
                 height: 100%;
-                width: 120px;
+                width: 110px;
             }
         }
         .img-container-item-new{
@@ -30,11 +30,9 @@
             font-size: 30px;
             position: relative;
             .input-file{
-                height: 120px;
+                height: 110px;
                 opacity:0;
-                width: 120px;
-
-
+                width: 110px;
             }
         }
     }

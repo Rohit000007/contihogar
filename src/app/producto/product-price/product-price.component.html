@@ -48,19 +48,19 @@
   <div class="control-costo-fila3"  style="width:100%;display:inline-flex;">
       <div class="control-caja" style="width:30%">
           <label>Margen:</label>
-          <input type="text" class="form-control" placeholder="Soles (S/.)">
+          <input type="text" class="form-control" placeholder="Soles (S/.)" readonly>
       </div>
       <div class="control-caja" style="width:35%">
           <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" value="{{oProductEvent.price_impact - oProductEvent.tax_price_impact}}">
       </div>
       <div class="control-caja" style="width:35%">
           <label>Margen Promoción:</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" placeholder="Soles (S/.)" readonly>
       </div>
       <div class="control-caja" style="width:35%">
           <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" value="{{oProductEvent.event_price - ((oProductEvent.event_cost == 0)?oProductEvent.cost_impact:oProductEvent.event_cost)}}">
       </div>
   </div>
 
@@ -69,13 +69,13 @@
           <label>%</label>
       </div>
       <div class="control-caja" style="width:35%">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" value="{{oProductEvent.price_impact/(1-oProductEvent.tax_price_impact)}}">
       </div>
       <div class="control-caja" style="width:35%">
           <label>%</label>
       </div>
       <div class="control-caja" style="width:35%">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" value="{{oProductEvent.price_impact - oProductEvent.cost_impact / oProductEvent.price_impact}}">
       </div>
   </div>
 </div>

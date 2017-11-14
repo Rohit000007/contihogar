@@ -162,8 +162,8 @@ export class ProductoComponent implements OnInit {
       inst_message:this.oProductLang.inst_message
     };
 
-    console.log(this.oProducto);
-    console.log(this.oProducto.ProductItem);
+    //console.log(this.oProducto);
+    //console.log(this.oProducto.ProductItem);
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
       if(this.oProducto.id_product == 0){
@@ -171,6 +171,9 @@ export class ProductoComponent implements OnInit {
         this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
             console.log(data);
             this.iIdProduct = data.json().id_product;
+            this.isVisible = true;
+            this.sMessageTitle = "Mensaje";
+            this.oMessageError = ["Grabación Exitosa"];
           });
         }
       }else{

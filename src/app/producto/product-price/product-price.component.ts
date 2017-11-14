@@ -8,9 +8,8 @@ import { ProductEvent } from '../../entity/product-event';
 })
 export class ProductPriceComponent implements OnInit {
 
-  @Input() oProductEvent:ProductEvent; 
+  @Input() oProductEvent:ProductEvent;
   constructor() {
-    
    }
 
   ngOnInit() {
