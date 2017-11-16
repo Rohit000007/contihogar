@@ -11,8 +11,10 @@ import {Category} from "../entity/category";
 export class CategoryComponent implements OnInit {
 
   eCategory: Category;
+  id_category: string = '1';
   oListCategory: Category[] = [];
   oListcategoryByParents: any[] = [];
+  oCategory:any = {};
   constructor(private AppService: AppService) {
     this.eCategory={id_category:0,CategoryLang : {description:'',
     name:'',
@@ -27,18 +29,26 @@ export class CategoryComponent implements OnInit {
       this.oListCategory = response.json();
       console.log(this.oListCategory);
     });
-  }
 
-  categoryByParents(id_parent):void{
-    this.AppService.getCategoryByParents(id_parent).subscribe(response=> {
+      this.AppService.getCategoryByParents(this.id_category).subscribe(response=> {
       this.oListcategoryByParents = response.json();
       console.log(this.oListcategoryByParents);
     });
   }
+
+
   grabarCategory(estado):void
   {
+    this.eCategory.id_parent = this.oCategory.id_category;
+    this.eCategory.level_depth = this.oCategory.level_depth + 1;
+    this.eCategory.active = 1;
     this.AppService.postCategory(this.eCategory).subscribe(response=> {
       console.log(response);
     });
+  }
+
+  obtenerCategiry(oCategoryP):void{
+    console.log(oCategoryP);
+    this.oCategory = oCategoryP;
   }
 }

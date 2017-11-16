@@ -7,7 +7,7 @@ export interface Category {
     level_depth?:number,
     nleft?:number,
     nright?:number,
-    active?:number,
+    active?:number = 1,
     date_add? :Date,
     date_upd? :Date,
     position?:number,
