@@ -7,12 +7,12 @@ export interface Category {
     level_depth?:number,
     nleft?:number,
     nright?:number,
-    active?:number = 1,
+    active?:number,
     date_add? :Date,
     date_upd? :Date,
     position?:number,
     is_root_category?:number,
     CategoryLang?:CategoryLang,
-
-    isChecked?:boolean
+    isChecked?:boolean,
+    isUpdateAll?:boolean,
 }

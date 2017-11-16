@@ -3,107 +3,29 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-md-offset-2">
-          <button class="btn-block btn__bt">EDITAR</button>
+          <button class="btn-block btn__bt" (click)="formAction('editar')">EDITAR</button>
         </div>
         <div class="col-md-3">
-          <button class="btn-block btn__bt">CREAR</button>
+          <button class="btn-block btn__bt" (click)="formAction('nuevo')">CREAR</button>
         </div>
         <br>
         <br>
         <br>
-        <form action="" novalidate name="frm_category" >
+        <form novalidate #categoryForm="ngForm" name="categoryForm" class="frm_category">
           <div class="col-md-4">
             <div class="panel panel-default">
               <div class="panel-heading color__title">Mapa de Categoría</div>
               <div class="panel-body scrool_body">
-                <div class="" >
-                  <ul>
-                    <li *ngFor="let category of oListcategoryByParents" (click)="obtenerCategiry(category)">{{category.name}}</li>
+                <div class="lista-categoria" >
+                  <ul id="ul-lista-categoria" class="ul-lista-categoria">
+                    <li class="li-lista-categoria" #elemItem *ngFor="let category of oListcategory;let i = index;" (click)="obtenerCategory(category,elemItem)">
+                      <label style="width: 90%;cursor: pointer;">{{category.name}}</label>
+                      <label style="width: 10%;" class="switch">
+                        <input type="checkbox" name="estado-{{i}}" #elemCategory [checked]="category.active == 1?true:false" (change)="cambiarEstado(category.id_category,elemCategory.checked)">
+                        <span class="slider round"></span>
+                      </label>
+                    </li>
                   </ul>
-                <!--<details class="details" >-->
-                  <!--<summary class="summary__space summary__with__icon" style="width: 96%;position: relative;z-index: 0" ><span (click)="categoryByParents(category.id_category)">{{ category.category_lang.name}}</span>-->
-                    <!--<label class="switch" style="position: absolute;right: 0;top: 10%;">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</summary>-->
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details">Juegos de Sala </p>-->
-                    <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                    <!--<label class="switch">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</div>-->
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details">Sofá</p>-->
-                    <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                    <!--<label class="switch">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</div>-->
-
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details">Sillones y Butacas </p>-->
-                    <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                    <!--<label class="switch">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</div>-->
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details">Organizadores y Muebles </p>-->
-                    <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                    <!--<label class="switch">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</div>-->
-
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                  <!--<p class="sumary_details">Seccionales </p>-->
-                  <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                  <!--<label class="switch">-->
-                    <!--<input type="checkbox">-->
-                    <!--<span class="slider round"></span>-->
-                  <!--</label>-->
-                <!--</div>-->
-
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span>x</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details">Puff </p>-->
-                    <!--<input type="radio" name="radio" value="1" checked class="radio_1">-->
-                    <!--<label class="switch">-->
-                      <!--<input type="checkbox">-->
-                      <!--<span class="slider round"></span>-->
-                    <!--</label>-->
-                  <!--</div>-->
-                  <!--<div class="cont-radio">-->
-                    <!--<div class="delete">-->
-                      <!--<span class="add_category">+</span>-->
-                    <!--</div>-->
-                    <!--<p class="sumary_details add_new_category">Añadir Nuevo</p>-->
-                  <!--</div>-->
-
-                <!--</details>-->
                 </div>
               </div>
             </div>
@@ -117,56 +39,64 @@
           <div class="col-sm-4">
               <div class="col-xs-12 form-group">
                 <label for="" class="label-for">Nombre de la Categoría</label>
-                <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                       placeholder="Escribir nombre de la categoría" name="name" #name="ngModel" [(ngModel)]="eCategory.CategoryLang.name" required minlength="5" >
-                <div *ngIf="name.errors?.required && name.touched" class="alert alert-danger">
-                    El nombre de la categoria es obligatorio
-                </div>
-                <div *ngIf="name.errors?.minlength && name.touched" class="alert alert-danger">
-                  El nombre de la categoria debe de tener como minimo 10 carácteres
-                </div>
-                <div *ngIf="name.errors?.required && name.touched" class="alert alert-danger">
-                  El nombre de la categoria es obligatorio
+                <input type="text" class="estilo--input" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" name="name" #name="ngModel" [(ngModel)]="eCategory.CategoryLang.name" required minlength="5" >
+                <div *ngIf="name.errors?.required && name.touched" class="alert alert-danger alert-message">
+                    Campo nombre categoria es requerido*
                 </div>
               </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">Descripción</label>
-              <textarea type="text" class="estilo--input" style="width: 100%;height: 60px"
-                        placeholder="Escribir nombre de la categoría" name="description" [(ngModel)]="eCategory.CategoryLang.description" ></textarea>
+              <textarea type="text" name="description" #description="ngModel" class="estilo--input" style="width: 100%;height: 60px" placeholder="Escribir nombre de la categoría" [(ngModel)]="eCategory.CategoryLang.description" required></textarea>
+              <div *ngIf="description.errors?.required && description.touched" class="alert alert-danger alert-message">
+                Campo Descripción es requerido*
+              </div>
             </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">Meta Título</label>
-              <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                     placeholder="Escribir nombre de la categoría" name="meta_title" [(ngModel)]="eCategory.CategoryLang.meta_title" >
+              <input type="text" class="estilo--input" name="meta_title" #meta_title="ngModel" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" [(ngModel)]="eCategory.CategoryLang.meta_title" required>
+              <div *ngIf="meta_title.errors?.required && meta_title.touched" class="alert alert-danger alert-message">
+                  Campo meta titulo es requerido*
+                </div>
             </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">Meta descripción</label>
-              <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                     placeholder="Escribir nombre de la categoría" name="meta_description" [(ngModel)]="eCategory.CategoryLang.meta_description"  >
+              <input type="text" class="estilo--input" name="meta_description" #meta_description="ngModel" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" [(ngModel)]="eCategory.CategoryLang.meta_description" required >
+              <div *ngIf="meta_description.errors?.required && meta_description.touched" class="alert alert-danger alert-message">
+                  Campo meta descripción es requerido*
+                </div>
             </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">Palabras Claves</label>
-              <textarea type="text" class="estilo--input" style="width: 100%;height: 60px"
-                        placeholder="Escribir nombre de la categoría" name="meta_keywords" [(ngModel)]="eCategory.CategoryLang.meta_keywords" ></textarea>
+              <textarea type="text" class="estilo--input" name="meta_keywords" #meta_keywords="ngModel" style="width: 100%;height: 60px" placeholder="Escribir nombre de la categoría"  [(ngModel)]="eCategory.CategoryLang.meta_keywords" required ></textarea>
+              <div *ngIf="meta_keywords.errors?.required && meta_keywords.touched" class="alert alert-danger alert-message">
+                  Campo palabras claves es requerido*
+                </div>
             </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">URL amigable</label>
-              <input type="text" class="estilo--input" style="width: 100%;height: 30px"
-                     placeholder="Escribir nombre de la categoría" name="link_rewrite" [(ngModel)]="eCategory.CategoryLang.link_rewrite" >
+              <input type="text" class="estilo--input" name="link_rewrite" #link_rewrite="ngModel" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" [(ngModel)]="eCategory.CategoryLang.link_rewrite" required>
+              <div *ngIf="link_rewrite.errors?.required && link_rewrite.touched" class="alert alert-danger alert-message">
+                  Campo URL amigable es requerido*
+                </div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="borde_previa">
                 <button class="btn-block btn__bt">Vista Previa</button>
                 <br>
-                <img src="../../assets/img/vista_previa.png" class="img-responsive img_centrado" alt="">
+                <iframe class="scrool_body" src="http://127.0.0.1:8000/api/categoryByParents/1" style="width: 100%;height:400px;">
+                  <p>Your browser does not support iframes.</p>
+                </iframe>
             </div>
             <br>
-            <button class="btn__bt color_blue__button"  style="width: 47%;height: 50px;" (click)="grabarCategory(1)" >GUARDAR Y SALIR</button>
-            <button class="btn__bt color_blue__button" style="width: 47%;height: 50px;" (click)="grabarCategory(2)">GUARDAR Y MANTENER</button>
+            <button class="btn__bt color_blue__button"  style="width: 47%;height: 50px;" (click)="grabarCategory(1)" [disabled]="!categoryForm.form.valid">GUARDAR Y SALIR</button>
+            <button class="btn__bt color_blue__button" style="width: 47%;height: 50px;" (click)="grabarCategory(2)" [disabled]="!categoryForm.form.valid">GUARDAR Y MANTENER</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+<app-message-manager *ngIf="isVisible" [oListMessages]="oListMessageError" [sMessageTitle]="sMessageTitle" (MessageBoxClose)="MessageBoxClose($event)"></app-message-manager>
+<br>
+<br>

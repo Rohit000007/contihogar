@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { AppRouteModule } from './app.route.module';
 
 import { AppComponent } from './app.component';
 import { ProductoComponent } from './producto/producto.component';
@@ -17,6 +18,7 @@ import { GeneralComponent } from './general/general.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { MerchComponent } from './merch/merch.component';
 import { CategoryComponent } from './category/category.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { CategoryComponent } from './category/category.component';
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    AppRouteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

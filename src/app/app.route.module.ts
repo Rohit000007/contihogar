@@ -3,7 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {ProductoComponent} from './producto/producto.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { GeneralComponent } from './general/general.component';
+import { CategoryComponent } from './category/category.component';
+import { MerchComponent } from './merch/merch.component';
 const routes: Routes = [
+    {
+        path:'/',
+        component:GeneralComponent
+    },
     {
         path: 'product',
         component:ProductoComponent
@@ -18,7 +24,11 @@ const routes: Routes = [
     },
     {
         path:'category',
-        component:ProductoComponent
+        component:CategoryComponent
+    },
+    {
+        path:'merge',
+        component:MerchComponent
     },
     { path: '**', redirectTo: 'not-found' }
 ];

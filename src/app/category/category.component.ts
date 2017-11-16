@@ -9,46 +9,104 @@ import {Category} from "../entity/category";
   providers:[AppService]
 })
 export class CategoryComponent implements OnInit {
+  public oListMessageError:any[] = [];
+  public isVisible:boolean = false;
+  public sMessageTitle:string = "Mensaje";
 
-  eCategory: Category;
-  id_category: string = '1';
-  oListCategory: Category[] = [];
-  oListcategoryByParents: any[] = [];
-  oCategory:any = {};
+  public sAcctionForm:string = "nuevo";
+  public eCategory: Category;
+  public id_category: string = '1';
+  public oListcategory: any[] = [];
+  public oCategory:any = {};
+
   constructor(private AppService: AppService) {
-    this.eCategory={id_category:0,CategoryLang : {description:'',
-    name:'',
-    meta_description:'',
-    link_rewrite:'',
-    meta_keywords:'',
-    meta_title:''}}
+    this.nuevaCategoria();
   }
 
   ngOnInit() {
-    this.AppService.getCategoryByDepth().subscribe(response=> {
-      this.oListCategory = response.json();
-      console.log(this.oListCategory);
-    });
-
-      this.AppService.getCategoryByParents(this.id_category).subscribe(response=> {
-      this.oListcategoryByParents = response.json();
-      console.log(this.oListcategoryByParents);
-    });
+    this.listarCategoria();
   }
 
 
-  grabarCategory(estado):void
-  {
-    this.eCategory.id_parent = this.oCategory.id_category;
-    this.eCategory.level_depth = this.oCategory.level_depth + 1;
-    this.eCategory.active = 1;
-    this.AppService.postCategory(this.eCategory).subscribe(response=> {
-      console.log(response);
+  cambiarEstado(id_category,active):void{
+    this.eCategory.active = active;
+    this.eCategory.id_category = id_category;
+    this.eCategory.isUpdateAll = false;
+    this.AppService.changeCategoryActive(this.eCategory).subscribe(data=>{
+      this.listarCategoria();
     });
   }
+  grabarCategory(estado):void{
+    this.oListMessageError = [];
+    if(Object.entries(this.oCategory).length == 0){
+      this.oListMessageError.push("Selecciona la categoria padre");
+      this.isVisible = true;
+      return;
+    }
+    if(this.eCategory.id_category == 0){
+      this.eCategory.id_parent = this.oCategory.id_category;
+      this.eCategory.level_depth = this.oCategory.level_depth + 1;
+      this.eCategory.active = 1;
+      this.AppService.postCategory(this.eCategory).subscribe(response=> {
+        let oCategory = <Category>response.json();
+        if(oCategory.id_category > 0){
+          this.oListMessageError = ["Grabación exitosa id_categoria : "+oCategory.id_category];
+          this.isVisible = true;
+          this.listarCategoria();
+        }
+      });
+    }else{
+      this.eCategory.isUpdateAll = true;
+      this.AppService.putCategory(this.eCategory).subscribe(data=>{
+        if(data.json().res == true){
+          this.oListMessageError = ["Actualización exitosa id_categoria : "+this.eCategory.id_category];
+          this.isVisible = true;
+          this.listarCategoria();
+        }
+      });
+    }
+  }
 
-  obtenerCategiry(oCategoryP):void{
-    console.log(oCategoryP);
+  obtenerCategory(oCategoryP,oControl):void{
+    let ulElement = <HTMLCollectionOf<HTMLLIElement>>document.getElementsByClassName("li-lista-categoria");
+    for(let _i=0;_i<ulElement.length;_i++){
+      (<HTMLLIElement>ulElement[_i]).className = "li-lista-categoria";
+    }
+    (<HTMLLIElement>oControl).className = "li-lista-categoria active";
     this.oCategory = oCategoryP;
+    this.AppService.getCategoryById(this.oCategory.id_category).subscribe(data=>{
+      this.eCategory = <Category>data.json();
+    });
+  }
+
+  listarCategoria():void{
+    this.AppService.getCategoryByParents(this.id_category).subscribe(response=> {
+      this.oListcategory = response.json();
+    });
+  }
+
+  MessageBoxClose(bMessageBoxClose):void{
+    this.isVisible = bMessageBoxClose;
+  }
+
+  formAction(sActionForm):void{
+    this.sAcctionForm = sActionForm;
+    if(this.sAcctionForm == "nuevo"){
+      this.nuevaCategoria();
+    }
+  }
+
+  nuevaCategoria():void{
+    this.eCategory = {
+      id_category:0,
+      CategoryLang : {
+        description:'',
+        name:'',
+        meta_description:'',
+        link_rewrite:'',
+        meta_keywords:'',
+        meta_title:''},
+      active:0}
+    this.oCategory = {};
   }
 }

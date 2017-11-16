@@ -1,5 +1,41 @@
 @import "../../assets/sass/variables-contihogar";
 
+.frm_category{
+  .panel-body{
+    .lista-categoria{
+      .ul-lista-categoria{
+        padding: 0;
+        .li-lista-categoria{
+          cursor: pointer;
+          display: flex;
+          label{
+            color: $contihogar-gray-2;
+          }
+          &:hover{
+            background-color: $contihogar-gray-2;
+            opacity: 0.5;
+            label{
+              color: $contihogar-white;
+            }
+          }
+        }
+        .active{
+          background-color:$contihogar-black;
+          label{
+            color: $contihogar-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
 .espacio
 {
   padding-top: 2em;
@@ -94,10 +130,9 @@ p
 }
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
   height: 22px;
+  padding-right: 30px;
+  position: relative;
 }
 
 .switch input {display:none;}
