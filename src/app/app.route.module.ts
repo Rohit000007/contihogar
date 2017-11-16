@@ -7,8 +7,9 @@ import { CategoryComponent } from './category/category.component';
 import { MerchComponent } from './merch/merch.component';
 const routes: Routes = [
     {
-        path:'/',
-        component:GeneralComponent
+        path:'',
+        component:GeneralComponent,
+        pathMatch: 'full'
     },
     {
         path: 'product',
