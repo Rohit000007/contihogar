@@ -1,21 +1,20 @@
 <div class="control-image-manage scrool_body">
     <div class="container-header-box">
         <span>IMAGENES</span>
-        <span>{{IdProduct}}</span>
     </div>
     <div *ngFor="let oListImage of oListColorImages;let i = index"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
+        <div class="control-dolor">
+            <input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i,oListImage)" style="height: 30px;width: 30px;margin-top: 5px;"><br>
+            <a class="link-eliminar" (click)="eliminarImageColor(oListImage.nonce,oListImage.id_attribute)">X</a>
+        </div>
         <div class="img-container-item img-container-item-new">
           <span class="add_image">+</span>
-          <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce)">
+          <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce,oListImage)">
         </div>
-        <div style="background-color: white;width: 50px;position: absolute;right: 0px;height: 120px;text-align: center;">
-            <input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i)" style="height: 35px;width: 35px"><br>
-            <a (click)="eliminarImageColor(oListImage.nonce)">X</a>
-        </div>
-        <div class="img-container-item" *ngFor="let image of oListImage.image_list_html;let i = index">
-            <img src="{{image.src}}" alt="">
+        <div class="img-container-item" *ngFor="let image of oListImage.image_list;let i = index">
+            <img src="{{image.src}}" alt="" name="{{image.id_image}}_{{i}}">
             <div class="caja-control-img">
-                <a class="link-borrar-img" (click)="eliminarImagen(oListImage.nonce,image.id)">X</a>
+                <a class="link-borrar-img" (click)="eliminarImagen(oListImage.nonce,image.id_image)">X</a>
             </div>
         </div>
     </div>

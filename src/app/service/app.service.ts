@@ -8,7 +8,7 @@ import { Product } from '../entity/product';
 export class AppService {
   private oProductObserver:Observable<Product>;
   private sUrlSite:string = "http://laravapi.contihogar.com.pe/api";//"http://127.0.0.1:8000/api";
-  private sUrlPrestahop:string = "https://www.contihogar.com.pe/apitest.php";
+  private sUrlPrestahop:string = "http://www.hogaryspacios.com/apitest.php";
   private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
 
@@ -57,15 +57,24 @@ export class AppService {
   }
 
   public sendImagePrestaShop(oForData:FormData){
+    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(this.sUrlPrestahop,oForData);
   }
 
   public getImage(IdProduct){
     return this.http.get(this.sUrlSite+"/image/"+IdProduct);
   }
+
+  public deleteImage(id_image){
+    return this.http.delete(this.sUrlSite+"/image/"+id_image);
+  }
   
   public getAttribute(IdProduct){
     return this.http.get(this.sUrlSite+"/product-attribute/"+IdProduct)
+  }
+
+  public getProductAtributeImage(IdProduct){
+    return this.http.get(this.sUrlSite+"/productAttibute/"+IdProduct);
   }
 
 
@@ -87,9 +96,17 @@ export class AppService {
     return this.http.post(this.sUrlSite+"/supplier/store",oSupplier);
   }
 
-  public putAttribute(oAttribute,oProductAttribute){
+  public postAttribute(oAttribute,oProductAttribute){
 
-    return this.http.post(this.sUrlSite+"/product/attribute",{Attribute:oAttribute,ProductAttribute:oProductAttribute});
+    return this.http.post(this.sUrlSite+"/productAttibute/store",{Attribute:oAttribute,ProductAttribute:oProductAttribute});
+  }
+
+  public saveProductAttributeImage(oProductAttributeImage){
+    return this.http.post(this.sUrlSite+"/productAttributeImage/store",oProductAttributeImage);
+  }
+
+  public deleteAttribute(id_attribute){
+    return this.http.delete(this.sUrlSite+"/attribute/"+id_attribute);
   }
   //#endregion
   //#endregion "Metodos"

@@ -173,7 +173,7 @@ export class ProductoComponent implements OnInit {
             this.iIdProduct = data.json().id_product;
             this.isVisible = true;
             this.sMessageTitle = "Mensaje";
-            this.oMessageError = ["Grabación Exitosa"];
+            this.oMessageError = ["Grabación Exitosa Id Producto: "+this.iIdProduct];
           });
         }
       }else{
