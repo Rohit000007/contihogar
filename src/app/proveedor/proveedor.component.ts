@@ -142,4 +142,10 @@ export class ProveedorComponent implements OnInit {
     console.log(id_district);
   }
 
+  buscarSupplier():void{
+    this.oAppService.getSupplierById(this.eSupplier).subscribe(data=>{
+      console.log(data);
+    });
+  }
+
 }
