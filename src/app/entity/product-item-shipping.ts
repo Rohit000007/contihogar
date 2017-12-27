@@ -3,5 +3,6 @@ export interface ProductItemShipping {
     ancho:number,
     alto:number,
     profundidad:number,
-    peso:number
+    peso:number,
+    cantidad:number,
 }

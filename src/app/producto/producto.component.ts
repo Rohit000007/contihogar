@@ -109,23 +109,24 @@ export class ProductoComponent implements OnInit {
           ancho:oFormDataElementsShipping["ancho_cm_transporte"].value,
           peso:oFormDataElementsShipping["peso_kg_transporte"].value,
           profundidad:oFormDataElementsShipping["profundidad_cm_transporte"].value,
+          cantidad:oFormDataElementsShipping["cantidad_item_transporte"].value,
           id_product_item:0
         }
         vProductItem.ProductItemShipping.push(vProductItemShipping);
       }
       let oListProductItemCaracteristica = [
-        {nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value,campo:"estilo_producto_item"},
-        {nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value,campo:"tipo_tapiz_producto_item"},
-        {nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value,campo:"color_tapiz_producto_item"},
-        {nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value,campo:"tipo_relleno_producto_item"},
-        {nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value,campo:"material_estructura_producto_item"},
-        {nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value,campo:"armado_producto_item"},
-        {nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value,campo:"garantia_producto_item"},
-        {nombre:"Entega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value,campo:"entrega_dias_producto_item"},
-        {nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value,campo:"altura_cm_producto"},
-        {nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value,campo:"ancho_cm_producto"},
-        {nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value,campo:"profundidad_cm_producto"},
-        {nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value,campo:"peso_kg_producto"}
+        {nombre:"Estilo",valor:oFormDataElements["estilo_producto_item"].value,campo:"estilo_producto_item",orden:1},
+        {nombre:"Tipo de tapiz",valor:oFormDataElements["tipo_tapiz_producto_item"].value,campo:"tipo_tapiz_producto_item",orden:2},
+        {nombre:"Color de tapiz",valor:oFormDataElements["color_tapiz_producto_item"].value,campo:"color_tapiz_producto_item",orden:3},
+        {nombre:"Tipo de relleno",valor:oFormDataElements["tipo_relleno_producto_item"].value,campo:"tipo_relleno_producto_item",orden:4},
+        {nombre:"Material de estructra",valor:oFormDataElements["material_estructura_producto_item"].value,campo:"material_estructura_producto_item",orden:5},
+        {nombre:"Armado",valor:oFormDataElements["armado_producto_item"].value,campo:"armado_producto_item",orden:6},
+        {nombre:"Garantia",valor:oFormDataElements["garantia_producto_item"].value,campo:"garantia_producto_item",orden:7},
+        {nombre:"Entrega (Dias)",valor:oFormDataElements["entrega_dias_producto_item"].value,campo:"entrega_dias_producto_item",orden:8},
+        {nombre:"Altura (cm)",valor:oFormDataElements["altura_cm_producto"].value,campo:"altura_cm_producto",orden:9},
+        {nombre:"Ancho (cm)",valor:oFormDataElements["ancho_cm_producto"].value,campo:"ancho_cm_producto",orden:10},
+        {nombre:"Profundidad (cm)",valor:oFormDataElements["profundidad_cm_producto"].value,campo:"profundidad_cm_producto",orden:11},
+        {nombre:"Peso (kg)",valor:oFormDataElements["peso_kg_producto"].value,campo:"peso_kg_producto",orden:12}
       ];
 
 

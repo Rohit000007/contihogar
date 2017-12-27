@@ -19,20 +19,21 @@ export class ProductItemComponent implements OnChanges ,OnInit {
     {class:"form-control",id:"material_estructura_producto_item_0",name:"material_estructura_producto_item",type:"text",value:""},
     {class:"form-control",id:"armado_producto_item_0",name:"armado_producto_item",type:"text",value:""},
     {class:"form-control",id:"garantia_producto_item_0",name:"garantia_producto_item",type:"text",value:""},
-    {class:"form-control",id:"entrega_dias_producto_item_0",name:"entrega_dias_producto_item",type:"text",value:""},
-    {class:"form-control",id:"unidades_producto_item_0",name:"unidades_producto_item",type:"number",value:"1234"}
+    {class:"form-control",id:"entrega_dias_producto_item_0",name:"entrega_dias_producto_item",type:"text",value:""}
   ];
   oListFormItemInputProperties:IFormItemInput[] = [
-    {class:"form-control",id:"altura_cm_producto_0",name:"altura_cm_producto",type:"number",value:"1234"},
-    {class:"form-control",id:"ancho_cm_producto_0",name:"ancho_cm_producto",type:"number",value:"1"},
+    {class:"form-control",id:"altura_cm_producto_0",name:"altura_cm_producto",type:"number",value:"0"},
+    {class:"form-control",id:"ancho_cm_producto_0",name:"ancho_cm_producto",type:"number",value:"0"},
     {class:"form-control",id:"profundidad_cm_producto_0",name:"profundidad_cm_producto",type:"number",value:"0"},
     {class:"form-control",id:"peso_kg_producto_0",name:"peso_kg_producto",type:"number",value:"0"},
+    {class:"form-control",id:"unidades_producto_item_0",name:"unidades_producto_item",type:"number",value:"0"}
   ];
   oListFormItemInputTransport:IFormItemInput[] = [
     {class:"form-control",id:"altura_cm_transporte_0",name:"altura_cm_transporte",type:"number",value:"1234"},
     {class:"form-control",id:"ancho_cm_transporte_0",name:"ancho_cm_transporte",type:"number",value:"1"},
     {class:"form-control",id:"profundidad_cm_transporte_0",name:"profundidad_cm_transporte",type:"number",value:"0"},
     {class:"form-control",id:"peso_kg_transporte_0",name:"peso_kg_transporte",type:"number",value:"0"},
+    {class:"form-control",id:"unidades_item_transporte_0",name:"unidades_item_transporte",type:"number",value:"0"},
   ];
 
   oListFormItem:iFormItem[] = [];
@@ -174,12 +175,16 @@ export class ProductItemComponent implements OnChanges ,OnInit {
       return [{class:"form-control",id:"altura_cm_transporte_"+idFormShipping,name:"altura_cm_transporte",type:"number",value:"0"},
               {class:"form-control",id:"ancho_cm_transporte_"+idFormShipping,name:"ancho_cm_transporte",type:"number",value:"0"},
               {class:"form-control",id:"profundidad_cm_transporte_"+idFormShipping,name:"profundidad_cm_transporte",type:"number",value:"0"},
-              {class:"form-control",id:"peso_kg_transporte_"+idFormShipping,name:"peso_kg_transporte",type:"number",value:"0"}]
+              {class:"form-control",id:"peso_kg_transporte_"+idFormShipping,name:"peso_kg_transporte",type:"number",value:"0"},
+              {class:"form-control",id:"cantidad_item_transporte_0",name:"cantidad_item_transporte",type:"number",value:"0"},
+            ]
     }else{
       return [{class:"form-control",id:"altura_cm_transporte_"+idFormShipping,name:"altura_cm_transporte",type:"number",value:oProductItemShipping.alto.toString()},
               {class:"form-control",id:"ancho_cm_transporte_"+idFormShipping,name:"ancho_cm_transporte",type:"number",value:oProductItemShipping.ancho.toString()},
               {class:"form-control",id:"profundidad_cm_transporte_"+idFormShipping,name:"profundidad_cm_transporte",type:"number",value:oProductItemShipping.profundidad.toString()},
-              {class:"form-control",id:"peso_kg_transporte_"+idFormShipping,name:"peso_kg_transporte",type:"number",value:oProductItemShipping.peso.toString()}]
+              {class:"form-control",id:"peso_kg_transporte_"+idFormShipping,name:"peso_kg_transporte",type:"number",value:oProductItemShipping.peso.toString()},
+              {class:"form-control",id:"cantidad_item_transporte_"+idFormShipping,name:"cantidad_item_transporte",type:"number",value:oProductItemShipping.cantidad.toString()},
+            ]
     }
   }
 
@@ -188,12 +193,14 @@ export class ProductItemComponent implements OnChanges ,OnInit {
     let idFormNew = this.agregarTabControlItem(vNumberTabIndex);
     let oFormItem:iFormItem;
     if(isNew){
-      return oFormItem = 
-        {DBId:0, id:this.vFormNamePrefix+idFormNew,class:"form-horizontal",name:"frmProductoItem",
+      return oFormItem = {
+        DBId:0, id:this.vFormNamePrefix+idFormNew,
+        class:"form-horizontal",name:"frmProductoItem",
         display:((this.oListFormItem.length == 0)?"block":"none"),
         inputFeatures:this.oListFormItemInputFeatures,
         inputProperties:this.oListFormItemInputProperties,
-        oListFormItemShipping:[]}
+        oListFormItemShipping:[]
+      }
     }else{
       let oListFormItemInputFeaturesEdit:IFormItemInput[] = [];
       let oListFormItemInputPropertiesEdit:IFormItemInput[] = [];
@@ -208,8 +215,9 @@ export class ProductItemComponent implements OnChanges ,OnInit {
         }else if(vItemCaracteristica[_i].campo == "profundidad_cm_producto"){
           oListFormItemInputPropertiesEdit.push({class:"form-control",id:"profundidad_cm_producto_"+idFormNew,name:"profundidad_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else if(vItemCaracteristica[_i].campo == "peso_kg_producto"){
-          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"peso_kg_producto_"+idFormNew,name:"peso_kg_producto",type:"number",value:vItemCaracteristica[_i].valor});
-        }else{
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"peso_kg_cm_producto_"+idFormNew,name:"peso_kg_cm__producto",type:"number",value:vItemCaracteristica[_i].valor});
+        }
+        else{
           oListFormItemInputFeaturesEdit.push({
             class:"form-control",
             id:vItemCaracteristica[_i].campo+"_"+idFormNew,
@@ -219,14 +227,18 @@ export class ProductItemComponent implements OnChanges ,OnInit {
           });
         }
       }
-      oListFormItemInputFeaturesEdit.push({class:"form-control",id:"unidades_producto_item"+"_"+idFormNew,name:"unidades_producto_item",type:"text",value:oProductItem.cantidad.toString()});
+      oListFormItemInputPropertiesEdit.push({class:"form-control",id:"unidades_producto_item"+"_"+idFormNew,name:"unidades_producto_item",type:"text",value:oProductItem.cantidad.toString()});
       return oFormItem =
-        {DBId:oProductItem.id_product_item,id:this.vFormNamePrefix+idFormNew,class:"form-horizontal",
-        name:"frmProductoItem",
-        display:((this.oListFormItem.length == 0)?"block":"none"),
-        inputFeatures:oListFormItemInputFeaturesEdit,
-        inputProperties:oListFormItemInputPropertiesEdit,
-        oListFormItemShipping:[]}
+        {
+          DBId:oProductItem.id_product_item,
+          id:this.vFormNamePrefix+idFormNew,
+          class:"form-horizontal",
+          name:"frmProductoItem",
+          display:((this.oListFormItem.length == 0)?"block":"none"),
+          inputFeatures:oListFormItemInputFeaturesEdit,
+          inputProperties:oListFormItemInputPropertiesEdit,
+          oListFormItemShipping:[]
+        }
     }
   }
 }

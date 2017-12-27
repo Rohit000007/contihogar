@@ -8,8 +8,8 @@ import { Category } from '../entity/category';
 @Injectable()
 export class AppService {
   private oProductObserver:Observable<Product>;
-  private sUrlSite:string = "http://laravapi.contihogar.com.pe/api";//"http://127.0.0.1:8000/api";//
-  private sUrlPrestahop:string = "http://www.hogaryspacios.com/apitest.php";
+  private sUrlSite:string = "http://127.0.0.1:8000/api";////"http://laravapi.contihogar.com.pe/api";//
+  private sUrlPrestahop:string = "http://localhost:8080/hogaryspacios/apitest.php" //"http://hogaryspacios.com/apitest.php";
   private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
 
