@@ -9,7 +9,7 @@ import { Category } from '../entity/category';
 export class AppService {
   private oProductObserver:Observable<Product>;
   private sUrlSite:string = "http://127.0.0.1:8000/api";////"http://laravapi.contihogar.com.pe/api";//
-  private sUrlPrestahop:string = "http://localhost:8080/hogaryspacios/apitest.php" //"http://hogaryspacios.com/apitest.php";
+  private sUrlPrestahop:string = "http://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
   private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
 
@@ -71,6 +71,9 @@ export class AppService {
 
   public updateProduct(oProduct){
     return this.http.put(this.sUrlSite+"/product/"+oProduct.id_product,oProduct);
+  }
+  public getListProduct(pageNumber){
+    return this.http.get(this.sUrlSite+"/product/getProductGrid?page="+pageNumber);
   }
 
   public sendImagePrestaShop(oForData:FormData){

@@ -17,6 +17,8 @@ import { ModelProduct } from '../entity/model-product';
 import { Category } from '../entity/category';
 import { ProductCrossCategory } from '../entity/product-cross-category';
 import { ProductItemShipping } from '../entity/product-item-shipping';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-producto',
@@ -25,9 +27,8 @@ import { ProductItemShipping } from '../entity/product-item-shipping';
   providers:[AppService]
 })
 export class ProductoComponent implements OnInit {
-
-
   //#region "Variables"
+
   iIdProduct:number = 0;
   bProductCategoryEdit:boolean = false;
   sMessageTitle:string = "";
@@ -36,7 +37,7 @@ export class ProductoComponent implements OnInit {
   isEditProductItem:boolean = false;
   oProductLang:ProductLang;
   oProducto:Product;
-  oProductEvent:ProductEvent = {id_product:0};
+  oProductEvent:ProductEvent = new ProductEvent();
   oModel:Model = {nombre:""};
   
   oListModels:Model[];
@@ -50,9 +51,8 @@ export class ProductoComponent implements OnInit {
   //#endrregion 
   
   //#region "Metodos"
-  constructor(private oAppService:AppService) {
-    this.oProducto = {id_product:0,id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:""};
-    this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
+  constructor(private oAppService:AppService,private route:ActivatedRoute) {
+    this.newProduct();
     this.oProducto.ProductItem = [];
     
     this.oAppService.getSupplier().subscribe(data=>this.lListProveedor = data.json().oProduct);
@@ -65,27 +65,35 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+    //console.log(window['CKEDITOR']);
     window['CKEDITOR']['replace']('description_short');
     window['CKEDITOR']['replace']('description');
+    this.route.params.subscribe(params=>{
+      let id_product = +params['id'];
+      if(id_product > 0)
+        this.buscarProduct(id_product);
+      else
+        this.newProduct();
+    });
   }
 
   obtenerMarcas(oProveedor){
     let eSupplier = new Supplier();
   }
 
-  //Controlar Tab Editor
+  // Controlar Tab Editor
   changeTabClick(indexViewEditor){
     if(indexViewEditor == 1){
       document.getElementById("content-editor-2").style.display = "none";
       document.getElementById("content-editor-1").style.display = "block";
-    }else{
+    }else {
       document.getElementById("content-editor-2").style.display = "block";
       document.getElementById("content-editor-1").style.display = "none";
     }
   }
 
   enviarProducto(){
-    //Limpiar Variables antes de llenar
+    // Limpiar Variables antes de llenar
     this.oProducto.ProductItem = [];
     //Recoger los ProductsItem
     var oFormElements = document.getElementsByName("frmProductoItem");
@@ -163,8 +171,8 @@ export class ProductoComponent implements OnInit {
       inst_message:this.oProductLang.inst_message
     };
 
-    //console.log(this.oProducto);
-    //console.log(this.oProducto.ProductItem);
+    // console.log(this.oProducto);
+    // console.log(this.oProducto.ProductItem);
     if(this.ValidarFormulario(this.oProducto)){
       console.log("Agrega");
       if(this.oProducto.id_product == 0){
@@ -256,6 +264,14 @@ export class ProductoComponent implements OnInit {
       vRetorno = false;
       this.oMessageError.push("Seleccione categoria");
     }
+    if(oProduct.ProductLang.inst_message == ""){
+      vRetorno = false;
+      this.oMessageError.push("Ingrese etiqueta cuando no hay stock");
+    }
+    if(oProduct.condition == ""){
+      vRetorno = false;
+      this.oMessageError.push("Selecciona condición de producto");
+    }
     if(!vRetorno){
       this.isVisible = true;
       this.sMessageTitle = "Campos requeridos *";
@@ -269,8 +285,8 @@ export class ProductoComponent implements OnInit {
   }
 
 
-  buscarProduct():void{
-    this.oAppService.editProduct(this.oProducto.id_product).subscribe(data=>{
+  buscarProduct(id_product):void{
+    this.oAppService.editProduct(id_product).subscribe(data=>{
       if(data == "NO DATA"){
         console.log("no hay datos");
       }else{
@@ -308,6 +324,11 @@ export class ProductoComponent implements OnInit {
     eEvent.preventDefault();
     console.log(event);
     return false;
+  }
+  newProduct(): any {
+    this.oProducto = {id_product:0,id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:"",ProductEvent:this.oProductEvent};
+    this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
+    console.log(this.oProducto);
   }
   //#endregion
 

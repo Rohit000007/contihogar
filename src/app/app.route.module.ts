@@ -5,6 +5,7 @@ import { ProveedorComponent } from './proveedor/proveedor.component';
 import { GeneralComponent } from './general/general.component';
 import { CategoryComponent } from './category/category.component';
 import { MerchComponent } from './merch/merch.component';
+
 const routes: Routes = [
     {
         path:'',
@@ -12,7 +13,7 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'product',
+        path: 'product/:id',
         component:ProductoComponent
     },
     {
