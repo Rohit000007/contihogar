@@ -128,6 +128,10 @@ export class AppService {
   public deleteAttribute(id_attribute){
     return this.http.delete(this.sUrlSite+"/attribute/"+id_attribute);
   }
+
+  public getOrderProductTop(){
+    return this.http.get(this.sUrlSite+"/order/productTop");
+  }
   //#endregion
   //#endregion "Metodos"
 

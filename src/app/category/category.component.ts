@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+
 import {AppService} from "../service/app.service";
 import {Category} from "../entity/category";
 
@@ -19,7 +21,9 @@ export class CategoryComponent implements OnInit {
   public oListcategory: any[] = [];
   public oCategory:any = {};
 
-  constructor(private AppService: AppService) {
+  public categoryName:SafeResourceUrl;
+
+  constructor(private AppService: AppService,private sanitizer:DomSanitizer) {
     this.nuevaCategoria();
   }
 
@@ -77,6 +81,8 @@ export class CategoryComponent implements OnInit {
     this.AppService.getCategoryById(this.oCategory.id_category).subscribe(data=>{
       this.eCategory = <Category>data.json();
     });
+    this.categoryName = this.sanitizer.bypassSecurityTrustResourceUrl("https://hogaryspacios.com/cat"+this.oCategory.id_category+"-"+this.oCategory.link_rewrite); 
+    console.log(this.categoryName);
   }
 
   listarCategoria():void{

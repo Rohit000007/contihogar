@@ -14,10 +14,12 @@ export class GeneralComponent implements OnInit {
   private range:number[] = [];
 
   private listProduct:any[] = [];
+  private listProductTop:any[] = [];
   constructor(private appService:AppService) { }
 
   ngOnInit() {
     this.getListProduct();
+    this.getListProductTop();
   }
 
   getListProduct(pageNumber?):void{
@@ -37,6 +39,12 @@ export class GeneralComponent implements OnInit {
         pages.push(_i);
       }
       this.range = pages;
+    });
+  }
+
+  getListProductTop(){
+    this.appService.getOrderProductTop().subscribe(rest=>{
+      this.listProductTop = rest.json();
     });
   }
 }
