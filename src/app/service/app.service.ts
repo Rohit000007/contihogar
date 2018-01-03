@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Product } from '../entity/product';
 import { Category } from '../entity/category';
+import { DataTableParams } from 'angular-4-data-table-bootstrap-4';
+import { Filter } from '../general/general.component';
 
 @Injectable()
 export class AppService {
@@ -72,8 +74,8 @@ export class AppService {
   public updateProduct(oProduct){
     return this.http.put(this.sUrlSite+"/product/"+oProduct.id_product,oProduct);
   }
-  public getListProduct(pageNumber){
-    return this.http.get(this.sUrlSite+"/product/getProductGrid?page="+pageNumber);
+  public getListProduct(params: DataTableParams, filterData: Filter[]){
+    return this.http.get(this.sUrlSite+"/product/getProductGrid?"+this.paramsToQueryString(params)+"&"+this.paramFilterProductGeneral(filterData));
   }
 
   public sendImagePrestaShop(oForData:FormData){
@@ -132,7 +134,44 @@ export class AppService {
   public getOrderProductTop(){
     return this.http.get(this.sUrlSite+"/order/productTop");
   }
+
+  public getOrderSupplierTop(){
+    return this.http.get(this.sUrlSite+"/order/supplierTop");
+  }
+
+  public getOrderCategoryTop(){
+    return this.http.get(this.sUrlSite+"/order/categoryTop");
+  }
+
+  public getOrderTotal(){
+    return this.http.get(this.sUrlSite+"/order/total");
+  }
   //#endregion
   //#endregion "Metodos"
 
+  public paramsToQueryString(params: DataTableParams) {
+    let result = [];
+
+    if (params.offset != null) {
+        result.push(['_start', params.offset]);
+    }
+    if (params.limit != null) {
+        result.push(['_limit', params.limit]);
+    }
+    if (params.sortBy != null) {
+        result.push(['_sort', params.sortBy]);
+    }
+    if (params.sortAsc != null) {
+        result.push(['_order', params.sortAsc ? 'ASC' : 'DESC']);
+    }
+
+    return result.map(param => param.join('=')).join('&');
+  }
+  public paramFilterProductGeneral(filterData: Filter[]){
+    let result = [];
+    for(let _i = 0;_i < filterData.length;_i++){
+      result.push([filterData[_i].column,filterData[_i].value]);
+    }
+    return result.map(rest => rest.join('=')).join('&');
+  }
 }

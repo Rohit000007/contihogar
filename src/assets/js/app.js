@@ -7,5 +7,5 @@ function nextCarrousel(oControl){
 $(document).ready(function(){
     $('.carousel').carousel({
         interval: false
-    }); 
+    });
 });

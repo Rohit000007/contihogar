@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppRouteModule } from './app.route.module';
+import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
 
 import { AppComponent } from './app.component';
 import { ProductoComponent } from './producto/producto.component';
@@ -41,7 +42,8 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     HttpModule,
     FormsModule,
-    AppRouteModule
+    AppRouteModule,
+    DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
