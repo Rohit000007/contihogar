@@ -146,6 +146,10 @@ export class AppService {
   public getOrderTotal(){
     return this.http.get(this.sUrlSite+"/order/total");
   }
+
+  public postExcel(oData: FormData): any {
+    return this.http.post(this.sUrlSite+"/product/listarMerge", oData);
+  }
   //#endregion
   //#endregion "Metodos"
 

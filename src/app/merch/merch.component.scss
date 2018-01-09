@@ -1,14 +1,20 @@
 @import "../../assets/sass/variables-contihogar";
 
-
-
 .cuerpo
 {
   height: 100vh;
+  .row{
+    .table-responsive{
+      overflow:scroll; 
+    }
+  }
 }
 .espacio
 {
   padding-top: 2em;
+  .display-flex{
+    display: flex;
+  }
 }
 .contenedor-pf
 {
@@ -33,7 +39,7 @@
   border: none;
   height: 30px;
   display: block;
-  width: 70%;
+  width: 95%;
 }
 
 thead

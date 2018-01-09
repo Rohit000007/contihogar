@@ -1,116 +1,124 @@
 <div class="cuerpo">
   <div class="espacio">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-              <div class="col-sm-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">KPI actual</div>
-                  <div class="panel-body">
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Venta</p>
-                      <p class="p_numero">S/.120.00</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Unidades</p>
-                      <p class="p_numero">500</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Margen</p>
-                      <p class="p_numero">18%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                 <div class="panel panel-default">
-                  <div class="panel-heading">KPI esperado</div>
-                  <div class="panel-body">
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Venta</p>
-                      <p class="p_numero">S/.120.00</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Unidades</p>
-                      <p class="p_numero">500</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Margen</p>
-                      <p class="p_numero">18%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                 <div class="panel panel-default">
-                  <div class="panel-heading">KPI Total</div>
-                  <div class="panel-body">
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Venta</p>
-                      <p class="p_numero">S/.120.00</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Volumen de Unidades</p>
-                      <p class="p_numero">500</p>
-                    </div>
-                    <div class="contenedor-pf">
-                      <p class="p_text">Margen</p>
-                      <p class="p_numero">18%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <input type="text" class="input__search" placeholder="Buscar por SKU">
-              </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">KPI actual</div>
+          <div class="panel-body">
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Venta</p>
+              <p class="p_numero">S/.120.00</p>
             </div>
-        </div>
-        <br>
-        <div class="col-md-10">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead class="thead-black">
-
-              <tr>
-                <th>SKU</th>
-                <th>Nombre del Producto</th>
-                <th>Proveeedor</th>
-                <th>Marca</th>
-                <th>Categoria</th>
-                <th>Costo de Envío</th>
-                <th>Costo Actual</th>
-                <th>Precio Actual</th>
-                <th>Descuento Actual</th>
-              </tr>
-              </thead>
-              <tbody class="tbody-white">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Unidades</p>
+              <p class="p_numero">500</p>
+            </div>
+            <div class="contenedor-pf">
+              <p class="p_text">Margen</p>
+              <p class="p_numero">18%</p>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
+          <div class="panel panel-default">
+          <div class="panel-heading">KPI esperado</div>
+          <div class="panel-body">
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Venta</p>
+              <p class="p_numero">S/.120.00</p>
+            </div>
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Unidades</p>
+              <p class="p_numero">500</p>
+            </div>
+            <div class="contenedor-pf">
+              <p class="p_text">Margen</p>
+              <p class="p_numero">18%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+          <div class="panel panel-default">
+          <div class="panel-heading">KPI Total</div>
+          <div class="panel-body">
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Venta</p>
+              <p class="p_numero">S/.120.00</p>
+            </div>
+            <div class="contenedor-pf">
+              <p class="p_text">Volumen de Unidades</p>
+              <p class="p_numero">500</p>
+            </div>
+            <div class="contenedor-pf">
+              <p class="p_text">Margen</p>
+              <p class="p_numero">18%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 display-flex">
+          <div style="width: 90%;">
+            <input type="text" class="form-control input__search" name="reference" [(ngModel)]="oProduct.reference" placeholder="Buscar por SKU">
+          </div>
+          <div style="width: 10%;">
+            <button class="btn btn-default" (click)="searchProduct(oProduct.reference)"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
+      </div>
+      <div class="col-sm-4 display-flex">
+        <div style="width: 20%">
+          <label>Importar</label>
+        </div>
+        <div style="width: 80%;">
+          <input type="file" class="form-control" name="file" [(ngModel)]="modelFile" (change)="uploadFile($event)">
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+      <div class="table-responsive">
+          <data-table id="product-grid" class="table table-bordered" [items]="items" [pagination]="false" (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)">
+              <data-table-column [property]="'reference'" [header]="'SKU'" [sortable]="true" width="150px" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'product'" [header]="'Nombre'" [sortable]="true" [resizable]="true" width="200px"></data-table-column>
+              <data-table-column [property]="'supplier'" [header]="'Proveeedor'" [sortable]="true" [resizable]="true" width="150px"></data-table-column>
+              <data-table-column [property]="'manufacturer'" [header]="'Marca'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'category'" [header]="'Categoria'" [sortable]="true" [resizable]="true" width="150px"></data-table-column>
+              <data-table-column [property]="'reduction'" [header]="'Descuento Actual'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'price'" [header]="'Precio'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'margen'" [header]="'Margen'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'quantity'" [header]="'Cant.'" [sortable]="true" [resizable]="true"></data-table-column>
+              <data-table-column [property]="'reference'" [header]="'Estado'" [sortable]="false" [resizable]="true"></data-table-column>
+              <!--<data-table-column
+                  property="phoneNumber"
+                  header="Phone number"
+                  width="150px">
+              </data-table-column>
+              <data-table-column
+                  [property]="'jobTitle'"
+                  [header]="'Job title'"
+                  [visible]="false">
+              </data-table-column>
+              <data-table-column
+                  [property]="'active'"
+                  [header]="'Active'"
+                  [width]="100"
+                  [resizable]="true">
+                  <template #dataTableHeader let-item="item">
+                      <span style="color: rgb(232, 0, 0)">Active</span>
+                  </template>
+                  <template #dataTableCell let-item="item">
+                      <span style="color: grey">
+                      <span class="fa fa-check" *ngIf="item.active"></span>
+                      <span class="fa fa-times" *ngIf="!item.active"></span>
+                      </span>
+                  </template>
+              </data-table-column>-->
+          </data-table>
+      </div>
+    </div>
   </div>
-</div>
 </div>

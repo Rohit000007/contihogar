@@ -105,7 +105,7 @@
 <br>
 <br>
 <div class="row fila-tabla"> 
-    <data-table id="product-grid" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)" (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)">
+    <data-table id="product-grid" class="table table-bordered" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)" (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)">
       <data-table-column [property]="'reference'" [header]="'SKU'" [sortable]="true" width="150px"></data-table-column>
       <data-table-column [property]="'product'" [header]="'Nombre'" [sortable]="true" width="200px"></data-table-column>
       <data-table-column [property]="'supplier'" [header]="'Proveeedor'" [sortable]="true" width="150px"></data-table-column>
