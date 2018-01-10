@@ -70,11 +70,7 @@ export class MerchComponent implements OnInit {
   }
   calCostShipping(item){
     this.oAppService.getCostShippingMerge(item).subscribe(rest=>{
-      console.log(rest);
+      item.cost_shipping_cost = rest.json().cost_shipping;
     });
-    if(item.with_shipping_cost == 0)
-      item.cost_shipping = 0;
-    else 
-      item.cost_shipping = 100;
   }
 }
