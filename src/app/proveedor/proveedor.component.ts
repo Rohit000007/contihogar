@@ -30,6 +30,7 @@ export class ProveedorComponent implements OnInit {
   oListProvince:Province[] = [];
   oListDistrict:District[] = [];
   olistMetaKeyWords:string[] = [];
+
   sStrMeta_keywords:string = "";
   id_district:string = "0";
   id_province:string = "0";

@@ -294,33 +294,33 @@
             <div class="panel-heading">Pago al Contado</div>
             <div class="content-pago">
               <div class="content-pago__details">
-                <input type="radio" name="radio" value="1" checked>
+                <input type="radio" name="radio" value="1" checked [(ngModel)]="eSupplier.SupplierConfig.pay_before_delivery_product">
                 <p class="pago__color">Pago antes de entregar producto </p>
               </div>
 
               <div class="content-pago__details_2">
                   <p class="pago_dias">Dias Previos</p>
-                  <p class="pago_dias bgcolor">ingreso días</p>
+                  <input type="number" name="previous_day" [(ngModel)]="eSupplier.SupplierConfig.previous_day" placeholder="Ingresa días">
               </div>
               <hr>
 
               <div class="content-pago__details">
-                <input type="radio" name="radio" value="1" checked>
+                <input type="radio" name="radio" value="2" [(ngModel)]="eSupplier.SupplierConfig.pay_after_delivery_product">
                 <p class="pago__color">Pago antes de entregar producto </p>
               </div>
               <hr>
               <div class="content-pago__details">
-                <input type="radio" name="radio" value="1" checked>
+                <input type="radio" name="radio" value="3" [(ngModel)]="eSupplier.SupplierConfig.percentage_pay_before_delivery">
                 <p class="pago__color">Porcentage de pago antes de la entrega</p>
               </div>
 
               <div class="content-pago__details_2">
                 <p class="pago_dias">%pago</p>
-                <p class="pago_dias bgcolor">pago</p>
+                <input type="number" name="value_percentage_payout" [(ngModel)]="eSupplier.SupplierConfig.value_percentage_payout">
               </div>
               <hr>
               <div class="content-pago__details">
-                <input type="radio" name="radio" value="1" checked>
+                <input type="radio" name="radio" value="4" [(ngModel)]="eSupplier.SupplierConfig.pay_before_send_purchase_order">
                 <p class="pago__color">Pago antes de enviar la orden de compra </p>
               </div>
             </div>

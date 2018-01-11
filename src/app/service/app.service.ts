@@ -154,6 +154,9 @@ export class AppService {
   public getCostShippingMerge(item){
     return this.http.post(this.sUrlSite+"/product/shippingCost",item);
   }
+  public grabarProductEvent(listProduct: any[]): any {
+    return this.http.post(this.sUrlSite+"/productEvent",{"product_event":listProduct});
+  }
   //#endregion
   //#endregion "Metodos"
 

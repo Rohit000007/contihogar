@@ -3,6 +3,7 @@ import { SupplierZoneDelivery } from "./supplier-zone-delivery";
 import { SupplierContact } from "./supplier-contact";
 import { Address } from "./address";
 import { SupplierLang } from "./supplier-lang";
+import { SupplierConfig } from "./supplier-config";
 
 export class Supplier {
     public id_supplier?:number;
@@ -20,6 +21,7 @@ export class Supplier {
     public SupplierZoneDelevery?:SupplierZoneDelivery[];
     public SupplierContact?:SupplierContact[];
     public Address?:Address;
+    public SupplierConfig?:SupplierConfig;
     constructor(){
         this.id_supplier = 0;
         this.invoice_type = 0;
@@ -27,5 +29,6 @@ export class Supplier {
         this.bussines_model = 0;
         this.payment_type = 0;
         this.active = 1;
+        this.SupplierConfig = new SupplierConfig();
     }
 }

@@ -55,22 +55,29 @@ export class MerchComponent implements OnInit {
     console.log(this.items);
   }
   calculateMargen(item){
-    let price = item.new_price;
+    let price = item.event_price;
     if(!isNaN(item.cupon))
     price = price - item.cupon;
-    let margen = (price - item.new_cost / price);
+    let margen = (price - item.event_cost / price);
     return isNaN(margen)?0:margen;
   }
   calculateMargenMoney(item){
-    let price = item.new_price;
+    let price = item.event_price;
     if(!isNaN(item.cupon))
     price = price - item.cupon;
-    let margen = (price - item.new_cost);
+    let margen = (price - item.event_cost);
     return isNaN(margen)?0:margen;
   }
   calCostShipping(item){
     this.oAppService.getCostShippingMerge(item).subscribe(rest=>{
-      item.cost_shipping_cost = rest.json().cost_shipping;
+      item.cost_shipping = rest.json().cost_shipping;
+      console.log(item.cost_shipping);
     });
   }
+  grabar():void{
+    this.oAppService.grabarProductEvent(this.items).subscribe(rest=>{
+      console.log(rest);
+    });
+  }
+
 }
