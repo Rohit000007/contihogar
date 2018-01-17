@@ -150,6 +150,10 @@ export class AppService {
   public postExcel(oData: FormData): any {
     return this.http.post(this.sUrlSite+"/product/listarMerge", oData);
   }
+  public getProductById(id_product: number){
+    return this.http.post(this.sUrlSite+"/product/getById",{"id_product":id_product});
+  }
+
 
   public getCostShippingMerge(item){
     return this.http.post(this.sUrlSite+"/product/shippingCost",item);

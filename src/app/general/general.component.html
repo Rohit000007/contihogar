@@ -112,11 +112,24 @@
       <data-table-column [property]="'manufacturer'" [header]="'Marca'" [sortable]="true"></data-table-column>
       <data-table-column [property]="'model'" [header]="'Modelo'" [sortable]="true"></data-table-column>
       <data-table-column [property]="'category'" [header]="'Categoria'" [sortable]="true" width="150px"></data-table-column>
-      <data-table-column [property]="'price'" [header]="'Precio'" [sortable]="true"></data-table-column>
-      <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true"></data-table-column>
+      <data-table-column [property]="'price'" [header]="'Precio'" [resizable]="true" [sortable]="true" width="200px;">
+        <template #dataTableCell let-item="item">
+          <span>{{item.price | currency:'PEN':'code'}}</span>
+        </template>
+      </data-table-column>
+      <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true">
+        <template #dataTableCell let-item="item">
+          <span>{{item.wholesale_price | currency:'PEN':'code'}}</span>
+        </template>
+      </data-table-column>
       <data-table-column [property]="'margen'" [header]="'Margen'" [sortable]="true"></data-table-column>
       <data-table-column [property]="'quantity'" [header]="'Cant.'" [sortable]="true"></data-table-column>
-      <data-table-column [property]="'reference'" [header]="'Estado'" [sortable]="false"></data-table-column>
+      <data-table-column [property]="'active'" [header]="'Estado'" [sortable]="false">
+        <template #dataTableCell let-item="item">
+          <div *ngIf="item.active == 0"  style="width: 40px;height: 40px;background-color: yellow;"></div>
+          <div *ngIf="item.active == 1"  style="width: 40px;height: 40px;background-color: green" ></div>
+        </template>
+      </data-table-column>
       <!--<data-table-column
           property="phoneNumber"
           header="Phone number"

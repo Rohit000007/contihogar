@@ -11,7 +11,7 @@ import { Departament } from '../entity/departament';
 })
 export class MerchComponent implements OnInit {
 
-  private oProduct:Product = {reference:""};
+  private oProduct:Product = new Product();
   private listDepartament:Departament[] = [];
   private listProduct:any[] = [];
 
@@ -31,8 +31,10 @@ export class MerchComponent implements OnInit {
     });
   }
 
-  searchProduct(reference:string):void{
-    console.log(reference);
+  searchProduct(id_product:number):void{
+    this.oAppService.getProductById(id_product).subscribe(rest=>{
+      this.items = rest.json();
+    });
   }
   uploadFile(oEventControl){
     let oFiles = oEventControl.target.files;

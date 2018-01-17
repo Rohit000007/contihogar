@@ -17,7 +17,7 @@ export class Supplier {
     public payment_type?:number;
     public total_days?:number;
     public SupplierLang?:SupplierLang;
-    public SupplierManufacturer?:SupplierManufacturer;
+    public SupplierManufacturer?:SupplierManufacturer[];
     public SupplierZoneDelevery?:SupplierZoneDelivery[];
     public SupplierContact?:SupplierContact[];
     public Address?:Address;

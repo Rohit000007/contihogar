@@ -57,17 +57,30 @@ export class ProveedorComponent implements OnInit {
       this.oListZoneDelivery = <Departament[]>data.json();
     });
     this.oListSupplierContact.push({cargo:"",correo:"",nombres:"",telefono:"",id_supplier:0});
+    console.log(this.oListManufacturer);
   }
 
-  agregarMarcaProductoLista(oManufacturer):void{
+  agregarMarcaProductoLista(oManufacturerNew,oManufacturer):void{
     let id_manufacturer = oManufacturer.split('|')[0];
-    let name = oManufacturer.split('|')[0];
-    let oSupplierManufacturer = new SupplierManufacturer();
-    oSupplierManufacturer.id_manufacturer = parseInt(id_manufacturer);
-    //oSupplierManufacturer.id_supplier = 
-    oSupplierManufacturer.Manufacturer = new Manufacturer();
-    oSupplierManufacturer.Manufacturer.name = name;
-    this.OlistSupplierManufacturer.push(oSupplierManufacturer);
+    let name = oManufacturer.split('|')[1];
+    let oSupplierManufacturer;
+    console.log(oManufacturer);
+    if(oManufacturer != undefined){
+      oSupplierManufacturer = new SupplierManufacturer();
+      oSupplierManufacturer.id_manufacturer = +id_manufacturer;
+      oSupplierManufacturer.Manufacturer = new Manufacturer();
+      oSupplierManufacturer.Manufacturer.name = name;
+      this.OlistSupplierManufacturer.push(oSupplierManufacturer);
+    }
+
+    if(oManufacturerNew != undefined && oManufacturerNew.length > 0){
+      oSupplierManufacturer = new SupplierManufacturer();
+      oSupplierManufacturer.id_manufacturer = 0;
+      oSupplierManufacturer.Manufacturer = new Manufacturer();
+      oSupplierManufacturer.Manufacturer.name = oManufacturerNew;
+      this.OlistSupplierManufacturer.push(oSupplierManufacturer);
+    }
+    console.log(this.OlistSupplierManufacturer);
   }
   grabarSupplier():void{
     this.eSupplier.SupplierContact = this.oListSupplierContact;
@@ -147,6 +160,11 @@ export class ProveedorComponent implements OnInit {
     this.oAppService.getSupplierById(this.eSupplier).subscribe(data=>{
       console.log(data);
     });
+  }
+
+
+  eliminarMarca(indexMarca):void{
+    this.OlistSupplierManufacturer.splice(indexMarca,1);
   }
 
 }

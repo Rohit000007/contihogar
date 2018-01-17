@@ -1,8 +1,8 @@
-<form class="form" name="frmProducto" (keyup.enter)="verificarEnter($event)" #rForm>
+<form class="form" name="frmProducto" (keyup.enter)="$event.preventDefault()" #rForm>
     <div class="row fila-formulario-1">
         <div class="col-md-2">
             <div class="toggle">
-                <input type="checkbox" name="active" ngModel/>
+                <input type="checkbox" #elemActive name="active" [(ngModel)]="oProducto.active" (change)="changeActive(elemActive.checked)"/>
                 <span class="btn"></span>
                 <span class="labels"></span>
                 <span class="bg"></span>
@@ -14,8 +14,8 @@
                     <label>Nº Producto :</label>
                 </div>
                 <div class="control-caja" style="width: 60%;">
-                    <input type="text" class="form-control" name="id_product" [(ngModel)]="oProducto.id_product">
-                </div>s
+                    <input type="number" class="form-control" name="id_product" [(ngModel)]="oProducto.id_product">
+                </div>
                 
                 <div class="control-caja">
                     <button class="btn btn.btn-default" (click)="buscarProduct(oProducto.id_product)"><span class="glyphicon glyphicon-search"></span></button>
@@ -250,8 +250,8 @@
     <br>
     <br>
     <div class="row fila-formulario-6">
-        <button (click)="enviarProducto()" class="button_style">Guardar y Salir</button>
-        <button class="button_style">Guardar y Mantener</button>
+        <button (click)="enviarProducto(1)" class="button_style">Guardar y Salir</button>
+        <button (click)="enviarProducto(2)" class="button_style">Guardar y Mantener</button>
     </div>
 </form>
 <app-message-manager *ngIf="isVisible" [oListMessages]="oMessageError" [sMessageTitle]="sMessageTitle" (MessageBoxClose)="MessageBoxClose($event)"></app-message-manager>

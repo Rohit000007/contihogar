@@ -17,7 +17,7 @@ import { ModelProduct } from '../entity/model-product';
 import { Category } from '../entity/category';
 import { ProductCrossCategory } from '../entity/product-cross-category';
 import { ProductItemShipping } from '../entity/product-item-shipping';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -28,33 +28,34 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductoComponent implements OnInit {
   //#region "Variables"
+  private type_save_return = 1;
+  private type_save_keep = 2;
 
-  iIdProduct:number = 0;
-  bProductCategoryEdit:boolean = false;
-  sMessageTitle:string = "";
-  oMessageError:string[] = [];
-  isVisible:boolean = false;
-  isEditProductItem:boolean = false;
-  oProductLang:ProductLang;
-  oProducto:Product;
-  oProductEvent:ProductEvent = new ProductEvent();
-  oModel:Model = {nombre:""};
+  iIdProduct = 0;
+  bProductCategoryEdit = false;
+  sMessageTitle = '';
+  oMessageError: string[] = [];
+  isVisible = false;
+  isEditProductItem = false;
+  private oProductLang: ProductLang = new ProductLang();
+  private oProducto: Product = new Product();
+  private oProductEvent: ProductEvent = new ProductEvent();
+  private oModel: Model = new Model();
   
-  oListModels:Model[];
-  oListProductModel:ModelProduct[] = [];
-  oListCategoryProduct:CategoryProduct[] = [];
-  lListProveedor:Supplier[] = [];
-  lListManufacturer:Manufacturer[];
-  oListCategory:Category[] = [];
-  oListProductCrossCategory:ProductCrossCategory[] = [];
+  oListModels: Model[];
+  oListProductModel: ModelProduct[] = [];
+  oListCategoryProduct: CategoryProduct[] = [];
+  lListProveedor: Supplier[] = [];
+  lListManufacturer: Manufacturer[];
+  oListCategory: Category[] = [];
+  oListProductCrossCategory: ProductCrossCategory[] = [];
 
   //#endrregion 
   
   //#region "Metodos"
-  constructor(private oAppService:AppService,private route:ActivatedRoute) {
-    this.newProduct();
-    this.oProducto.ProductItem = [];
-    
+  constructor(private oAppService: AppService,
+              private route: ActivatedRoute,
+              private router: Router){
     this.oAppService.getSupplier().subscribe(data=>this.lListProveedor = data.json().oProduct);
 
     this.oAppService.getManufacturer().subscribe(data=>this.lListManufacturer = data.json());
@@ -65,13 +66,14 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.oProductLang);
     //console.log(window['CKEDITOR']);
     window['CKEDITOR']['replace']('description_short');
     window['CKEDITOR']['replace']('description');
     this.route.params.subscribe(params=>{
-      let id_product = +params['id'];
-      if(id_product > 0)
-        this.buscarProduct(id_product);
+      this.oProducto.id_product = +params['id'];
+      if(this.oProducto.id_product > 0)
+        this.buscarProduct(this.oProducto.id_product);
       else
         this.newProduct();
     });
@@ -92,7 +94,7 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  enviarProducto(){
+  enviarProducto(type_save: number){
     // Limpiar Variables antes de llenar
     this.oProducto.ProductItem = [];
     //Recoger los ProductsItem
@@ -141,6 +143,8 @@ export class ProductoComponent implements OnInit {
       vProductItem.ProductItemCaracteristica = oListProductItemCaracteristica;
       this.oProducto.ProductItem.push(vProductItem);
     }
+    this.oProductLang.description = window["CKEDITOR"].instances.description.getData();
+    this.oProductLang.description_short = window["CKEDITOR"].instances.description_short.getData(),
 
   //Recoger le precio de producto
     this.oProductEvent = {
@@ -160,38 +164,36 @@ export class ProductoComponent implements OnInit {
     this.oProducto.CategoryProduct = this.oListCategoryProduct;
     this.oProducto.ModelProduct = this.oListProductModel;
     this.oProducto.ProductCrossCategory = this.oListProductCrossCategory;
-    this.oProducto.ProductLang = {
-      description:window["CKEDITOR"].instances.description.getData(),
-      description_short:window["CKEDITOR"].instances.description_short.getData(),
-      name:this.oProductLang.name,
-      meta_description:this.oProductLang.meta_description,
-      meta_keywords:this.oProductLang.meta_keywords,
-      meta_title:this.oProductLang.meta_title,
-      link_rewrite:this.oProductLang.link_rewrite,
-      inst_message:this.oProductLang.inst_message
-    };
+    this.oProducto.ProductLang = this.oProductLang;
 
     // console.log(this.oProducto);
     // console.log(this.oProducto.ProductItem);
+    this.sMessageTitle = "Mensaje";
     if(this.ValidarFormulario(this.oProducto)){
-      console.log("Agrega");
       if(this.oProducto.id_product == 0){
         if(confirm("¿Está seguro de grabar?") == true){
-        this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
+          this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
             console.log(data);
             this.iIdProduct = data.json().id_product;
             this.isVisible = true;
-            this.sMessageTitle = "Mensaje";
             this.oMessageError = ["Grabación Exitosa Id Producto: "+this.iIdProduct];
           });
+          //Verificar si es con returno o keep
+          /*if(type_save === this.type_save_return)
+            this.router.navigateByUrl("general");*/
         }
       }else{
         if(confirm("¿Está seguro de actualizar?") == true){
           this.oAppService.updateProduct(this.oProducto).subscribe(data=>{
               console.log(data);
               this.iIdProduct = data.json().id_product;
+              this.isVisible = true;
+              this.oMessageError = ["Actualización Exitosa Id Producto: "+this.iIdProduct];
             });
           }
+          //Verificar si es con returno o keep
+          /*if(type_save === this.type_save_return)
+            this.router.navigateByUrl("general");*/
       }
     }
   }
@@ -201,29 +203,33 @@ export class ProductoComponent implements OnInit {
     }else{
       let oModelProduct:ModelProduct = {id_model:0,id_product:0,model:oModel};
       this.oListProductModel.push(oModelProduct);
-      this.oModel = {nombre:""};
+      this.oModel = new Model();
     }
   }
   agregarModel(oModel):void{
-    if(oModel == ""){
-      console.log("Mostrar Alerta");
-    }else{
-      var sModelSplit = oModel.toString().split("|");
-      let oModelProduct:ModelProduct = {id_model:sModelSplit[0],id_product:0,model:{nombre:sModelSplit[1]}};
+    if(oModel === '') {
+      console.log('Mostrar Alerta');
+    }else {
+      const sModelSplit = oModel.toString().split('|');
+
+      const oModelProduct:ModelProduct = new ModelProduct();
+      oModelProduct.id_model = +sModelSplit[0];
+      oModelProduct.id_product = 0;
+      oModelProduct.model = new Model();
+      oModelProduct.model.nombre = sModelSplit[1];
       this.oListProductModel.push(oModelProduct);
     }
   }
 
-  eliminarModelo(indexModelo):void{
+  eliminarModelo(indexModelo): void {
     this.oListProductModel.splice(indexModelo,1);
   }
    
-  getGategoryId(oListcCategoryProduct):void{
-    console.log(oListcCategoryProduct);
+  getGategoryId(oListcCategoryProduct): void {
     this.oListCategoryProduct = oListcCategoryProduct;
   }
 
-  agregarCrossCategery(sCategory):void{
+  agregarCrossCategery(sCategory): void {
     let oCategory = sCategory.toString().split("|");
     let iProductCrossCategory:ProductCrossCategory = {
       id_categoria:parseInt(oCategory[0]),
@@ -276,7 +282,6 @@ export class ProductoComponent implements OnInit {
       this.isVisible = true;
       this.sMessageTitle = "Campos requeridos *";
     }
-    console.log(this.oMessageError);
     return vRetorno;
   }
 
@@ -287,12 +292,12 @@ export class ProductoComponent implements OnInit {
 
   buscarProduct(id_product):void{
     this.oAppService.editProduct(id_product).subscribe(data=>{
-      if(data == "NO DATA"){
+      if(data == null){
         console.log("no hay datos");
       }else{
         this.iIdProduct = data.id_product;
         this.bProductCategoryEdit = true;
-        this.oProducto = data;
+        this.oProducto = <Product>data;
         this.oProductLang = this.oProducto.ProductLang;
         this.oListProductCrossCategory = [];
         for(let _i in this.oProducto.ProductCrossCategory){
@@ -312,7 +317,6 @@ export class ProductoComponent implements OnInit {
           this.oListProductModel.push(oModelProduct);
         }
         this.isEditProductItem = true;
-        console.log(this.oProducto.CategoryProduct);
         
         //this.oListProductModel = this.oProducto.ModelProduct;
         window["CKEDITOR"].instances["description_short"].setData(this.oProductLang.description_short);
@@ -320,15 +324,19 @@ export class ProductoComponent implements OnInit {
       }
     });
   }
-  verificarEnter(eEvent):boolean{
-    eEvent.preventDefault();
-    console.log(event);
-    return false;
-  }
   newProduct(): any {
-    this.oProducto = {id_product:0,id_supplier:0,id_manufacturer:0,quantity:0,reference:"",condition:"",ProductEvent:this.oProductEvent};
-    this.oProductLang = {name:"",meta_description:"",meta_keywords:"",meta_title:"",link_rewrite:"",inst_message:""};
-    console.log(this.oProducto);
+    this.oProducto.ProductEvent = this.oProductEvent;
+    this.oProducto.ProductItem = [];
+  }
+
+  changeActive(isChecked: boolean): any {
+    if(this.oProducto.id_product > 0){
+      this.oProducto.row_state = "change_state";
+      this.oProducto.active = +isChecked;
+      this.oAppService.updateProduct(this.oProducto).subscribe(rest=>{
+        this.iIdProduct = rest.json().id_product;
+      });
+    }
   }
   //#endregion
 

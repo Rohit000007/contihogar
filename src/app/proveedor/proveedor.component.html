@@ -133,11 +133,14 @@
           </div>
         </div>
 
-        <div class="col-sm-3 detalleform-group pl_espacio">
+        <div class="col-sm-5 detalleform-group pl_espacio">
           <div class="container">
             <div class="row form-group flex__marca">
-              <input type="text" class="estilo--input" placeholder="Escribir Marca" style="height: 30px;margin-left: 8px">
-              <span class="add">+</span>
+              <input type="text" class="estilo--input" #elemMarcaNew placeholder="Escribir Marca" style="height: 30px;margin-left: 8px">
+              <select class="estilo--input" #elemMarca style="height: 30px;margin-left: 8px">
+                <option *ngFor="let manufacturer of oListManufacturer" [value]="manufacturer.id_manufacturer+'|'+manufacturer.name">{{manufacturer.name}}</option>
+              </select>
+              <span class="add" (click)="agregarMarcaProductoLista(elemMarcaNew.value,elemMarca.value)">+</span>
             </div>
 
             <div class="row form-group flex__marca">
@@ -150,11 +153,19 @@
           </div>
         </div>
 
-        <div class="col-sm-5 detalleform-group">
+        <div class="col-sm-3 detalleform-group">
           <div class="panel-group">
             <div class="panel panel-primary">
               <div class="panel-heading">Panel with panel-primary class</div>
-              <div class="panel-body">Panel Content</div>
+              <div class="panel-body">
+                <ul>
+                  <li *ngFor="let supplier_manufacturer of OlistSupplierManufacturer;let i = index;">
+                    {{supplier_manufacturer.Manufacturer.name}}
+                    <span class="glyphicon glyphicon-remove" (click)="eliminarMarca(i)"></span>
+                    <input type="checkbox" name="manufacturer">ON/OFF
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

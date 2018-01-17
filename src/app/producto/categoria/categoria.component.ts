@@ -11,12 +11,13 @@ import { CategoryProduct } from '../../entity/category-product';
 })
 export class CategoriaComponent implements OnChanges,OnInit {
   //#region "Variables"
-  oListCategoryId:number[] = [];
-  oListCategory:Category[] = [];
-  oListCategoryProduct:CategoryProduct[] = [];
+  private oListCategoryId: number[] = [];
+  private oListCategory: Category[] = [];
+  private oListCategoryProduct: CategoryProduct[] = [];
+
   @Output() ObtenerCategoryId = new EventEmitter();
-  @Input() CategoryProduct:CategoryProduct[]
-  @Input() ProductCategoryEdit:boolean = false;
+  @Input() CategoryProduct: CategoryProduct[];
+  @Input() ProductCategoryEdit = false;
   //#endregion
 
   //#region "Metodos"
@@ -29,6 +30,7 @@ export class CategoriaComponent implements OnChanges,OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.oListCategoryId = [];
     if(this.ProductCategoryEdit){
       let oListCategoryProduct = <CategoryProduct[]>changes.CategoryProduct.currentValue;
       for(let _i in oListCategoryProduct){
@@ -43,7 +45,6 @@ export class CategoriaComponent implements OnChanges,OnInit {
   }
   
   obtenerCategoryId(id_category,isChecked){
-    this.oListCategoryProduct = [];
     if(isChecked){
       this.oListCategoryId.push(id_category);
     }else{
@@ -52,6 +53,7 @@ export class CategoriaComponent implements OnChanges,OnInit {
     this.emitirResultadoPadre(this.oListCategoryId);
   }
   emitirResultadoPadre(oListCategoryId){
+    this.oListCategoryProduct = [];
     for(let indexToAdd in this.oListCategoryId){
       this.oListCategoryProduct.push({
         id_category:this.oListCategoryId[indexToAdd]

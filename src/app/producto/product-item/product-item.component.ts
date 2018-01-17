@@ -8,11 +8,11 @@ import * as $ from 'jquery';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss']
 })
-export class ProductItemComponent implements OnChanges ,OnInit {
+export class ProductItemComponent implements OnChanges ,OnInit {y
   oListTabControl:iTabControl[] = [];
   oListFormItemInputFeatures:IFormItemInput[] = [
-    {class:"form-control",id:"nombre_producto_item_0",name:"nombre_producto_item",type:"text",value:"1234"},
-    {class:"form-control",id:"estilo_producto_item_0",name:"estilo_producto_item",type:"text",value:"23456789"},
+    {class:"form-control",id:"nombre_producto_item_0",name:"nombre_producto_item",type:"text",value:""},
+    {class:"form-control",id:"estilo_producto_item_0",name:"estilo_producto_item",type:"text",value:""},
     {class:"form-control",id:"tipo_tapiz_producto_item_0",name:"tipo_tapiz_producto_item",type:"text",value:""},
     {class:"form-control",id:"color_tapiz_producto_item_0",name:"color_tapiz_producto_item",type:"text",value:""},
     {class:"form-control",id:"tipo_relleno_producto_item_0",name:"tipo_relleno_producto_item",type:"text",value:""},
@@ -29,8 +29,8 @@ export class ProductItemComponent implements OnChanges ,OnInit {
     {class:"form-control",id:"unidades_producto_item_0",name:"unidades_producto_item",type:"number",value:"0"}
   ];
   oListFormItemInputTransport:IFormItemInput[] = [
-    {class:"form-control",id:"altura_cm_transporte_0",name:"altura_cm_transporte",type:"number",value:"1234"},
-    {class:"form-control",id:"ancho_cm_transporte_0",name:"ancho_cm_transporte",type:"number",value:"1"},
+    {class:"form-control",id:"altura_cm_transporte_0",name:"altura_cm_transporte",type:"number",value:"0"},
+    {class:"form-control",id:"ancho_cm_transporte_0",name:"ancho_cm_transporte",type:"number",value:"0"},
     {class:"form-control",id:"profundidad_cm_transporte_0",name:"profundidad_cm_transporte",type:"number",value:"0"},
     {class:"form-control",id:"peso_kg_transporte_0",name:"peso_kg_transporte",type:"number",value:"0"},
     {class:"form-control",id:"unidades_item_transporte_0",name:"unidades_item_transporte",type:"number",value:"0"},
@@ -189,7 +189,6 @@ export class ProductItemComponent implements OnChanges ,OnInit {
   }
 
   crearFormularioItem(vNumberTabIndex:number[],isNew,oProductItem:ProductItem = null):iFormItem{
-    console.log(vNumberTabIndex);
     let idFormNew = this.agregarTabControlItem(vNumberTabIndex);
     let oFormItem:iFormItem;
     if(isNew){
@@ -215,7 +214,7 @@ export class ProductItemComponent implements OnChanges ,OnInit {
         }else if(vItemCaracteristica[_i].campo == "profundidad_cm_producto"){
           oListFormItemInputPropertiesEdit.push({class:"form-control",id:"profundidad_cm_producto_"+idFormNew,name:"profundidad_cm_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }else if(vItemCaracteristica[_i].campo == "peso_kg_producto"){
-          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"peso_kg_cm_producto_"+idFormNew,name:"peso_kg_cm__producto",type:"number",value:vItemCaracteristica[_i].valor});
+          oListFormItemInputPropertiesEdit.push({class:"form-control",id:"peso_kg_producto_"+idFormNew,name:"peso_kg_producto",type:"number",value:vItemCaracteristica[_i].valor});
         }
         else{
           oListFormItemInputFeaturesEdit.push({

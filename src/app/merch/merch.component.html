@@ -62,10 +62,10 @@
     <div class="row">
       <div class="col-sm-4 display-flex">
           <div style="width: 90%;">
-            <input type="text" class="form-control input__search" name="reference" [(ngModel)]="oProduct.reference" placeholder="Buscar por SKU">
+            <input type="number" class="form-control input__search" name="id_product" [(ngModel)]="oProduct.id_product" placeholder="Buscar por codigo">
           </div>
           <div style="width: 10%;">
-            <button class="btn btn-default" (click)="searchProduct(oProduct.reference)"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-default" (click)="searchProduct(oProduct.id_product)"><span class="glyphicon glyphicon-search"></span></button>
           </div>
       </div>
       <div class="col-sm-4 display-flex">
