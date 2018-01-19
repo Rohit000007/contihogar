@@ -10,6 +10,7 @@ import { SupplierLang } from '../entity/supplier-lang';
 import { Departament } from '../entity/departament';
 import { Province } from '../entity/province';
 import { District } from '../entity/district';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-proveedor',
@@ -61,11 +62,11 @@ export class ProveedorComponent implements OnInit {
   }
 
   agregarMarcaProductoLista(oManufacturerNew,oManufacturer):void{
-    let id_manufacturer = oManufacturer.split('|')[0];
-    let name = oManufacturer.split('|')[1];
+    const id_manufacturer = oManufacturer.split('|')[0];
+    const name = oManufacturer.split('|')[1];
     let oSupplierManufacturer;
     console.log(oManufacturer);
-    if(oManufacturer != undefined){
+    if(oManufacturer !== undefined){
       oSupplierManufacturer = new SupplierManufacturer();
       oSupplierManufacturer.id_manufacturer = +id_manufacturer;
       oSupplierManufacturer.Manufacturer = new Manufacturer();
@@ -73,7 +74,7 @@ export class ProveedorComponent implements OnInit {
       this.OlistSupplierManufacturer.push(oSupplierManufacturer);
     }
 
-    if(oManufacturerNew != undefined && oManufacturerNew.length > 0){
+    if(oManufacturerNew !== undefined && oManufacturerNew.length > 0){
       oSupplierManufacturer = new SupplierManufacturer();
       oSupplierManufacturer.id_manufacturer = 0;
       oSupplierManufacturer.Manufacturer = new Manufacturer();
@@ -82,9 +83,11 @@ export class ProveedorComponent implements OnInit {
     }
     console.log(this.OlistSupplierManufacturer);
   }
-  grabarSupplier():void{
+  grabarSupplier(): void {
     this.eSupplier.SupplierContact = this.oListSupplierContact;
     this.eSupplier.SupplierLang.meta_keywords = this.olistMetaKeyWords.join(',');
+    this.eSupplier.SupplierManufacturer = this.OlistSupplierManufacturer;
+    this.eSupplier.SupplierZoneDelevery = this.oListSupplierZoneDelivery;
     console.log(this.eSupplier);
     if(this.eSupplier.id_supplier == 0){
       if(confirm("¿Está seguro de guardar?") == true){
@@ -143,20 +146,31 @@ export class ProveedorComponent implements OnInit {
     this.sListAlmacen.splice(parseInt(indexAdress),1);
   }
 
-  marcarDepartamento(id_departament):void{
-    console.log(id_departament);
-    console.log(this.oListZoneDelivery);
+  marcarDepartamento(id_departament): void {
+    const existDepartament = this.oListSupplierZoneDelivery.filter(x => x.id_state === id_departament);
+    if(Object.keys(existDepartament).length > 0 && existDepartament !== null)
+      existDepartament.forEach(f => this.oListSupplierZoneDelivery.splice(this.oListSupplierZoneDelivery.findIndex(e => e.id_state === f.id_state),1));
+    else
+      this.oListSupplierZoneDelivery.push({id_state:id_departament,id_provincia:0,id_distrito:0,id_supplier:0}); 
   }
 
-  marcarProvincia(id_province):void{
-    console.log(id_province);
+  marcarProvincia(id_departament,id_province):void{
+    const existProvince = this.oListSupplierZoneDelivery.filter(x => x.id_provincia === id_province);
+    if(Object.keys(existProvince).length > 0 && existProvince !== null)
+      existProvince.forEach(f => this.oListSupplierZoneDelivery.splice(this.oListSupplierZoneDelivery.findIndex(e => e.id_provincia === f.id_provincia),1));
+    else
+      this.oListSupplierZoneDelivery.push({id_state:id_departament,id_provincia:id_province,id_distrito:0,id_supplier:0});
   }
 
-  marcarDistrict(id_district):void{
-    console.log(id_district);
+  marcarDistrict(id_departament,id_province,id_district):void{
+    const existDistrict = this.oListSupplierZoneDelivery.filter(x => x.id_distrito === id_district);
+    if(Object.keys(existDistrict).length > 0 && existDistrict !== null)
+      existDistrict.forEach(f => this.oListSupplierZoneDelivery.splice(this.oListSupplierZoneDelivery.findIndex(e => e.id_distrito === f.id_distrito),1));
+    else
+      this.oListSupplierZoneDelivery.push({id_state:id_departament,id_provincia:id_province,id_distrito:id_district,id_supplier:0});
   }
 
-  buscarSupplier():void{
+  buscarSupplier(): void {
     this.oAppService.getSupplierById(this.eSupplier).subscribe(data=>{
       console.log(data);
     });

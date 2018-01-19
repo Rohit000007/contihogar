@@ -112,12 +112,13 @@
       <data-table-column [property]="'manufacturer'" [header]="'Marca'" [sortable]="true"></data-table-column>
       <data-table-column [property]="'model'" [header]="'Modelo'" [sortable]="true"></data-table-column>
       <data-table-column [property]="'category'" [header]="'Categoria'" [sortable]="true" width="150px"></data-table-column>
-      <data-table-column [property]="'price'" [header]="'Precio'" [resizable]="true" [sortable]="true" width="200px;">
+      <data-table-column [property]="'price'" [header]="'Precio'" [resizable]="true" [sortable]="true" width="120px">
         <template #dataTableCell let-item="item">
           <span>{{item.price | currency:'PEN':'code'}}</span>
+          <!--<span>{{item.price | number | currency : 'S/.' : true : '1.2-2'}}</span>-->
         </template>
       </data-table-column>
-      <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true">
+      <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true" width="120px">
         <template #dataTableCell let-item="item">
           <span>{{item.wholesale_price | currency:'PEN':'code'}}</span>
         </template>

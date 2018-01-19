@@ -286,11 +286,11 @@
                 <details class="details" *ngFor="let province of departament.Province;let _i = index" >
                   <summary>
                     <span>{{province.nombre}}</span> 
-                    <input style="float: right;" type="checkbox" name="id_province_zone-{{_i}}" [(ngModel)]="province.is_checked">
+                    <input style="float: right;" type="checkbox" name="id_province_zone-{{_i}}" [(ngModel)]="province.is_checked"  (change)="marcarProvincia(departament.id_state,province.id_provincia)">
                   </summary>
                   <div class="cont-radio" *ngFor="let district of province.Distrinct;let __i = index" >
                     <p class="sumary_details">{{district.nombre}}</p>
-                    <input type="checkbox" name="id_district_zone-{{__i}}" [(ngModel)]="district.is_checked">
+                    <input type="checkbox" name="id_district_zone-{{__i}}" [(ngModel)]="district.is_checked"  (change)="marcarDistrict(departament.id_state,province.id_provincia,district.id_distrito)">
                   </div>
                 </details>
               </details>
