@@ -33,7 +33,6 @@ export class GeneralComponent implements OnInit {
   }
 
   reloadItems(params) {
-    console.log(params);
     this.appService.getListProduct(params,this.eFilterList).subscribe(res=>{
       this.items = res.json()["data"];
       this.itemCount = res.json()["total"];

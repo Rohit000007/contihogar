@@ -3,6 +3,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 import {AppService} from "../service/app.service";
 import {Category} from "../entity/category";
+import { CategoryLang } from '../entity/category-lang';
 
 @Component({
   selector: 'app-category',
@@ -11,17 +12,18 @@ import {Category} from "../entity/category";
   providers:[AppService]
 })
 export class CategoryComponent implements OnInit {
-  public oListMessageError:any[] = [];
-  public isVisible:boolean = false;
-  public sMessageTitle:string = "Mensaje";
 
-  public sAcctionForm:string = "nuevo";
-  public eCategory: Category;
+  public oListMessageError:any[] = [];
+  public isVisible = false;
+  public sMessageTitle = "Mensaje";
+
+  public sAcctionForm = "nuevo";
+  public eCategory: Category = new Category();
   public id_category: string = '1';
   public oListcategory: any[] = [];
   public oCategory:any = {};
 
-  public categoryName:SafeResourceUrl;
+  public categoryName: SafeResourceUrl;
 
   constructor(private AppService: AppService,private sanitizer:DomSanitizer) {
     this.nuevaCategoria();
@@ -30,7 +32,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.listarCategoria();
   }
-
 
   cambiarEstado(id_category,active):void{
     this.eCategory.active = active;
@@ -47,9 +48,10 @@ export class CategoryComponent implements OnInit {
       this.isVisible = true;
       return;
     }
-    if(this.eCategory.id_category == 0){
+    if(this.eCategory.row_state === 'create'){
       this.eCategory.id_parent = this.oCategory.id_category;
       this.eCategory.level_depth = this.oCategory.level_depth + 1;
+      this.eCategory.CategoryLang.link_rewrite = (<HTMLInputElement>document.getElementById('link_rewrite')).value;
       this.eCategory.active = 1;
       this.AppService.postCategory(this.eCategory).subscribe(response=> {
         let oCategory = <Category>response.json();
@@ -72,17 +74,17 @@ export class CategoryComponent implements OnInit {
   }
 
   obtenerCategory(oCategoryP,oControl):void{
-    let ulElement = <HTMLCollectionOf<HTMLLIElement>>document.getElementsByClassName("li-lista-categoria");
-    for(let _i=0;_i<ulElement.length;_i++){
-      (<HTMLLIElement>ulElement[_i]).className = "li-lista-categoria";
+    const ulElement = <HTMLCollectionOf<HTMLLIElement>>document.getElementsByClassName("li-lista-categoria");
+    for(let _i = 0; _i < ulElement.length; _i++){
+      (<HTMLLIElement>ulElement[_i]).className = 'li-lista-categoria';
     }
-    (<HTMLLIElement>oControl).className = "li-lista-categoria active";
+    (<HTMLLIElement>oControl).className = 'li-lista-categoria active';
     this.oCategory = oCategoryP;
+    this.oCategory.row_state = "update";
     this.AppService.getCategoryById(this.oCategory.id_category).subscribe(data=>{
       this.eCategory = <Category>data.json();
     });
-    this.categoryName = this.sanitizer.bypassSecurityTrustResourceUrl("https://hogaryspacios.com/cat"+this.oCategory.id_category+"-"+this.oCategory.link_rewrite); 
-    console.log(this.categoryName);
+    this.categoryName = this.sanitizer.bypassSecurityTrustResourceUrl('https://hogaryspacios.com/cat' + this.oCategory.id_category + '-' + this.oCategory.link_rewrite);
   }
 
   listarCategoria():void{
@@ -97,22 +99,13 @@ export class CategoryComponent implements OnInit {
 
   formAction(sActionForm):void{
     this.sAcctionForm = sActionForm;
-    if(this.sAcctionForm == "nuevo"){
+    if(this.sAcctionForm == 'nuevo'){
       this.nuevaCategoria();
     }
   }
 
-  nuevaCategoria():void{
-    this.eCategory = {
-      id_category:0,
-      CategoryLang : {
-        description:'',
-        name:'',
-        meta_description:'',
-        link_rewrite:'',
-        meta_keywords:'',
-        meta_title:''},
-      active:0}
-    this.oCategory = {};
+  nuevaCategoria(): void {
+    this.eCategory.row_state = 'create';
+    this.eCategory.CategoryLang = new CategoryLang();
   }
 }

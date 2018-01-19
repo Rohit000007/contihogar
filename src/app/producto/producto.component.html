@@ -195,7 +195,7 @@
                     <label>URL Amigable: </label>
                 </div>
                 <div class="control-caja" style="width:80%">
-                    <input type="text" name="link_rewrite" class="form-control" placeholder="" [(ngModel)]="oProductLang.link_rewrite">
+                    <input type="text" name="link_rewrite" id="link_rewrite" class="form-control" placeholder="" value="{{getProductName(oProductLang.name)}}" [(ngModel)]="oProductLang.link_rewrite">
                 </div>
             </div>
         </div>

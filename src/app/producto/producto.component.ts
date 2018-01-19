@@ -66,7 +66,7 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.oProductLang);
+
     //console.log(window['CKEDITOR']);
     window['CKEDITOR']['replace']('description_short');
     window['CKEDITOR']['replace']('description');
@@ -145,6 +145,8 @@ export class ProductoComponent implements OnInit {
     }
     this.oProductLang.description = window["CKEDITOR"].instances.description.getData();
     this.oProductLang.description_short = window["CKEDITOR"].instances.description_short.getData(),
+    this.oProductLang.link_rewrite = (<HTMLInputElement>document.getElementById("link_rewrite")).value;
+    //console.log(this.oProductLang.link_rewrite);
 
   //Recoger le precio de producto
     this.oProductEvent = {
@@ -173,7 +175,6 @@ export class ProductoComponent implements OnInit {
       if(this.oProducto.id_product == 0){
         if(confirm("¿Está seguro de grabar?") == true){
           this.oAppService.saveProduct(this.oProducto).subscribe(data=>{
-            console.log(data);
             this.iIdProduct = data.json().id_product;
             this.isVisible = true;
             this.oMessageError = ["Grabación Exitosa Id Producto: "+this.iIdProduct];
@@ -232,7 +233,7 @@ export class ProductoComponent implements OnInit {
   agregarCrossCategery(sCategory): void {
     let oCategory = sCategory.toString().split("|");
     let iProductCrossCategory:ProductCrossCategory = {
-      id_categoria:parseInt(oCategory[0]),
+      id_category:parseInt(oCategory[0]),
       Category:{CategoryLang:{name:oCategory[1]}}
     };
     this.oListProductCrossCategory.push(iProductCrossCategory);
@@ -302,7 +303,7 @@ export class ProductoComponent implements OnInit {
         this.oListProductCrossCategory = [];
         for(let _i in this.oProducto.ProductCrossCategory){
           let iProductCrossCategory:ProductCrossCategory = {
-            id_categoria:this.oProducto.ProductCrossCategory[_i].id_categoria,
+            id_category:this.oProducto.ProductCrossCategory[_i].id_category,
             Category:{CategoryLang:this.oProducto.ProductCrossCategory[_i].Category["category_lang"]}
           };
           this.oListProductCrossCategory.push(iProductCrossCategory);
@@ -337,6 +338,10 @@ export class ProductoComponent implements OnInit {
         this.iIdProduct = rest.json().id_product;
       });
     }
+  }
+  getProductName(productName: string): string {
+    const listProductName: string[] = productName.split(' ');
+    return listProductName.join('-').toLocaleLowerCase();
   }
   //#endregion
 

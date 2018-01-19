@@ -74,7 +74,7 @@
             </div>
             <div class="col-xs-12 form-group">
               <label for="" class="label-for">URL amigable</label>
-              <input type="text" class="estilo--input" name="link_rewrite" #link_rewrite="ngModel" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" [(ngModel)]="eCategory.CategoryLang.link_rewrite" required>
+              <input type="text" class="estilo--input" name="link_rewrite" id="link_rewrite" #link_rewrite="ngModel" style="width: 100%;height: 30px" placeholder="Escribir nombre de la categoría" value="{{eCategory.CategoryLang.name.split(' ').join('-')}}" [(ngModel)]="eCategory.CategoryLang.link_rewrite">
               <div *ngIf="link_rewrite.errors?.required && link_rewrite.touched" class="alert alert-danger alert-message">
                   Campo URL amigable es requerido*
                 </div>

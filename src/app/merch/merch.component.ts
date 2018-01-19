@@ -18,6 +18,7 @@ export class MerchComponent implements OnInit {
   private items:any[] = [];
   private itemCount = 0;
   private modelFile:string;
+  private oOrderTotal:any = {};
 
   constructor(private oAppService:AppService) { }
 
@@ -29,6 +30,7 @@ export class MerchComponent implements OnInit {
     this.oAppService.getDepartament().subscribe(rest=>{
       this.listDepartament = rest.json();
     });
+    this.getOrderTotal();
   }
 
   searchProduct(id_product:number):void{
@@ -79,6 +81,12 @@ export class MerchComponent implements OnInit {
   grabar():void{
     this.oAppService.grabarProductEvent(this.items).subscribe(rest=>{
       console.log(rest);
+    });
+  }
+
+  getOrderTotal(){
+    this.oAppService.getOrderTotal().subscribe(rest=>{
+      this.oOrderTotal = rest.json();
     });
   }
 
