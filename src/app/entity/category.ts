@@ -20,6 +20,7 @@ export class Category {
         this.row_state = 'create';
         this.date_add = new Date();
         this.date_upd = new Date();
+        this.CategoryLang = new CategoryLang();
     }
 
 }

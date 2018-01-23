@@ -18,6 +18,7 @@ import { Category } from '../entity/category';
 import { ProductCrossCategory } from '../entity/product-cross-category';
 import { ProductItemShipping } from '../entity/product-item-shipping';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryLang } from '../entity/category-lang';
 
 
 @Component({
@@ -148,20 +149,21 @@ export class ProductoComponent implements OnInit {
     this.oProductLang.link_rewrite = (<HTMLInputElement>document.getElementById("link_rewrite")).value;
     //console.log(this.oProductLang.link_rewrite);
 
-  //Recoger le precio de producto
+  // Recoger le precio de producto
     this.oProductEvent = {
-      id_product_event:parseInt((<HTMLInputElement>document.getElementById('id_product_event')).value),
-      cost_impact: parseInt((<HTMLInputElement>document.getElementById('cost_impact')).value),
-      price_impact:parseInt((<HTMLInputElement>document.getElementById('price_impact')).value),
+      id_product_event: parseInt((<HTMLInputElement>document.getElementById('id_product_event')).value),
+      cost_impact: parseFloat((<HTMLInputElement>document.getElementById('cost_impact')).value),
+      price_impact: parseFloat((<HTMLInputElement>document.getElementById('price_impact')).value),
       price_start_date:new Date((<HTMLInputElement>document.getElementById('price_start_date')).value),
       price_end_date:new Date((<HTMLInputElement>document.getElementById('price_end_date')).value),
-      tax_cost_impact:parseInt((<HTMLInputElement>document.getElementById('tax_cost_impact')).value),
-      tax_price_impact:parseInt((<HTMLInputElement>document.getElementById('tax_price_impact')).value),
+      tax_cost_impact: parseFloat((<HTMLInputElement>document.getElementById('tax_cost_impact')).value),
+      tax_price_impact: parseFloat((<HTMLInputElement>document.getElementById('tax_price_impact')).value),
       cost_end_date:new Date((<HTMLInputElement>document.getElementById('cost_end_date')).value),
       cost_start_date:new Date((<HTMLInputElement>document.getElementById('cost_start_date')).value),
-      event_cost:parseInt((<HTMLInputElement>document.getElementById('event_cost')).value),
-      event_price:parseInt((<HTMLInputElement>document.getElementById('event_price')).value),
-    }
+      event_cost: parseFloat((<HTMLInputElement>document.getElementById('event_cost')).value),
+      event_price: parseFloat((<HTMLInputElement>document.getElementById('event_price')).value),
+    };
+    console.log(this.oProductEvent);
     this.oProducto.ProductEvent = this.oProductEvent;
     this.oProducto.CategoryProduct = this.oListCategoryProduct;
     this.oProducto.ModelProduct = this.oListProductModel;
@@ -231,13 +233,11 @@ export class ProductoComponent implements OnInit {
   }
 
   agregarCrossCategery(sCategory): void {
-    let oCategory = sCategory.toString().split("|");
-    let iProductCrossCategory:ProductCrossCategory = {
-      id_category:parseInt(oCategory[0]),
-      Category:{CategoryLang:{name:oCategory[1]}}
-    };
+    const oCategory = sCategory.toString().split("|");
+    const iProductCrossCategory:ProductCrossCategory = new ProductCrossCategory();
+    iProductCrossCategory.id_category = +(oCategory[0]);
+    iProductCrossCategory.Category.CategoryLang.name = oCategory[1];
     this.oListProductCrossCategory.push(iProductCrossCategory);
-    console.log(this.oListProductCrossCategory);
   }
 
   eliminarCrossCategory(indexCrossCategory):void{
@@ -302,10 +302,9 @@ export class ProductoComponent implements OnInit {
         this.oProductLang = this.oProducto.ProductLang;
         this.oListProductCrossCategory = [];
         for(let _i in this.oProducto.ProductCrossCategory){
-          let iProductCrossCategory:ProductCrossCategory = {
-            id_category:this.oProducto.ProductCrossCategory[_i].id_category,
-            Category:{CategoryLang:this.oProducto.ProductCrossCategory[_i].Category["category_lang"]}
-          };
+          const iProductCrossCategory:ProductCrossCategory = new ProductCrossCategory();
+          iProductCrossCategory.id_category = this.oProducto.ProductCrossCategory[_i].id_category;
+          iProductCrossCategory.Category.CategoryLang = this.oProducto.ProductCrossCategory[_i].Category["category_lang"];
           this.oListProductCrossCategory.push(iProductCrossCategory);
         }
         this.oListProductModel = [];

@@ -20,6 +20,7 @@ import { ProveedorComponent } from './proveedor/proveedor.component';
 import { MerchComponent } from './merch/merch.component';
 import { CategoryComponent } from './category/category.component';
 import { RouterModule } from '@angular/router';
+import { PedidoComponent } from './operaciones/pedido/pedido.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RouterModule } from '@angular/router';
     GeneralComponent,
     ProveedorComponent,
     MerchComponent,
-    CategoryComponent
+    CategoryComponent,
+    PedidoComponent
   ],
   imports: [
     BrowserModule,

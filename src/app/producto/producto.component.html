@@ -68,7 +68,8 @@
                     <label>Estado</label>
                 </div>
                 <div class="control-caja" style="width:7%">
-                    <div class="estado_producto"></div>
+                    <div *ngIf="oProducto.active == 1" class="estado_producto green"></div>
+                    <div *ngIf="oProducto.active == 0" class="estado_producto yellow"></div>
                 </div>
             </div>
 

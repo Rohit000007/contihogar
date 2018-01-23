@@ -4,6 +4,9 @@ import { Attribute } from '../../entity/attribute';
 import { ProductAttribute } from '../../entity/product-attribute';
 import { ProductAttributeImage } from '../../entity/product-attribute-image';
 
+declare var jQuery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-image-manager',
   templateUrl: './image-manager.component.html',
@@ -12,10 +15,12 @@ import { ProductAttributeImage } from '../../entity/product-attribute-image';
 })
 export class ImageManagerComponent implements OnChanges,OnInit {
   @Input() IdProduct: number = 0;
-  sNameImageList: string = "list_img_";
-  oListColorImages:iImageColorList[] = [];
-  private sDefaultColor:string = "#2E2EFE";
-  constructor(private oAppService:AppService) { }
+  sNameImageList = 'list_img_';
+  oListColorImages: iImageColorList[] = [];
+  private sDefaultColor = '#2E2EFE';
+  private oListAttribute: Attribute[] = [];
+  private indexColor: number;
+  constructor(private oAppService: AppService) { }
 
   ngOnInit() {
     this.crearImageListControl({
@@ -109,12 +114,12 @@ export class ImageManagerComponent implements OnChanges,OnInit {
     return Math.max.apply(null, numArray);
   }
   
-  agregarColor(indexColor,pAttribute):void{
-    let colorItem = this.oListColorImages[indexColor];
-    let oAttribute = new Attribute();
+  agregarColor(indexColor,pAttribute): void{
+    const colorItem = this.oListColorImages[indexColor];
+    const oAttribute = new Attribute();
     oAttribute.color = colorItem.color;
     oAttribute.id_attribute = pAttribute.id_attribute;
-    let oProductAttribute = new ProductAttribute();
+    const oProductAttribute = new ProductAttribute();
     oProductAttribute.id_product = this.IdProduct;
     this.oAppService.postAttribute(oAttribute,oProductAttribute).subscribe(data=>{
       console.log(data);
@@ -139,6 +144,21 @@ export class ImageManagerComponent implements OnChanges,OnInit {
       }
       console.log(this.oListColorImages);
     });
+  }
+  openColorPalette(indexColor: number): void{
+    this.getAttribute();
+    this.indexColor = indexColor;
+    $("#modal-color").modal("show");
+  }
+  getAttribute(): void {
+    this.oAppService.getAttributes().subscribe(data=>{
+      console.log(data);
+      this.oListAttribute = data.json();
+    });
+  }
+  getAttributeColor(attribute: Attribute){
+    console.log(attribute);
+    this.agregarColor(this.indexColor, attribute);
   }
 }
 

@@ -1,7 +1,10 @@
 import { Category } from "./category";
 
-export interface ProductCrossCategory {
-    id_product?:number,
-    id_category?:number,
-    Category?:Category
+export class ProductCrossCategory {
+    public id_product?:number;
+    public id_category?:number;
+    public Category?:Category
+    constructor(){
+        this.Category = new Category();
+    }
 }

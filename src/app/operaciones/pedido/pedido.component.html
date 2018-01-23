@@ -1,0 +1,134 @@
+<div class="row">
+  <div class="table-responsive scrool_body">
+    <data-table id="product-grid" class="table table-bordered" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)" (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)">
+        <data-table-column [property]="'id_order'" [header]="'Pedido'" [sortable]="true" width="80px"></data-table-column>
+        <data-table-column [property]="'id_product'" [header]="'N° Producto'" [sortable]="true" width="100px"></data-table-column>
+        <data-table-column [property]="'product'" [header]="'Producto'" [sortable]="true" width="200px">
+          <template #dataTableCell let-item="item">
+            <span>{{item.product}}</span>
+            <span class="glyphicon glyphicon-edit" (click)="openProduct(item)"></span>
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'supplier'" [header]="'Proveedor'" [sortable]="true" width="200px"></data-table-column>
+        <data-table-column [property]="'quantity'" [header]="'Cant.'" [sortable]="true"></data-table-column>
+        <data-table-column [property]="'price'" [header]="'PVP'" [resizable]="true" [sortable]="true" width="120px">
+          <template #dataTableCell let-item="item">
+            <span>{{item.price | currency:'PEN':'code'}}</span>
+            <!--<span>{{item.price | number | currency : 'S/.' : true : '1.2-2'}}</span>-->
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true" width="120px">
+          <template #dataTableCell let-item="item">
+            <span>{{item.wholesale_price | currency:'PEN':'code'}}</span>
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'cupon'" [header]="'Cúpon'" [sortable]="true"></data-table-column>
+        <data-table-column [property]="'customer'" [header]="'Cliente'" [sortable]="true" width="200px">
+          <template #dataTableCell let-item="item">
+            <span>{{item.customer}}</span>
+            <span class="glyphicon glyphicon-user" (click)="openCustomer(item)"></span>
+          </template>
+        </data-table-column>        
+        <data-table-column [property]="'payment_letter'" [header]="'Margen despues de pasarela'" [sortable]="true" width="200px"></data-table-column>
+        <data-table-column [property]="'carrier'" [header]="'Transportista'" [sortable]="false">
+          <template #dataTableCell let-item="item">
+            <span>{{item.carrier}}</span>
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'order_state'" [header]="'Estado pedido'" [sortable]="false">
+          <template #dataTableCell let-item="item">
+            <span>{{item.order_state}}</span>
+            <span class="glyphicon glyphicon-question-sign"></span>
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'contract_state'" [header]="'Facturación'" [sortable]="false"></data-table-column> 
+        <data-table-column [property]="'Reprogramation'" [header]="'Reprogramación'" [sortable]="false">
+          <template #dataTableCell let-item="item">
+            <input type="number" class="form-control" [(ngModel)]="item.Reprogramation">
+          </template>
+        </data-table-column>
+        <data-table-column [property]="'comment'" [header]="'Obervaciones'" [sortable]="false" width="250px">
+          <template #dataTableCell let-item="item">
+            <textarea style="width: 100%" [(ngModel)]="item.comment"></textarea>
+          </template>
+        </data-table-column>
+    </data-table>
+  </div>
+</div>
+<div class="row">
+  <div id="modal-product" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <span class="glyphicon glyphicon-envelope"> Enviar correo</span>
+          <span>Producto</span>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>Id Product: <input type="number" [(ngModel)]="infoProduct.id_product"><span class="glyphicon glyphicon-search" (click)="getProductById()"></span></li>
+            <li *ngIf="listProductAttribute.length > 0" >Color: <select name="id_product_attribute" [(ngModel)]="infoProduct.id_product_attribute"><option *ngFor="let productAttribute of listProductAttribute" [value]="productAttribute.id_attribute+'|'+productAttribute.name">{{productAttribute.name}}</option> </select></li>
+            <li>Nombre : {{infoProduct.product}}</li>
+            <li>Proveedor : {{infoProduct.supplier}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="saveInfoProduct(infoProduct)">Grabar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-customer" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Nombre Cliente</h4>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>DNI : 23456789</li>
+            <li>Telefono : 1234567</li>
+            <li>Edad : 20</li>
+            <li>Fecha de nacimiento : 01/08/1990</li>
+            <div class="item-flex">
+              <label for="">Nro llamadas</label>
+              <input type="number">
+            </div>
+            <div class="item-flex">
+              <label>Cordinado</label>
+              <input type="checkbox">
+            </div>
+            <div class="item-flex">
+              <label>Departamento</label>
+              <select name="id_state" #elemDepartament (change)="getProvincia(elemDepartament.value)">
+                <option *ngFor="let department of oListDepartament" [value]="department.id_state">{{department.name}}</option>
+              </select>
+            </div>
+            <div class="item-flex">
+              <label>Provincia</label>
+              <select name="id_province" #elemProvince (change)="getDistrito(elemProvince.value)">
+                <option *ngFor="let province of oListProvince" [value]="province.id_provincia">{{province.nombre}}</option>
+              </select>
+            </div>
+            <div class="item-flex">
+              <label>Distrito</label>
+              <select name="id_district" #elemDistrict>
+                <option *ngFor="let district of oListDistrict" [value]="district.id_distrito">{{district.nombre}}</option>
+              </select>
+            </div>
+            <div class="item-flex">
+              <textarea></textarea>
+            </div>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</div>

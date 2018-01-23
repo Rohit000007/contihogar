@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers  } from '@angular/http';
+import { Http, Headers, RequestOptions  } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Product } from '../entity/product';
@@ -10,9 +10,10 @@ import { Filter } from '../general/general.component';
 @Injectable()
 export class AppService {
   private oProductObserver:Observable<Product>;
-  private sUrlSite:string = "http://127.0.0.1:8000/api";////"http://laravapi.contihogar.com.pe/api";//
-  private sUrlPrestahop:string = "http://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
-  private headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': window["scrf_token"]});
+  private sUrlSite = "http://laravapi.contihogar.com.pe/api";////'http://127.0.0.1:8000/api';////"http://laravapi.contihogar.com.pe/api";//
+  private sUrlPrestahop:string = "https://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private oRequestOptions = new RequestOptions({ headers: this.headers });
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
 
   //#region "Metodos"
@@ -62,7 +63,7 @@ export class AppService {
 
   //#region "Productos"
   public saveProduct(oProduct){
-    return this.http.post(this.sUrlSite+"/product/store",{Product:oProduct},{headers: this.headers});
+    return this.http.post(this.sUrlSite+"/product/store",{Product:oProduct},this.oRequestOptions);
   }
 
   public editProduct(id_product):Observable<Product>{
@@ -95,8 +96,16 @@ export class AppService {
     return this.http.get(this.sUrlSite+"/product-attribute/"+IdProduct)
   }
 
+  public getAttributes(){
+    return this.http.get(this.sUrlSite+"/attribute");
+  }
+
   public getProductAtributeImage(IdProduct){
     return this.http.get(this.sUrlSite+"/productAttibute/"+IdProduct);
+  }
+
+  public getAttributeByIdProduct(id_product: number): any {
+    return this.http.post(this.sUrlSite + '/productAttribute/getByIdProduct', { "id_product": id_product});
   }
 
 
@@ -145,6 +154,14 @@ export class AppService {
 
   public getOrderTotal(){
     return this.http.get(this.sUrlSite+"/order/total");
+  }
+
+  public getDataOperation(params: DataTableParams){
+    return this.http.get(this.sUrlSite +"/order/operation");
+  }
+
+  public changeProductToOrder(product: any): any {
+    return this.http.post(this.sUrlSite+"/order/changeProduct", product);
   }
 
   public postExcel(oData: FormData): any {

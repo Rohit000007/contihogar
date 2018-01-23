@@ -20,9 +20,14 @@
     .control-fila1{
         .estado_producto{
             border-radius: 50%;
-            background-color: red;
             height: 35px;
             width: 35px;
+            &.green{
+                background-color: green;
+            }
+            &.yellow{
+                background-color: yellow;
+            }
         }
     }
     .control-fila4{

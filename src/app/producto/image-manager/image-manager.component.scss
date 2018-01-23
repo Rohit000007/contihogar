@@ -1,6 +1,16 @@
 @import "../../../assets/sass/variables-contihogar";
 $caja-altura:70px;
 $caja-anchura:70px;
+.palette-container{
+    display: flex;
+    flex-wrap: wrap;
+    .item-color{
+        height: 35px;
+        margin: 1%;
+        outline: 1px solid #ddd;
+        width: 35px;
+    }
+}
 .control-image-manage{
     background:white;
     height:300px;
@@ -22,6 +32,12 @@ $caja-anchura:70px;
             margin-right: 5px;
             text-align: center;
             width: 50px;
+            .input-color{
+                height: 30px;
+                width: 30px;
+                margin-top: 5px;
+                background-color: yellow;
+            }
             .link-eliminar{
                 border: 1px solid $contihogar-gray-2;
                 border-radius: 50%;

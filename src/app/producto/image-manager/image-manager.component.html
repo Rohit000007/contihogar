@@ -4,12 +4,13 @@
     </div>
     <div *ngFor="let oListImage of oListColorImages;let i = index"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
         <div class="control-dolor">
-            <input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i,oListImage)" style="height: 30px;width: 30px;margin-top: 5px;"><br>
+            <!--<input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i,oListImage)" style="height: 30px;width: 30px;margin-top: 5px;"><br>-->
+            <div class="input-color" (click)="openColorPalette(i)"></div>
             <a class="link-eliminar" (click)="eliminarImageColor(oListImage.nonce,oListImage.id_attribute)">X</a>
         </div>
         <div class="img-container-item img-container-item-new">
           <span class="add_image">+</span>
-          <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce,oListImage)">
+          <input *ngIf="IdProduct > 0"  type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce,oListImage)">
         </div>
         <div class="img-container-item" *ngFor="let image of oListImage.image_list;let i = index">
             <img src="{{image.src}}" alt="" name="{{image.id_image}}_{{i}}">
@@ -20,5 +21,21 @@
     </div>
     <div class="agregar-caja-img">
         <a (click)="agregarImageList()">Agregar nueva fila</a>
+    </div>
+</div>
+
+<div id="modal-color" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <span>Color Palette</span>
+            </div>
+            <div class="modal-body">
+                <div class="palette-container">
+                    <div class="item-color" *ngFor="let attribute of oListAttribute" [style.background-color]="attribute.color" (click)="getAttributeColor(attribute)"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

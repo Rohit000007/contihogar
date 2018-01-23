@@ -5,6 +5,7 @@ import { ProveedorComponent } from './proveedor/proveedor.component';
 import { GeneralComponent } from './general/general.component';
 import { CategoryComponent } from './category/category.component';
 import { MerchComponent } from './merch/merch.component';
+import { PedidoComponent } from './operaciones/pedido/pedido.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
         path:'merge',
         component:MerchComponent
+    },
+    {
+        path:'pedido',
+        component:PedidoComponent
     },
     { path: '**', redirectTo: 'not-found' }
 ];
