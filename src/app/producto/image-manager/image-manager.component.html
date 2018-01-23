@@ -33,7 +33,7 @@
             </div>
             <div class="modal-body">
                 <div class="palette-container">
-                    <div class="item-color" *ngFor="let attribute of oListAttribute" [style.background-color]="attribute.color" (click)="getAttributeColor(attribute)"></div>
+                    <div class="item-color" *ngFor="let attribute of oListAttribute" title="{{attribute.name}}" [style.background-color]="attribute.color" (click)="getAttributeColor(attribute)"></div>
                 </div>
             </div>
         </div>

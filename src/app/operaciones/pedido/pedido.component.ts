@@ -4,6 +4,7 @@ import { Product } from '../../entity/product';
 import { Province } from '../../entity/province';
 import { Departament } from '../../entity/departament';
 import { District } from '../../entity/district';
+import { Customer } from '../../entity/customer';
 
 declare var jQuery: any;
 declare var $: any;
@@ -24,6 +25,7 @@ export class PedidoComponent implements OnInit {
   private oListDepartament: Departament[] = [];
   private oListProvince: Province[] = [];
   private oListDistrict: District[] = [];
+  private oCustomer: Customer = new Customer();
 
   constructor(private appService: AppService) { }
 
@@ -61,6 +63,7 @@ export class PedidoComponent implements OnInit {
       console.log(data);
     });*/
     console.log(data);
+    this.getCustomer(data.id_customer);
     this.getDepartment();
     $("#modal-customer").modal("show");
   }
@@ -107,6 +110,12 @@ export class PedidoComponent implements OnInit {
     id_province = id_province.split('|')[0];
     this.appService.getDistrict(id_province).subscribe(data => {
       this.oListDistrict = data.json();
+    });
+  }
+  getCustomer(id_customer: number){
+    this.oCustomer.id_customer = id_customer;
+    this.appService.getCustomer(this.oCustomer).subscribe(data =>{
+      this.oCustomer = <Customer>data.json();
     });
   }
 }

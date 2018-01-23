@@ -6,12 +6,13 @@ import { Product } from '../entity/product';
 import { Category } from '../entity/category';
 import { DataTableParams } from 'angular-4-data-table-bootstrap-4';
 import { Filter } from '../general/general.component';
+import { Customer } from '../entity/customer';
 
 @Injectable()
 export class AppService {
   private oProductObserver:Observable<Product>;
-  private sUrlSite = "http://laravapi.contihogar.com.pe/api";////'http://127.0.0.1:8000/api';////"http://laravapi.contihogar.com.pe/api";//
-  private sUrlPrestahop:string = "https://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
+  private sUrlSite = "http://127.0.0.1:8000/api";////'http://127.0.0.1:8000/api';////"http://laravapi.contihogar.com.pe/api";//
+  private sUrlPrestahop = "https://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
   private headers = new Headers({'Content-Type': 'application/json'});
   private oRequestOptions = new RequestOptions({ headers: this.headers });
   private headersMultiPart = new Headers({'Content-Type': 'multipart/form-data','X-CSRF-TOKEN': window["scrf_token"]});
@@ -177,6 +178,10 @@ export class AppService {
   }
   public grabarProductEvent(listProduct: any[]): any {
     return this.http.post(this.sUrlSite+"/productEvent",{"product_event":listProduct});
+  }
+
+  public getCustomer(customer: Customer): any {
+    return this.http.get(this.sUrlSite+"/customer/"+customer.id_customer);
   }
   //#endregion
   //#endregion "Metodos"
