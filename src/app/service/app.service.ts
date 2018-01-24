@@ -11,7 +11,7 @@ import { Customer } from '../entity/customer';
 @Injectable()
 export class AppService {
   private oProductObserver:Observable<Product>;
-  private sUrlSite = "http://127.0.0.1:8000/api";////'http://127.0.0.1:8000/api';////"http://laravapi.contihogar.com.pe/api";//
+  private sUrlSite = "http://laravapi.contihogar.com.pe/api";////'http://127.0.0.1:8000/api';////"http://laravapi.contihogar.com.pe/api";//
   private sUrlPrestahop = "https://hogaryspacios.com/apitest.php";//"http://localhost:8080/hogaryspacios/apitest.php" //
   private headers = new Headers({'Content-Type': 'application/json'});
   private oRequestOptions = new RequestOptions({ headers: this.headers });
@@ -101,8 +101,8 @@ export class AppService {
     return this.http.get(this.sUrlSite+"/attribute");
   }
 
-  public getProductAtributeImage(IdProduct){
-    return this.http.get(this.sUrlSite+"/productAttibute/"+IdProduct);
+  public getProductAtribute(IdProduct){
+    return this.http.get(this.sUrlSite+"/productAttribute/"+IdProduct);
   }
 
   public getAttributeByIdProduct(id_product: number): any {
@@ -129,16 +129,15 @@ export class AppService {
   }
 
   public postAttribute(oAttribute,oProductAttribute){
-
-    return this.http.post(this.sUrlSite+"/productAttibute/store",{Attribute:oAttribute,ProductAttribute:oProductAttribute});
+    return this.http.post(this.sUrlSite+"/productAttribute/store",{Attribute:oAttribute,ProductAttribute:oProductAttribute});
   }
 
   public saveProductAttributeImage(oProductAttributeImage){
     return this.http.post(this.sUrlSite+"/productAttributeImage/store",oProductAttributeImage);
   }
 
-  public deleteAttribute(id_attribute){
-    return this.http.delete(this.sUrlSite+"/attribute/"+id_attribute);
+  public deleteProductAttribute(id_product_attribute){
+    return this.http.delete(this.sUrlSite + "/productAttribute/" + id_product_attribute);
   }
 
   public getOrderProductTop(){

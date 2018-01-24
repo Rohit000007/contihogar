@@ -1,26 +1,28 @@
 <div class="control-image-manage scrool_body">
-    <div class="container-header-box">
-        <span>IMAGENES</span>
-    </div>
-    <div *ngFor="let oListImage of oListColorImages;let i = index"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
-        <div class="control-dolor">
-            <!--<input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i,oListImage)" style="height: 30px;width: 30px;margin-top: 5px;"><br>-->
-            <div class="input-color" (click)="openColorPalette(i)"></div>
-            <a class="link-eliminar" (click)="eliminarImageColor(oListImage.nonce,oListImage.id_attribute)">X</a>
+    <div *ngIf="oProduct.id_product > 0">
+        <div class="container-header-box">
+            <span>IMAGENES</span>
         </div>
-        <div class="img-container-item img-container-item-new">
-          <span class="add_image">+</span>
-          <input *ngIf="IdProduct > 0"  type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce,oListImage)">
-        </div>
-        <div class="img-container-item" *ngFor="let image of oListImage.image_list;let i = index">
-            <img src="{{image.src}}" alt="" name="{{image.id_image}}_{{i}}">
-            <div class="caja-control-img">
-                <a class="link-borrar-img" (click)="eliminarImagen(oListImage.nonce,image.id_image)">X</a>
+        <div  *ngFor="let oListImage of oListColorImages;let i = index"  class="img-container-row scrool_body" id="img-container-{{oListImage.nonce}}">
+            <div class="control-dolor">
+                <!--<input type="color" name="color-{{i}}" [(ngModel)]="oListImage.color" (change)="agregarColor(i,oListImage)" style="height: 30px;width: 30px;margin-top: 5px;"><br>-->
+                <div class="input-color" [style.background-color]="oListImage.color" [title]="oListImage.name" (click)="openColorPalette(nonce)"></div>
+                <a class="link-eliminar" (click)="eliminarProductAttribute(oListImage.nonce,oListImage.id_product_attribute)">X</a>
+            </div>
+            <div class="img-container-item img-container-item-new">
+            <span class="add_image">+</span>
+            <input type="file" class="input-file" name="ImageName" id="image_name" multiple (change)="subirImagen($event,oListImage.nonce,oListImage)">
+            </div>
+            <div class="img-container-item" *ngFor="let image of oListImage.image_list;let i = index">
+                <img src="{{image.src}}" alt="" name="{{image.id_image}}_{{i}}">
+                <div class="caja-control-img">
+                    <a class="link-borrar-img" (click)="eliminarImagen(oListImage.nonce,image.id_image)">X</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="agregar-caja-img">
-        <a (click)="agregarImageList()">Agregar nueva fila</a>
+        <div class="agregar-caja-img">
+            <a (click)="agregarImageList()">Agregar nueva fila</a>
+        </div>
     </div>
 </div>
 
