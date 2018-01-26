@@ -6,20 +6,19 @@
         <data-table-column [property]="'product'" [header]="'Producto'" [sortable]="true" width="200px">
           <template #dataTableCell let-item="item">
             <span>{{item.product}}</span>
-            <span class="glyphicon glyphicon-edit" (click)="openProduct(item)"></span>
+            <!--<span class="glyphicon glyphicon-edit" (click)="openProduct(item)"></span>-->
           </template>
         </data-table-column>
         <data-table-column [property]="'supplier'" [header]="'Proveedor'" [sortable]="true" width="200px"></data-table-column>
         <data-table-column [property]="'quantity'" [header]="'Cant.'" [sortable]="true"></data-table-column>
-        <data-table-column [property]="'price'" [header]="'PVP'" [resizable]="true" [sortable]="true" width="120px">
+        <data-table-column [property]="'original_product_price'" [header]="'PVP'" [resizable]="true" [sortable]="true" width="120px">
           <template #dataTableCell let-item="item">
-            <span>{{item.price | currency:'PEN':'code'}}</span>
-            <!--<span>{{item.price | number | currency : 'S/.' : true : '1.2-2'}}</span>-->
+            <span>{{item.original_product_price | currency:'PEN':'code'}}</span>
           </template>
         </data-table-column>
-        <data-table-column [property]="'wholesale_price'" [header]="'Costo'" [sortable]="true" width="120px">
+        <data-table-column [property]="'original_wholesale_price'" [header]="'Costo'" [sortable]="true" width="120px">
           <template #dataTableCell let-item="item">
-            <span>{{item.wholesale_price | currency:'PEN':'code'}}</span>
+            <span>{{item.original_wholesale_price | currency:'PEN':'code'}}</span>
           </template>
         </data-table-column>
         <data-table-column [property]="'cupon'" [header]="'Cúpon'" [sortable]="true"></data-table-column>
@@ -33,19 +32,24 @@
         <data-table-column [property]="'carrier'" [header]="'Transportista'" [sortable]="false">
           <template #dataTableCell let-item="item">
             <span>{{item.carrier}}</span>
-            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="glyphicon glyphicon-shopping-cart" (click)="openCarrier(item)"></span>
           </template>
         </data-table-column>
         <data-table-column [property]="'order_state'" [header]="'Estado pedido'" [sortable]="false">
           <template #dataTableCell let-item="item">
             <span>{{item.order_state}}</span>
-            <span class="glyphicon glyphicon-question-sign"></span>
+            <span class="glyphicon glyphicon-question-sign" (click)="openOrder(item)"></span>
           </template>
         </data-table-column>
-        <data-table-column [property]="'contract_state'" [header]="'Facturación'" [sortable]="false"></data-table-column> 
+        <data-table-column [property]="'contract_state'" [header]="'Facturación'" [sortable]="false">
+          <template #dataTableCell let-item="item">
+            <span>{{item.contract_state}}</span>
+            <span class="glyphicon glyphicon-paperclip" (click)="openVoucher()"></span>
+          </template>
+        </data-table-column> 
         <data-table-column [property]="'Reprogramation'" [header]="'Reprogramación'" [sortable]="false">
           <template #dataTableCell let-item="item">
-            <input type="number" class="form-control" [(ngModel)]="item.Reprogramation">
+            <input type="text" [disabled]="true" class="form-control" [(ngModel)]="item.Reprogramation">
           </template>
         </data-table-column>
         <data-table-column [property]="'comment'" [header]="'Obervaciones'" [sortable]="false" width="250px">
@@ -56,13 +60,15 @@
     </data-table>
   </div>
 </div>
+
 <div class="row">
   <div id="modal-product" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <span class="glyphicon glyphicon-envelope"> Enviar correo</span>
+          <span class="glyphicon glyphicon-envelope"></span>
+          <span>Enviar correo</span>
           <span>Producto</span>
         </div>
         <div class="modal-body">
@@ -89,40 +95,152 @@
         </div>
         <div class="modal-body">
           <ul>
-            <li>DNI : 23456789</li>
-            <li>Telefono : 1234567</li>
-            <li>Edad : 20</li>
-            <li>Fecha de nacimiento : 01/08/1990</li>
+            <li>DNI : {{oAddress.dni}}</li>
+            <li>Telefono : {{oAddress.phone}} - {{oAddress.phone_mobile}}</li>
+            <li>Edad : {{calculateYear(oCustomer.birthday)}}</li>
+            <li>Fecha de nacimiento : {{oCustomer.birthday | date}}</li>
             <div class="item-flex">
               <label for="">Nro llamadas</label>
-              <input type="number">
+              <input type="number" name="quantity_call" [(ngModel)]="infoExtra.quantity_call">
             </div>
             <div class="item-flex">
               <label>Cordinado</label>
-              <input type="checkbox">
+              <input type="checkbox" name="cordined" #elemCordined [(ngModel)]="infoExtra.cordined" (click)="validaCordinar(elemCordined.checked)">
             </div>
             <div class="item-flex">
               <label>Departamento</label>
-              <select name="id_state" #elemDepartament (change)="getProvincia(elemDepartament.value)">
+              <select name="id_state" #elemDepartament [(ngModel)]="oAddress.id_state" (change)="getProvincia(elemDepartament.value)">
                 <option *ngFor="let department of oListDepartament" [value]="department.id_state">{{department.name}}</option>
               </select>
             </div>
             <div class="item-flex">
               <label>Provincia</label>
-              <select name="id_province" #elemProvince (change)="getDistrito(elemProvince.value)">
+              <select name="id_province" #elemProvince  [(ngModel)]="oAddress.id_provincia" (change)="getDistrito(elemProvince.value)">
                 <option *ngFor="let province of oListProvince" [value]="province.id_provincia">{{province.nombre}}</option>
               </select>
             </div>
             <div class="item-flex">
               <label>Distrito</label>
-              <select name="id_district" #elemDistrict>
+              <select name="id_district" #elemDistrict [(ngModel)]="oAddress.id_distrito">
                 <option *ngFor="let district of oListDistrict" [value]="district.id_distrito">{{district.nombre}}</option>
               </select>
             </div>
             <div class="item-flex">
-              <textarea></textarea>
+              <textarea [(ngModel)]="oAddress.address1"></textarea>
             </div>
           </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-carrier" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <span class="glyphicon glyphicon-envelope"></span>
+          <span>Enviar correo</span>
+        </div>
+        <div class="modal-body">
+          <div class="item-flex">
+            <label>Transportista</label>
+            <select name="id_carrier" [(ngModel)]="oCarrier.id_Carrier">
+              <option *ngFor="let carrier of oListCarrier" [value]="carrier.id_carrier">{{carrier.name}}</option>
+            </select>
+          </div>
+          <div class="item-flex">
+            <label>Costo : S/. 100.00</label>
+          </div>
+          <div class="item-flex">
+            <label>Fecha de recojo: 22/02/2018</label>
+            <input type="date">
+          </div>
+          <div class="item-flex">
+            <label>Fecha de entrega: 23/02/2018</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default">Grabar</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div id="modal-detalle-pedido" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title">Detalle de pedido</h5>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>Metodo de pago: {{infoOrder.payment}}</li>
+            <li>Comisión: {{infoOrder.carrier_cost}}</li>
+            <li>Fecha de compra: </li>
+            <hr>
+            <li>Estado : {{infoOrder.order_state}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default">Devolución</button>
+          <button type="button" class="btn btn-default">Entregado</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div id="modal-voucher" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Voucher de pago</h4>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>Imagen: </li>
+            <li>Monto: S/. 1,234.00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-confirm-cordined" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title">Cordinación con cliente</h5>
+        </div>
+        <div class="modal-body">
+          <textarea name="cordined_message" [(ngModel)]="infoExtra.cordined_message"></textarea>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div id="modal-confirm-" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

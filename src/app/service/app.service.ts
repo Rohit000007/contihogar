@@ -182,6 +182,14 @@ export class AppService {
   public getCustomer(customer: Customer): any {
     return this.http.get(this.sUrlSite+"/customer/"+customer.id_customer);
   }
+
+  public getDeliveryAddress(id_delivery_address: number): any {
+    return this.http.get(this.sUrlSite+"/address/"+id_delivery_address);
+  }
+
+  public getCarrier(): any {
+    return this.http.get(this.sUrlSite+"/carrier");
+  }
   //#endregion
   //#endregion "Metodos"
 

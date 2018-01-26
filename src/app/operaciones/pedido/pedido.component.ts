@@ -5,6 +5,8 @@ import { Province } from '../../entity/province';
 import { Departament } from '../../entity/departament';
 import { District } from '../../entity/district';
 import { Customer } from '../../entity/customer';
+import { Address } from '../../entity/address';
+import { Carrier } from '../../entity/carrier';
 
 declare var jQuery: any;
 declare var $: any;
@@ -16,16 +18,23 @@ declare var $: any;
   providers: [AppService]
 })
 export class PedidoComponent implements OnInit {
+  
   private items: any[] = [];
   private itemCount = 0;
 
   private infoProduct: any = {};
+  private infoOrder: any = {};
+  private infoExtra: any = {};
   private listProductAttribute: any[] = [];
 
   private oListDepartament: Departament[] = [];
   private oListProvince: Province[] = [];
   private oListDistrict: District[] = [];
   private oCustomer: Customer = new Customer();
+  private oAddress: Address = new Address();
+  private oCarrier: Carrier = new Carrier();
+
+  private oListCarrier: Carrier[];
 
   constructor(private appService: AppService) { }
 
@@ -64,7 +73,7 @@ export class PedidoComponent implements OnInit {
     });*/
     console.log(data);
     this.getCustomer(data.id_customer);
-    this.getDepartment();
+    this.getDeliveryAddress(data.id_address_delivery);
     $("#modal-customer").modal("show");
   }
   getProductById(){
@@ -99,15 +108,13 @@ export class PedidoComponent implements OnInit {
       this.oListDepartament = <Departament[]>data.json();
     });
   }
-  getProvincia(id_departamento): void {
-    id_departamento = id_departamento.split('|')[0];
+  getProvincia(id_departamento: number): void {
     this.appService.getProvincia(id_departamento).subscribe(data => {
       this.oListProvince = data.json();
     });
   }
 
-  getDistrito(id_province): void {
-    id_province = id_province.split('|')[0];
+  getDistrito(id_province: number): void {
     this.appService.getDistrict(id_province).subscribe(data => {
       this.oListDistrict = data.json();
     });
@@ -116,6 +123,53 @@ export class PedidoComponent implements OnInit {
     this.oCustomer.id_customer = id_customer;
     this.appService.getCustomer(this.oCustomer).subscribe(data =>{
       this.oCustomer = <Customer>data.json();
+      console.log(this.oCustomer);
     });
+  }
+  getDeliveryAddress(id_delivery_address: number){
+    this.appService.getDeliveryAddress(id_delivery_address).subscribe(response => {
+      console.log(response);
+      this.oAddress = response.json();
+      if(Object.keys(this.oAddress).length > 0){
+        this.getDepartment();
+        this.getProvincia(this.oAddress.id_state);
+        this.getDistrito(this.oAddress.id_provincia);
+      }else{
+        this.getDepartment();
+      }
+    });
+  }
+  calculateYear(dateFrom: string){
+    return (new Date().getFullYear() - new Date(dateFrom).getFullYear());
+  }
+
+  openCarrier(data: any): any {
+    console.log(data);
+    this.getCarrier();
+    this.oCarrier.id_carrier = data.id_carrier.toString();
+    $("#modal-carrier").modal("show");
+  }
+
+  getCarrier(): any {
+    this.appService.getCarrier().subscribe(response => {
+      console.log(response);
+      this.oListCarrier = response.json();
+    });
+  }
+  openOrder(data: any): any{
+    this.infoOrder = data;
+    $("#modal-detalle-pedido").modal("show");
+  }
+  openVoucher(data: any): any{
+    $("#modal-voucher").modal("show");
+  }
+
+  validaCordinar(isCordined: boolean): void{
+    console.log(isCordined);
+    if (isCordined){
+      $("#modal-confirm-cordined").modal("show");
+    }else{
+      this.infoExtra.cordined = false;
+    }
   }
 }
